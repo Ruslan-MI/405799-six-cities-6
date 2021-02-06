@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import PlaceCard from "./place-card";
+import {
+  Link
+} from "react-router-dom";
+import PlaceCard from "../../place-card";
 
-const Page = ({
+const MainPage = ({
   placeCardCount
 }) => {
   return (
@@ -18,11 +21,26 @@ const Page = ({
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to="/favorites">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
+                  {/* <Link className="header__nav-link header__nav-link--profile" to="/login">
+                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                    </div>
+                    <span className="header__login">Sign in</span>
+                  </Link>
+                  <Link className="header__nav-link" to="/offer">
+                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                    </div>
+                    <span>Property</span>
+                  </Link>
+                  <Link className="header__nav-link" to="/1">
+                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                    </div>
+                    <span>404</span>
+                  </Link> */}
                 </li>
               </ul>
             </nav>
@@ -102,8 +120,8 @@ const Page = ({
   );
 };
 
-Page.propTypes = {
+MainPage.propTypes = {
   placeCardCount: PropTypes.number.isRequired
 };
 
-export default Page;
+export default MainPage;
