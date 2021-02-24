@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Header from "../../containers/header";
-// import PlaceCard from "../../containers/place-card";
+import PlaceCard from "../../containers/place-card";
 import ReviewsForm from "./reviews-form";
 import {
   getOfferForID,
@@ -142,7 +142,7 @@ const PropertyPage = ({
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {/* {new Array(3).fill().map((item, i) => <PlaceCard key={i} />)} */}
+              {new Array(3).fill().map((item, i) => <PlaceCard key={i} offer={offers[i]} />)}
             </div>
           </section >
         </div >
