@@ -10,6 +10,7 @@ const PlacesList = ({
   offers
 }) => {
   const [
+    // Отсутствует неиспользуемая переменная состояния, чтобы линтер не ругался
     ,
     setActiveOffer
   ] = useState(null);
@@ -18,9 +19,11 @@ const PlacesList = ({
     setActiveOffer(offer);
   };
 
-  return <div className="cities__places-list places__list tabs__content" >
-    {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseEnter={handleMouseEnter} />)}
-  </div>;
+  return (
+    <div className="cities__places-list places__list tabs__content" >
+      {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseEnter={handleMouseEnter} />)}
+    </div>
+  );
 };
 
 PlacesList.propTypes = offersPropTypes;

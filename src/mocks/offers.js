@@ -157,7 +157,7 @@ const getMocks = () => {
       id: 5,
       images: [`img/apartment-01.jpg`, `img/apartment-02.jpg`],
       isFavorite: true,
-      isPremium: false,
+      isPremium: true,
       location: {
         latitude: 51.26243904893504,
         longitude: 6.78138526572355,

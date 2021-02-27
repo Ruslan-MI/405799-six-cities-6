@@ -1,29 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FavoritesCard from "./favorites-card";
+import FavoritesPlaces from "./favorites-places";
 import {
   getOffersInCity
 } from "../../../utils/common";
 import {
-  favoriteCards as offersPropTypes
+  placeCards as offersPropTypes
 } from "../../../prop-types/offers-validation";
 
 const FavoritesLocationsItems = ({
   city,
   offers
 }) => {
-  return <li className="favorites__locations-items">
-    <div className="favorites__locations locations locations--current">
-      <div className="locations__item">
-        <a className="locations__item-link" href="#">
-          <span>{city}</span>
-        </a>
+  return (
+    <li className="favorites__locations-items">
+      <div className="favorites__locations locations locations--current">
+        <div className="locations__item">
+          <a className="locations__item-link" href="#">
+            <span>{city}</span>
+          </a>
+        </div>
       </div>
-    </div>
-    <div className="favorites__places">
-      {getOffersInCity(offers, city).map((offer, i) => <FavoritesCard key={i} offer={offer} />)}
-    </div>
-  </li>;
+      <FavoritesPlaces offers={getOffersInCity(offers, city)} />
+    </li>
+  );
 };
 
 FavoritesLocationsItems.propTypes = {

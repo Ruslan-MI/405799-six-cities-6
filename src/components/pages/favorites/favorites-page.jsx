@@ -6,7 +6,7 @@ import {
   getFavoriteOffers
 } from "../../../utils/common";
 import {
-  favoriteCards as offersPropTypes
+  placeCards as offersPropTypes
 } from "../../../prop-types/offers-validation";
 
 const FavoritesPage = ({

@@ -1,19 +1,22 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Header from "../../containers/header";
-import PlaceCard from "../../containers/place-card";
-import ReviewsForm from "./reviews-form";
+import PropertyGallery from "./property-gallery";
+import PremiumMark from "../../containers/premium-mark";
+import PropertyInside from "./property-inside";
+import ReviewsForm from "./reviews-form/reviews-form";
+import NearPlaces from "./near-places/near-places";
 import {
-  getOfferForID,
   getWidthForRating
 } from "../../../utils/common";
 import {
+  propertyPage as offerPropTypes,
   propertyPages as offersPropTypes
 } from "../../../prop-types/offers-validation";
+import PropertyDescription from "./property-description";
 
 const PropertyPage = ({
-  offers,
-  id
+  offer,
+  offers
 }) => {
   const {
     images,
@@ -32,25 +35,17 @@ const PropertyPage = ({
       isPro
     },
     description
-  } = getOfferForID(offers, id);
+  } = offer;
 
   return (
     <div className="page">
       <Header />
       <main className="page__main page__main--property">
         <section className="property">
-          {images.length > 0 && <div className="property__gallery-container container">
-            <div className="property__gallery">
-              {images.map((image, i) => <div className="property__image-wrapper" key={i}>
-                <img className="property__image" src={image} alt="Photo studio" />
-              </div>)}
-            </div>
-          </div>}
+          {images.length > 0 && <PropertyGallery images={images} />}
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium && <div className="property__mark">
-                <span>Premium</span>
-              </div>}
+              {isPremium && <PremiumMark isPropertyPage />}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
                 <button className={`property__bookmark-button button ${isFavorite && `property__bookmark-button--active`}`} type="button">
@@ -78,12 +73,7 @@ const PropertyPage = ({
                 <b className="property__price-value">&euro;{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
-              {goods.length > 0 && <div className="property__inside">
-                <h2 className="property__inside-title">What&apos;s inside</h2>
-                <ul className="property__inside-list">
-                  {goods.map((item, i) => <li className="property__inside-item" key={i}>{item}</li>)}
-                </ul>
-              </div>}
+              {goods.length > 0 && <PropertyInside goods={goods} />}
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
@@ -93,16 +83,7 @@ const PropertyPage = ({
                   </div>
                   <span className="property__user-name">{name}</span>
                 </div>
-                {description && <div className="property__description">
-                  <p className="property__text">
-                    {description}
-                  </p>
-                  {/* Разбивать предложения на абзацы?*/}
-                  {/* <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the
-                    bustle of the city comes to rest in this alley flowery and colorful.
-                  </p> */}
-                </div>}
+                {description && <PropertyDescription description={description} />}
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
@@ -138,22 +119,15 @@ const PropertyPage = ({
           </div>
           <section className="property__map map"></section>
         </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {new Array(3).fill().map((item, i) => <PlaceCard key={i} offer={offers[i]} />)}
-            </div>
-          </section >
-        </div >
+        <NearPlaces offers={offers} />
       </main >
     </div >
   );
 };
 
 PropertyPage.propTypes = {
-  ...offersPropTypes,
-  id: PropTypes.string.isRequired
+  ...offerPropTypes,
+  ...offersPropTypes
 };
 
 export default PropertyPage;
