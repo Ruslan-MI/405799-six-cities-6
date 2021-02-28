@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app";
+import getMockOffers from "./mocks/offers";
 
-const PLACE_CARD_COUNT = 5;
-
-ReactDOM.render(<App placeCardCount={PLACE_CARD_COUNT} />, document.querySelector(`#root`));
+ReactDOM.render(<App offers={getMockOffers()} />, document.querySelector(`#root`));
