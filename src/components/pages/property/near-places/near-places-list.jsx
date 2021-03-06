@@ -9,7 +9,7 @@ const NearPlacesList = ({
 }) => {
   return (
     <div className="near-places__list places__list">
-      {new Array(3).fill().map((item, i) => <PlaceCard key={i} offer={offers[i]} />)}
+      {new Array(3).fill().map((item, i) => <PlaceCard key={i} offer={offers[i]} isNearPlacesCard />)}
     </div>
   );
 };

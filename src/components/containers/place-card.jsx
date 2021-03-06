@@ -14,7 +14,9 @@ import {
 const PlaceCard = ({
   offer,
   onMouseEnter = () => { },
-  isFavoriteCard = false
+  isCitiesPlaceCard = false,
+  isFavoriteCard = false,
+  isNearPlacesCard = false
 }) => {
   const {
     isPremium,
@@ -32,12 +34,16 @@ const PlaceCard = ({
   };
 
   return (
-    <article className={`${isFavoriteCard ? `favorites__card` : `cities__place-card`} place-card`} onMouseEnter={handleMouseEnter}>
+    <article className={`${isCitiesPlaceCard ? `cities__place-card` : ``}
+                        ${isFavoriteCard ? `favorites__card` : ``}
+                        ${isNearPlacesCard ? `near-places__card` : ``} place-card`} onMouseEnter={handleMouseEnter}>
       {isPremium && <PremiumMark />}
-      <div className={`${isFavoriteCard ? `favorites__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
+      <div className={`${isCitiesPlaceCard ? `cities__image-wrapper` : ``}
+                      ${isFavoriteCard ? `favorites__image-wrapper` : ``}
+                      ${isNearPlacesCard ? `near-places__image-wrapper` : ``} place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={previewImage} width={isFavoriteCard ? `150` : `260`} height={isFavoriteCard ? `110` : `200`}
-            alt="Place image" />
+          <img className="place-card__image" src={previewImage} width={isFavoriteCard ? `150` : `260`}
+            height={isFavoriteCard ? `110` : `200`} alt="Place image" />
         </a>
       </div>
       <div className={`${isFavoriteCard ? `favorites__card-info` : ``} place-card__info`}>
@@ -73,7 +79,9 @@ const PlaceCard = ({
 PlaceCard.propTypes = {
   offer: offerPropTypes,
   onMouseEnter: PropTypes.func,
-  isFavoriteCard: PropTypes.bool
+  isCitiesPlaceCard: PropTypes.bool,
+  isFavoriteCard: PropTypes.bool,
+  isNearPlacesCard: PropTypes.bool
 };
 
 export default PlaceCard;

@@ -63,9 +63,7 @@ const Map = ({
   });
 
   return (
-    <section className={`${className} map`} id="map" style={{
-      height: `100%`
-    }}></section>
+    <section className={`${className} map`} id="map"></section>
   );
 };
 
