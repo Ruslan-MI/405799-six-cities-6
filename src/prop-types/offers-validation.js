@@ -32,26 +32,32 @@ const getPropertyPagePropTypes = () => {
   return types;
 };
 
-export const placeCard = {
-  offer: PropTypes.shape({
-    ...placeCardPropTypes
-  }).isRequired
-};
+export const placeCard = PropTypes.shape({
+  ...placeCardPropTypes
+}).isRequired;
 
-export const placeCards = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    ...placeCardPropTypes
-  })).isRequired
-};
+export const placeCards = PropTypes.arrayOf(PropTypes.shape({
+  ...placeCardPropTypes
+})).isRequired;
 
-export const propertyPage = {
-  offer: PropTypes.shape({
-    ...getPropertyPagePropTypes()
-  }).isRequired
-};
+export const propertyPage = PropTypes.shape({
+  ...getPropertyPagePropTypes()
+}).isRequired;
 
-export const propertyPages = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    ...getPropertyPagePropTypes()
-  })).isRequired
-};
+export const propertyPages = PropTypes.arrayOf(PropTypes.shape({
+  ...getPropertyPagePropTypes()
+})).isRequired;
+
+export const map = PropTypes.arrayOf(PropTypes.shape({
+  city: PropTypes.shape({
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    })
+  }),
+  location: PropTypes.shape({
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+  })
+})).isRequired;

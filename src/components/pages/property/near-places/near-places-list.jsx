@@ -14,6 +14,8 @@ const NearPlacesList = ({
   );
 };
 
-NearPlacesList.propTypes = offersPropTypes;
+NearPlacesList.propTypes = {
+  offers: offersPropTypes
+};
 
 export default NearPlacesList;

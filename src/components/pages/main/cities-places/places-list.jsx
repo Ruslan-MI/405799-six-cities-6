@@ -1,10 +1,10 @@
 import React, {
   useState
 } from "react";
-import PlaceCard from "../../containers/place-card";
+import PlaceCard from "../../../containers/place-card";
 import {
   placeCards as offersPropTypes
-} from "../../../prop-types/offers-validation";
+} from "../../../../prop-types/offers-validation";
 
 const PlacesList = ({
   offers
@@ -26,6 +26,8 @@ const PlacesList = ({
   );
 };
 
-PlacesList.propTypes = offersPropTypes;
+PlacesList.propTypes = {
+  offers: offersPropTypes
+};
 
 export default PlacesList;

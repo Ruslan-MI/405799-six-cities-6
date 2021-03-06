@@ -29,8 +29,14 @@ const App = ({
         <Route exact path="/favorites">
           <FavoritesPage offers={offers} />
         </Route>
-        <Route exact path="/offer/:id" render={(props) =>
-          <PropertyPage offer={getOfferForID(offers, props.match.params.id)} offers={offers} />
+        <Route exact path="/offer/:id" render={({
+          match: {
+            params: {
+              id
+            }
+          }
+        }) =>
+          <PropertyPage offer={getOfferForID(offers, id)} offers={offers} />
         } />
         <Route component={NotFoundPage} />
       </Switch>
@@ -38,6 +44,8 @@ const App = ({
   );
 };
 
-App.propTypes = offersPropTypes;
+App.propTypes = {
+  offers: offersPropTypes
+};
 
 export default App;

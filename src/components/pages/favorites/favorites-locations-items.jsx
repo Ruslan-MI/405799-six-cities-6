@@ -28,7 +28,7 @@ const FavoritesLocationsItems = ({
 
 FavoritesLocationsItems.propTypes = {
   city: PropTypes.string.isRequired,
-  ...offersPropTypes
+  offers: offersPropTypes
 };
 
 export default FavoritesLocationsItems;

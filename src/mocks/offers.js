@@ -4,8 +4,8 @@ const getMocks = () => {
       bedrooms: 3,
       city: {
         location: {
-          latitude: 52.370216,
-          longitude: 4.895168,
+          latitude: 52.390955,
+          longitude: 4.853096,
           zoom: 10
         },
         name: `Amsterdam`
@@ -23,8 +23,8 @@ const getMocks = () => {
       isFavorite: false,
       isPremium: true,
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
         zoom: 8
       },
       maxAdults: 4,
@@ -38,11 +38,11 @@ const getMocks = () => {
       bedrooms: 2,
       city: {
         location: {
-          latitude: 48.868775,
-          longitude: 2.332638,
+          latitude: 52.369553,
+          longitude: 4.853096,
           zoom: 10
         },
-        name: `Paris`
+        name: `Amsterdam`
       },
       description: `Wood and stone place.`,
       goods: [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`],
@@ -57,8 +57,8 @@ const getMocks = () => {
       isFavorite: true,
       isPremium: false,
       location: {
-        latitude: 48.86877537331003,
-        longitude: 2.332638776181146,
+        latitude: 52.369553943508,
+        longitude: 4.85309666406198,
         zoom: 8
       },
       maxAdults: 2,
@@ -72,11 +72,11 @@ const getMocks = () => {
       bedrooms: 3,
       city: {
         location: {
-          latitude: 53.490729,
-          longitude: 9.967641,
+          latitude: 52.390955,
+          longitude: 4.929309,
           zoom: 10
         },
-        name: `Hamburg`
+        name: `Amsterdam`
       },
       description: `Nice, cozy, warm big bed apartment.`,
       goods: [`Kitchen`, `Cable TV`, `Washing machine`],
@@ -91,8 +91,8 @@ const getMocks = () => {
       isFavorite: false,
       isPremium: false,
       location: {
-        latitude: 53.49072978407608,
-        longitude: 9.967641259478805,
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
         zoom: 8
       },
       maxAdults: 5,
@@ -106,11 +106,11 @@ const getMocks = () => {
       bedrooms: 1,
       city: {
         location: {
-          latitude: 51.262439,
-          longitude: 6.781385,
+          latitude: 52.380955,
+          longitude: 4.939309,
           zoom: 10
         },
-        name: `Dusseldorf`
+        name: `Amsterdam`
       },
       description: `Canal View Prinsengracht.`,
       goods: [`Heating`, `Kitchen`, `Washing machine`],
@@ -125,45 +125,11 @@ const getMocks = () => {
       isFavorite: true,
       isPremium: false,
       location: {
-        latitude: 51.26243904893504,
-        longitude: 6.78138526572355,
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
         zoom: 8
       },
       maxAdults: 2,
-      previewImage: `img/room.jpg`,
-      price: 70,
-      rating: 1.8,
-      title: `Canal View Prinsengracht.`,
-      type: `Private room`
-    },
-    {
-      bedrooms: 1,
-      city: {
-        location: {
-          latitude: 51.262439,
-          longitude: 6.781385,
-          zoom: 10
-        },
-        name: `Dusseldorf`
-      },
-      description: `Canal View Prinsengracht.`,
-      goods: [`Heating`, `Kitchen`, `Washing machine`],
-      host: {
-        avatarUrl: `img/avatar-max.jpg`,
-        id: 4,
-        isPro: false,
-        name: `Max`
-      },
-      id: 5,
-      images: [`img/apartment-01.jpg`, `img/apartment-02.jpg`],
-      isFavorite: true,
-      isPremium: true,
-      location: {
-        latitude: 51.26243904893504,
-        longitude: 6.78138526572355,
-        zoom: 8
-      },
-      maxAdults: 1,
       previewImage: `img/room.jpg`,
       price: 70,
       rating: 1.8,
