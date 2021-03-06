@@ -5,7 +5,7 @@ import Header from "../../containers/header";
 import LocationsList from "./locations-list/locations-list";
 import CitiesPlaces from "./cities-places/cities-places";
 import CitiesNoPlaces from "./cities-no-places";
-import CitiesMap from "./cities-map";
+import Map from "../../containers/map";
 import {
   CITIES
 } from "../../../const";
@@ -42,7 +42,10 @@ const MainPage = ({
           <div className={`cities__places-container container ${isNoCurrentOffers ? `cities__places-container--empty` : ``}`}>
             {isNoCurrentOffers ? <CitiesNoPlaces city={currentCity} /> : <CitiesPlaces city={currentCity} offers={currentOffers} />}
             <div className="cities__right-section">
-              {isNoCurrentOffers || <CitiesMap offers={currentOffers} />}
+              {isNoCurrentOffers ||
+                <section className="cities__map map">
+                  <Map offers={currentOffers} />
+                </section>}
             </div>
           </div>
         </div>

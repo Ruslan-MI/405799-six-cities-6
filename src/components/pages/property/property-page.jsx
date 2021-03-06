@@ -5,7 +5,7 @@ import PremiumMark from "../../containers/premium-mark";
 import PropertyInside from "./property-inside";
 import ReviewsList from "./reviews-list/reviews-list";
 import ReviewsForm from "./reviews-form/reviews-form";
-import PropertyMap from "./property-map";
+import Map from "../../containers/map";
 import NearPlaces from "./near-places/near-places";
 import {
   getWidthForRating
@@ -45,6 +45,7 @@ const PropertyPage = ({
   } = offer;
 
   const nearOffers = offers.slice(0, MAX_NEAR_OFFERS_COUNT);
+  const isNearOffersAvailable = nearOffers.length > 0;
 
   return (
     <div className="page">
@@ -101,9 +102,12 @@ const PropertyPage = ({
               </section>
             </div>
           </div>
-          <PropertyMap offers={nearOffers} />
+          {isNearOffersAvailable &&
+            <section className="property__map map">
+              <Map offers={nearOffers} />
+            </section>}
         </section>
-        <NearPlaces offers={nearOffers} />
+        {isNearOffersAvailable && <NearPlaces offers={nearOffers} />}
       </main >
     </div >
   );

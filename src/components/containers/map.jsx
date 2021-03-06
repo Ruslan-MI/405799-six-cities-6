@@ -2,7 +2,6 @@ import React, {
   useEffect,
   useRef
 } from "react";
-import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import {
   map as offersPropTypes
@@ -11,8 +10,7 @@ import {
 import "leaflet/dist/leaflet.css";
 
 const Map = ({
-  offers,
-  className
+  offers
 }) => {
   const {
     latitude,
@@ -63,13 +61,14 @@ const Map = ({
   });
 
   return (
-    <section className={`${className} map`} id="map"></section>
+    <div id="map" style={{
+      height: `100%`
+    }} />
   );
 };
 
 Map.propTypes = {
-  offers: offersPropTypes,
-  className: PropTypes.string.isRequired
+  offers: offersPropTypes
 };
 
 export default Map;
