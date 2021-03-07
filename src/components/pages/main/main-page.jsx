@@ -1,31 +1,19 @@
-import React, {
-  useState
-} from "react";
+import React from "react";
+import {
+  connect
+} from "react-redux";
 import Header from "../../containers/header";
 import LocationsList from "./locations-list/locations-list";
 import CitiesPlaces from "./cities-places/cities-places";
 import CitiesNoPlaces from "./cities-no-places";
 import Map from "../../containers/map";
 import {
-  CITIES
-} from "../../../const";
-import {
-  getOffersInCity
-} from "../../../utils/common";
-import {
   placeCards as offersPropTypes
 } from "../../../prop-types/offers-validation";
 
 const MainPage = ({
-  offers
+  currentOffers
 }) => {
-  const defaultCity = CITIES[3];
-  const [
-    currentCity,
-    setCurrentCity
-  ] = useState(defaultCity);
-
-  const currentOffers = getOffersInCity(offers, currentCity);
   const isNoCurrentOffers = currentOffers.length === 0;
 
   return (
@@ -35,16 +23,16 @@ const MainPage = ({
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList currentCity={currentCity} onClick={setCurrentCity} />
+            <LocationsList />
           </section>
         </div>
         <div className="cities">
           <div className={`cities__places-container container ${isNoCurrentOffers ? `cities__places-container--empty` : ``}`}>
-            {isNoCurrentOffers ? <CitiesNoPlaces city={currentCity} /> : <CitiesPlaces city={currentCity} offers={currentOffers} />}
+            {isNoCurrentOffers ? <CitiesNoPlaces /> : <CitiesPlaces />}
             <div className="cities__right-section">
               {isNoCurrentOffers ||
                 <section className="cities__map map">
-                  <Map offers={currentOffers} />
+                  <Map />
                 </section>}
             </div>
           </div>
@@ -55,7 +43,15 @@ const MainPage = ({
 };
 
 MainPage.propTypes = {
-  offers: offersPropTypes
+  currentOffers: offersPropTypes
 };
 
-export default MainPage;
+const mapStateToProps = (state) => ({
+  currentOffers: state.currentOffers,
+});
+
+export {
+  MainPage
+};
+
+export default connect(mapStateToProps, null)(MainPage);

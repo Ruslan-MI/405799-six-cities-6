@@ -2,6 +2,9 @@ import React, {
   useEffect,
   useRef
 } from "react";
+import {
+  connect
+} from "react-redux";
 import leaflet from "leaflet";
 import {
   map as offersPropTypes
@@ -10,13 +13,13 @@ import {
 import "leaflet/dist/leaflet.css";
 
 const Map = ({
-  offers
+  currentOffers
 }) => {
   const {
     latitude,
     longitude,
     zoom
-  } = offers[0].city.location;
+  } = currentOffers[0].city.location;
 
   const mapRef = useRef();
   useEffect(() => {
@@ -35,7 +38,7 @@ const Map = ({
       })
       .addTo(mapRef.current);
 
-    offers.forEach((offer) => {
+    currentOffers.forEach((offer) => {
       const {
         latitude: offerLatitude,
         longitude: offerLongitude
@@ -68,7 +71,15 @@ const Map = ({
 };
 
 Map.propTypes = {
-  offers: offersPropTypes
+  currentOffers: offersPropTypes
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  currentOffers: state.currentOffers
+});
+
+export {
+  Map
+};
+
+export default connect(mapStateToProps, null)(Map);

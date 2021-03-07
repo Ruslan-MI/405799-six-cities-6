@@ -1,13 +1,16 @@
 import React, {
   useState
 } from "react";
+import {
+  connect
+} from "react-redux";
 import PlaceCard from "../../../containers/place-card";
 import {
   placeCards as offersPropTypes
 } from "../../../../prop-types/offers-validation";
 
 const PlacesList = ({
-  offers
+  currentOffers
 }) => {
   const [
     // Отсутствует неиспользуемая переменная состояния, чтобы линтер не ругался
@@ -21,13 +24,21 @@ const PlacesList = ({
 
   return (
     <div className="cities__places-list places__list tabs__content" >
-      {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseEnter={handleMouseEnter} isCitiesPlaceCard />)}
+      {currentOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseEnter={handleMouseEnter} isCitiesPlaceCard />)}
     </div>
   );
 };
 
 PlacesList.propTypes = {
-  offers: offersPropTypes
+  currentOffers: offersPropTypes
 };
 
-export default PlacesList;
+const mapStateToProps = (state) => ({
+  currentOffers: state.currentOffers
+});
+
+export {
+  PlacesList
+};
+
+export default connect(mapStateToProps, null)(PlacesList);
