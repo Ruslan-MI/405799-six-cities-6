@@ -3,7 +3,9 @@ import Header from "../../containers/header";
 import PropertyGallery from "./property-gallery";
 import PremiumMark from "../../containers/premium-mark";
 import PropertyInside from "./property-inside";
+import ReviewsList from "./reviews-list/reviews-list";
 import ReviewsForm from "./reviews-form/reviews-form";
+import Map from "../../containers/map";
 import NearPlaces from "./near-places/near-places";
 import {
   getWidthForRating
@@ -13,6 +15,11 @@ import {
   propertyPages as offersPropTypes
 } from "../../../prop-types/offers-validation";
 import PropertyDescription from "./property-description";
+import getReviews from "../../../mocks/reviews";
+
+const MAX_NEAR_OFFERS_COUNT = 3;
+
+const reviews = getReviews();
 
 const PropertyPage = ({
   offer,
@@ -37,6 +44,9 @@ const PropertyPage = ({
     description
   } = offer;
 
+  const nearOffers = offers.slice(0, MAX_NEAR_OFFERS_COUNT);
+  const isNearOffersAvailable = nearOffers.length > 0;
+
   return (
     <div className="page">
       <Header />
@@ -48,7 +58,7 @@ const PropertyPage = ({
               {isPremium && <PremiumMark isPropertyPage />}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <button className={`property__bookmark-button button ${isFavorite && `property__bookmark-button--active`}`} type="button">
+                <button className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -77,7 +87,7 @@ const PropertyPage = ({
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper ${isPro && `property__avatar-wrapper--pro`} user__avatar-wrapper`}>
+                  <div className={`property__avatar-wrapper ${isPro ? `property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}>
                     <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74"
                       alt="Host avatar" />
                   </div>
@@ -86,48 +96,26 @@ const PropertyPage = ({
                 {description && <PropertyDescription description={description} />}
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54"
-                          alt="Reviews avatar" />
-                      </div>
-                      <span className="reviews__user-name">Max</span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{
-                            width: `80%`
-                          }}></span>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The
-                        building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
-                </ul>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                {reviews.length > 0 && <ReviewsList reviews={reviews} />}
                 <ReviewsForm />
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          {isNearOffersAvailable &&
+            <section className="property__map map">
+              <Map offers={nearOffers} />
+            </section>}
         </section>
-        <NearPlaces offers={offers} />
+        {isNearOffersAvailable && <NearPlaces offers={nearOffers} />}
       </main >
     </div >
   );
 };
 
 PropertyPage.propTypes = {
-  ...offerPropTypes,
-  ...offersPropTypes
+  offer: offerPropTypes,
+  offers: offersPropTypes
 };
 
 export default PropertyPage;

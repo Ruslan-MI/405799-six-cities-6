@@ -20,6 +20,8 @@ const FavoritesList = ({
   );
 };
 
-FavoritesList.propTypes = offersPropTypes;
+FavoritesList.propTypes = {
+  offers: offersPropTypes
+};
 
 export default FavoritesList;

@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export const getFavoriteOffers = (data) =>
   data.filter((item) => item.isFavorite);
 
@@ -12,3 +14,7 @@ export const getWidthForRating = (data) =>
 
 export const getOfferForID = (data, identifier) =>
   data.find((item) => item.id === parseFloat(identifier));
+
+export const getDateTimeForReviewsTime = (date) => dayjs(date).format(`YYYY-MM-DD`);
+
+export const getDateForReviewsTime = (date) => dayjs(date).format(`MMMM YYYY`);

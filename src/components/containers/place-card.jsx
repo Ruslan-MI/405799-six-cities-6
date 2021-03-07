@@ -14,7 +14,9 @@ import {
 const PlaceCard = ({
   offer,
   onMouseEnter = () => { },
-  isFavoriteCard = false
+  isCitiesPlaceCard = false,
+  isFavoriteCard = false,
+  isNearPlacesCard = false
 }) => {
   const {
     isPremium,
@@ -32,21 +34,25 @@ const PlaceCard = ({
   };
 
   return (
-    <article className={`${isFavoriteCard ? `favorites__card` : `cities__place-card`} place-card`} onMouseEnter={handleMouseEnter}>
+    <article className={`${isCitiesPlaceCard ? `cities__place-card` : ``}
+                        ${isFavoriteCard ? `favorites__card` : ``}
+                        ${isNearPlacesCard ? `near-places__card` : ``} place-card`} onMouseEnter={handleMouseEnter}>
       {isPremium && <PremiumMark />}
-      <div className={`${isFavoriteCard ? `favorites__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
+      <div className={`${isCitiesPlaceCard ? `cities__image-wrapper` : ``}
+                      ${isFavoriteCard ? `favorites__image-wrapper` : ``}
+                      ${isNearPlacesCard ? `near-places__image-wrapper` : ``} place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={previewImage} width={isFavoriteCard ? `150` : `260`} height={isFavoriteCard ? `110` : `200`}
-            alt="Place image" />
+          <img className="place-card__image" src={previewImage} width={isFavoriteCard ? `150` : `260`}
+            height={isFavoriteCard ? `110` : `200`} alt="Place image" />
         </a>
       </div>
-      <div className={`${isFavoriteCard && `favorites__card-info`} place-card__info`}>
+      <div className={`${isFavoriteCard ? `favorites__card-info` : ``} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${isFavorite && `place-card__bookmark-button--active`}`} type="button">
+          <button className={`place-card__bookmark-button button ${isFavorite ? `place-card__bookmark-button--active` : ``}`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -71,9 +77,11 @@ const PlaceCard = ({
 };
 
 PlaceCard.propTypes = {
-  ...offerPropTypes,
+  offer: offerPropTypes,
   onMouseEnter: PropTypes.func,
-  isFavoriteCard: PropTypes.bool
+  isCitiesPlaceCard: PropTypes.bool,
+  isFavoriteCard: PropTypes.bool,
+  isNearPlacesCard: PropTypes.bool
 };
 
 export default PlaceCard;

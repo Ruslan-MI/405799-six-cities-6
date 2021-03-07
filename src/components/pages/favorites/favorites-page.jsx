@@ -27,6 +27,8 @@ const FavoritesPage = ({
   );
 };
 
-FavoritesPage.propTypes = offersPropTypes;
+FavoritesPage.propTypes = {
+  offers: offersPropTypes
+};
 
 export default FavoritesPage;
