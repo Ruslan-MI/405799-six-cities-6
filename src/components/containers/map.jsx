@@ -21,6 +21,8 @@ const Map = ({
   } = offers[0].city.location;
 
   const mapRef = useRef();
+  const markersRef = useRef();
+
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
       center: {
@@ -37,7 +39,13 @@ const Map = ({
       })
       .addTo(mapRef.current);
 
-    offers.forEach((offer) => {
+    return () => {
+      mapRef.current.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    const markers = offers.map((offer) => {
       const {
         latitude: offerLatitude,
         longitude: offerLongitude
@@ -48,17 +56,19 @@ const Map = ({
         iconSize: [27, 39]
       });
 
-      leaflet.marker({
+      return leaflet.marker({
         lat: offerLatitude,
         lng: offerLongitude
       }, {
         icon
-      })
-        .addTo(mapRef.current);
+      });
     });
 
+    markersRef.current = leaflet.layerGroup(markers);
+    markersRef.current.addTo(mapRef.current);
+
     return () => {
-      mapRef.current.remove();
+      mapRef.current.removeLayer(markersRef.current);
     };
   });
 
