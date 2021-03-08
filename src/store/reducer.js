@@ -1,5 +1,6 @@
 import {
-  CITIES
+  CITIES,
+  SortType
 } from "../const";
 import {
   ActionType
@@ -12,10 +13,14 @@ import getMockOffers from "../mocks/offers";
 const offers = getMockOffers();
 const initialCity = CITIES[0];
 const initialOffers = getOffersInCity(offers, initialCity);
+const initialSortType = SortType.POPULAR;
+const initialActiveOfferID = 0;
 
 const initialState = {
   currentCity: initialCity,
-  currentOffers: initialOffers
+  currentOffers: initialOffers,
+  currentSortType: initialSortType,
+  activeOfferID: initialActiveOfferID
 };
 
 export const reducer = (state = initialState, action) => {
@@ -30,6 +35,21 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentOffers: action.payload
+      };
+    case ActionType.CHANGE_SORT_TYPE:
+      return {
+        ...state,
+        currentSortType: action.payload
+      };
+    case ActionType.CHANGE_ACTIVE_OFFER_ID:
+      return {
+        ...state,
+        activeOfferID: action.payload
+      };
+    case ActionType.RESET_ACTIVE_OFFER_ID:
+      return {
+        ...state,
+        activeOfferID: initialActiveOfferID
       };
     default:
       return state;

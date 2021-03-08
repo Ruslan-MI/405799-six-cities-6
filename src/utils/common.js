@@ -18,3 +18,39 @@ export const getOfferForID = (data, identifier) =>
 export const getDateTimeForReviewsTime = (date) => dayjs(date).format(`YYYY-MM-DD`);
 
 export const getDateForReviewsTime = (date) => dayjs(date).format(`MMMM YYYY`);
+
+export const sortPriceLowToHigh = (pointA, pointB) => {
+  if (pointA.price > pointB.price) {
+    return 1;
+  }
+
+  if (pointA.price < pointB.price) {
+    return -1;
+  }
+
+  return 0;
+};
+
+export const sortPriceHighToLow = (pointA, pointB) => {
+  if (pointA.price < pointB.price) {
+    return 1;
+  }
+
+  if (pointA.price > pointB.price) {
+    return -1;
+  }
+
+  return 0;
+};
+
+export const sortRating = (pointA, pointB) => {
+  if (pointA.rating < pointB.rating) {
+    return 1;
+  }
+
+  if (pointA.rating > pointB.rating) {
+    return -1;
+  }
+
+  return 0;
+};

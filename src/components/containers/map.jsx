@@ -2,9 +2,7 @@ import React, {
   useEffect,
   useRef
 } from "react";
-import {
-  connect
-} from "react-redux";
+import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import {
   map as offersPropTypes
@@ -13,13 +11,14 @@ import {
 import "leaflet/dist/leaflet.css";
 
 const Map = ({
-  currentOffers
+  offers,
+  activeOfferID = 0
 }) => {
   const {
     latitude,
     longitude,
     zoom
-  } = currentOffers[0].city.location;
+  } = offers[0].city.location;
 
   const mapRef = useRef();
   useEffect(() => {
@@ -38,14 +37,14 @@ const Map = ({
       })
       .addTo(mapRef.current);
 
-    currentOffers.forEach((offer) => {
+    offers.forEach((offer) => {
       const {
         latitude: offerLatitude,
         longitude: offerLongitude
       } = offer.location;
 
       const icon = leaflet.icon({
-        iconUrl: `img/pin.svg`,
+        iconUrl: `${activeOfferID === offer.id ? `img/pin-active.svg` : `img/pin.svg`}`,
         iconSize: [27, 39]
       });
 
@@ -71,15 +70,8 @@ const Map = ({
 };
 
 Map.propTypes = {
-  currentOffers: offersPropTypes
+  offers: offersPropTypes,
+  activeOfferID: PropTypes.number
 };
 
-const mapStateToProps = (state) => ({
-  currentOffers: state.currentOffers
-});
-
-export {
-  Map
-};
-
-export default connect(mapStateToProps, null)(Map);
+export default Map;
