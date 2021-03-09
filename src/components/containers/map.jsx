@@ -2,6 +2,7 @@ import React, {
   useEffect,
   useRef
 } from "react";
+import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import {
   map as offersPropTypes
@@ -10,7 +11,8 @@ import {
 import "leaflet/dist/leaflet.css";
 
 const Map = ({
-  offers
+  offers,
+  activeOfferID = 0
 }) => {
   const {
     latitude,
@@ -19,6 +21,8 @@ const Map = ({
   } = offers[0].city.location;
 
   const mapRef = useRef();
+  const markersRef = useRef();
+
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
       center: {
@@ -35,28 +39,36 @@ const Map = ({
       })
       .addTo(mapRef.current);
 
-    offers.forEach((offer) => {
+    return () => {
+      mapRef.current.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    const markers = offers.map((offer) => {
       const {
         latitude: offerLatitude,
         longitude: offerLongitude
       } = offer.location;
 
       const icon = leaflet.icon({
-        iconUrl: `img/pin.svg`,
+        iconUrl: `${activeOfferID === offer.id ? `img/pin-active.svg` : `img/pin.svg`}`,
         iconSize: [27, 39]
       });
 
-      leaflet.marker({
+      return leaflet.marker({
         lat: offerLatitude,
         lng: offerLongitude
       }, {
         icon
-      })
-        .addTo(mapRef.current);
+      });
     });
 
+    markersRef.current = leaflet.layerGroup(markers);
+    markersRef.current.addTo(mapRef.current);
+
     return () => {
-      mapRef.current.remove();
+      mapRef.current.removeLayer(markersRef.current);
     };
   });
 
@@ -68,7 +80,8 @@ const Map = ({
 };
 
 Map.propTypes = {
-  offers: offersPropTypes
+  offers: offersPropTypes,
+  activeOfferID: PropTypes.number
 };
 
 export default Map;

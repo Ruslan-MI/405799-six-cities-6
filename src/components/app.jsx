@@ -23,7 +23,7 @@ const App = ({
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainPage offers={offers} />
+          <MainPage />
         </Route>
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/favorites">

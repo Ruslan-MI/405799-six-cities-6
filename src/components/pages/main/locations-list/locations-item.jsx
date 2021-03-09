@@ -1,5 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {
+  connect
+} from "react-redux";
+import {
+  ActionCreator
+} from "../../../../store/action";
 
 const LocationsItem = ({
   city,
@@ -27,4 +33,18 @@ LocationsItem.propTypes = {
   onClick: PropTypes.func.isRequired
 };
 
-export default LocationsItem;
+const mapStateToProps = (state) => ({
+  currentCity: state.currentCity
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onClick(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
+});
+
+export {
+  LocationsItem
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LocationsItem);

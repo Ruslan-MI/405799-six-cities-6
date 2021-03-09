@@ -5,6 +5,12 @@ import {
   Link
 } from "react-router-dom";
 import {
+  connect
+} from "react-redux";
+import {
+  ActionCreator
+} from "../../store/action";
+import {
   getWidthForRating
 } from "../../utils/common";
 import {
@@ -13,7 +19,8 @@ import {
 
 const PlaceCard = ({
   offer,
-  onMouseEnter = () => { },
+  onMouseEnter,
+  onMouseLeave,
   isCitiesPlaceCard = false,
   isFavoriteCard = false,
   isNearPlacesCard = false
@@ -30,13 +37,17 @@ const PlaceCard = ({
   } = offer;
 
   const handleMouseEnter = () => {
-    onMouseEnter(offer);
+    onMouseEnter(id);
+  };
+
+  const handleMouseLeave = () => {
+    onMouseLeave();
   };
 
   return (
     <article className={`${isCitiesPlaceCard ? `cities__place-card` : ``}
                         ${isFavoriteCard ? `favorites__card` : ``}
-                        ${isNearPlacesCard ? `near-places__card` : ``} place-card`} onMouseEnter={handleMouseEnter}>
+                        ${isNearPlacesCard ? `near-places__card` : ``} place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {isPremium && <PremiumMark />}
       <div className={`${isCitiesPlaceCard ? `cities__image-wrapper` : ``}
                       ${isFavoriteCard ? `favorites__image-wrapper` : ``}
@@ -78,10 +89,24 @@ const PlaceCard = ({
 
 PlaceCard.propTypes = {
   offer: offerPropTypes,
-  onMouseEnter: PropTypes.func,
+  onMouseEnter: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
   isCitiesPlaceCard: PropTypes.bool,
   isFavoriteCard: PropTypes.bool,
   isNearPlacesCard: PropTypes.bool
 };
 
-export default PlaceCard;
+const mapDispatchToProps = (dispatch) => ({
+  onMouseEnter(id) {
+    dispatch(ActionCreator.changeActiveOfferID(id));
+  },
+  onMouseLeave() {
+    dispatch(ActionCreator.resetActiveOfferID());
+  },
+});
+
+export {
+  PlaceCard
+};
+
+export default connect(null, mapDispatchToProps)(PlaceCard);

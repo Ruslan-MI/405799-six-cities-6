@@ -1,33 +1,59 @@
-import React, {
-  useState
-} from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import {
+  connect
+} from "react-redux";
 import PlaceCard from "../../../containers/place-card";
+import {
+  SortType
+} from "../../../../const";
+import {
+  sortPriceLowToHigh,
+  sortPriceHighToLow,
+  sortRating
+} from "../../../../utils/common";
 import {
   placeCards as offersPropTypes
 } from "../../../../prop-types/offers-validation";
 
 const PlacesList = ({
-  offers
+  currentOffers,
+  currentSortType
 }) => {
-  const [
-    // Отсутствует неиспользуемая переменная состояния, чтобы линтер не ругался
-    ,
-    setActiveOffer
-  ] = useState(null);
+  const defaultSortingOffers = currentOffers.slice();
 
-  const handleMouseEnter = (offer) => {
-    setActiveOffer(offer);
+  const getSortedOffer = (sortType) => {
+    switch (sortType) {
+      case SortType.PRICE_LOW_TO_HIGH:
+        return currentOffers.slice().sort(sortPriceLowToHigh);
+      case SortType.PRICE_HIGH_TO_LOW:
+        return currentOffers.slice().sort(sortPriceHighToLow);
+      case SortType.TOP_RATED_FIRST:
+        return currentOffers.slice().sort(sortRating);
+      default:
+        return defaultSortingOffers;
+    }
   };
 
   return (
     <div className="cities__places-list places__list tabs__content" >
-      {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseEnter={handleMouseEnter} isCitiesPlaceCard />)}
+      {getSortedOffer(currentSortType).map((offer) => <PlaceCard key={offer.id} offer={offer} isCitiesPlaceCard />)}
     </div>
   );
 };
 
 PlacesList.propTypes = {
-  offers: offersPropTypes
+  currentOffers: offersPropTypes,
+  currentSortType: PropTypes.string.isRequired
 };
 
-export default PlacesList;
+const mapStateToProps = (state) => ({
+  currentOffers: state.currentOffers,
+  currentSortType: state.currentSortType
+});
+
+export {
+  PlacesList
+};
+
+export default connect(mapStateToProps, null)(PlacesList);
