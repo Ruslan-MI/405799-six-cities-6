@@ -5,17 +5,17 @@ import {
 } from "../../../prop-types/offers-validation";
 
 const FavoritesPlaces = ({
-  offers
+  favoriteOffersInCity
 }) => {
   return (
     <div className="favorites__places">
-      {offers.map((offer, i) => <PlaceCard key={i} offer={offer} isFavoriteCard />)}
+      {favoriteOffersInCity.map((offer, i) => <PlaceCard key={i} offer={offer} isFavoriteCard />)}
     </div>
   );
 };
 
 FavoritesPlaces.propTypes = {
-  offers: offersPropTypes
+  favoriteOffersInCity: offersPropTypes
 };
 
 export default FavoritesPlaces;

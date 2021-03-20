@@ -1,26 +1,25 @@
 import {
   CITIES,
-  SortType
+  SortType,
+  AuthorizationStatus
 } from "../const";
 import {
   ActionType
 } from "./action";
 import {
+  adaptToClient,
   getOffersInCity
 } from "../utils/common";
-import getMockOffers from "../mocks/offers";
-
-const offers = getMockOffers();
-const initialCity = CITIES[0];
-const initialOffers = getOffersInCity(offers, initialCity);
-const initialSortType = SortType.POPULAR;
-const initialActiveOfferID = 0;
 
 const initialState = {
-  currentCity: initialCity,
-  currentOffers: initialOffers,
-  currentSortType: initialSortType,
-  activeOfferID: initialActiveOfferID
+  offers: [],
+  currentCity: CITIES[0],
+  offersInCurrentCity: [],
+  currentSortType: SortType.POPULAR,
+  activeOfferID: 0,
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  isDataLoaded: false,
+  userEmail: ``
 };
 
 export const reducer = (state = initialState, action) => {
@@ -29,12 +28,7 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentCity: action.payload,
-        currentOffers: getOffersInCity(offers, action.payload)
-      };
-    case ActionType.UPDATE_OFFERS:
-      return {
-        ...state,
-        currentOffers: action.payload
+        offersInCurrentCity: getOffersInCity(state.offers, action.payload)
       };
     case ActionType.CHANGE_SORT_TYPE:
       return {
@@ -49,7 +43,26 @@ export const reducer = (state = initialState, action) => {
     case ActionType.RESET_ACTIVE_OFFER_ID:
       return {
         ...state,
-        activeOfferID: initialActiveOfferID
+        activeOfferID: initialState.ActiveOfferID
+      };
+    case ActionType.LOAD_OFFERS:
+      const offers = action.payload.map((offer) => adaptToClient(offer));
+
+      return {
+        ...state,
+        offers,
+        offersInCurrentCity: getOffersInCity(offers, state.currentCity),
+        isDataLoaded: true
+      };
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
+    case ActionType.CHANGE_USER_EMAIL:
+      return {
+        ...state,
+        userEmail: action.payload
       };
     default:
       return state;

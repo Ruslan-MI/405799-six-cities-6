@@ -1,4 +1,7 @@
 import React from "react";
+import {
+  connect
+} from "react-redux";
 import Header from "../../containers/header";
 import PropertyGallery from "./property-gallery";
 import PremiumMark from "../../containers/premium-mark";
@@ -23,7 +26,7 @@ const reviews = getReviews();
 
 const PropertyPage = ({
   offer,
-  offers
+  nearOffers
 }) => {
   const {
     images,
@@ -44,7 +47,6 @@ const PropertyPage = ({
     description
   } = offer;
 
-  const nearOffers = offers.slice(0, MAX_NEAR_OFFERS_COUNT);
   const isNearOffersAvailable = nearOffers.length > 0;
 
   return (
@@ -112,7 +114,15 @@ const PropertyPage = ({
 
 PropertyPage.propTypes = {
   offer: offerPropTypes,
-  offers: offersPropTypes
+  nearOffers: offersPropTypes
 };
 
-export default PropertyPage;
+const mapStateToProps = (state) => ({
+  nearOffers: state.offersInCurrentCity.slice(0, MAX_NEAR_OFFERS_COUNT)
+});
+
+export {
+  PropertyPage
+};
+
+export default connect(mapStateToProps)(PropertyPage);

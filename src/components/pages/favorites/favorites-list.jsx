@@ -1,6 +1,10 @@
 import React from "react";
+import {
+  connect
+} from "react-redux";
 import FavoritesLocationsItems from "./favorites-locations-items";
 import {
+  getFavoriteOffers,
   getFavoriteCities
 } from "../../../utils/common";
 import {
@@ -8,20 +12,28 @@ import {
 } from "../../../prop-types/offers-validation";
 
 const FavoritesList = ({
-  offers
+  favoriteOffers
 }) => {
   return (
     <>
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
-        {getFavoriteCities(offers).map((city, i) => <FavoritesLocationsItems key={i} city={city} offers={offers} />)}
+        {getFavoriteCities(favoriteOffers).map((city, i) => <FavoritesLocationsItems key={i} city={city} favoriteOffers={favoriteOffers} />)}
       </ul>
     </>
   );
 };
 
 FavoritesList.propTypes = {
-  offers: offersPropTypes
+  favoriteOffers: offersPropTypes
 };
 
-export default FavoritesList;
+const mapStateToProps = (state) => ({
+  favoriteOffers: getFavoriteOffers(state.offers)
+});
+
+export {
+  FavoritesList
+};
+
+export default connect(mapStateToProps)(FavoritesList);

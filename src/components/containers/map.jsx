@@ -42,7 +42,7 @@ const Map = ({
     return () => {
       mapRef.current.remove();
     };
-  }, []);
+  }, [offers]);
 
   useEffect(() => {
     const markers = offers.map((offer) => {

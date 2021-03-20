@@ -9,23 +9,23 @@ import {
 } from "../../../prop-types/offers-validation";
 
 const CitiesMap = ({
-  currentOffers,
+  offersInCurrentCity,
   activeOfferID
 }) => {
   return (
     <section className="cities__map map">
-      <Map offers={currentOffers} activeOfferID={activeOfferID} />
+      <Map offers={offersInCurrentCity} activeOfferID={activeOfferID} />
     </section>
   );
 };
 
 CitiesMap.propTypes = {
-  currentOffers: offersPropTypes,
+  offersInCurrentCity: offersPropTypes,
   activeOfferID: PropTypes.number
 };
 
 const mapStateToProps = (state) => ({
-  currentOffers: state.currentOffers,
+  offersInCurrentCity: state.offersInCurrentCity,
   activeOfferID: state.activeOfferID
 });
 
@@ -33,4 +33,4 @@ export {
   CitiesMap
 };
 
-export default connect(mapStateToProps, null)(CitiesMap);
+export default connect(mapStateToProps)(CitiesMap);

@@ -29,4 +29,4 @@ export {
   CitiesNoPlaces
 };
 
-export default connect(mapStateToProps, null)(CitiesNoPlaces);
+export default connect(mapStateToProps)(CitiesNoPlaces);

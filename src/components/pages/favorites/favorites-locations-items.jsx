@@ -10,7 +10,7 @@ import {
 
 const FavoritesLocationsItems = ({
   city,
-  offers
+  favoriteOffers
 }) => {
   return (
     <li className="favorites__locations-items">
@@ -21,14 +21,14 @@ const FavoritesLocationsItems = ({
           </a>
         </div>
       </div>
-      <FavoritesPlaces offers={getOffersInCity(offers, city)} />
+      <FavoritesPlaces favoriteOffersInCity={getOffersInCity(favoriteOffers, city)} />
     </li>
   );
 };
 
 FavoritesLocationsItems.propTypes = {
   city: PropTypes.string.isRequired,
-  offers: offersPropTypes
+  favoriteOffers: offersPropTypes
 };
 
 export default FavoritesLocationsItems;

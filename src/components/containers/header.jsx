@@ -1,9 +1,19 @@
 import React from "react";
+import PropTypes from "prop-types";
+import {
+  connect
+} from "react-redux";
 import {
   Link
 } from "react-router-dom";
+import {
+  AuthorizationStatus
+} from "../../const";
 
-const Header = () => {
+const Header = ({
+  authorizationStatus,
+  userEmail
+}) => {
   return (
     <header className="header">
       <div className="container">
@@ -16,10 +26,15 @@ const Header = () => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to="/favorites">
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                </Link>
+                {authorizationStatus === AuthorizationStatus.AUTH ?
+                  <Link className="header__nav-link header__nav-link--profile" to="/favorites">
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <span className="header__user-name user__name">{userEmail}</span>
+                  </Link> :
+                  <Link className="header__nav-link header__nav-link--profile" to="/login">
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <span className="header__login">Sign in</span>
+                  </Link>}
                 {/* <Link className="header__nav-link header__nav-link--profile" to="/login">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
@@ -44,4 +59,18 @@ const Header = () => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  userEmail: PropTypes.string.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  userEmail: state.userEmail
+});
+
+export {
+  Header
+};
+
+export default connect(mapStateToProps)(Header);

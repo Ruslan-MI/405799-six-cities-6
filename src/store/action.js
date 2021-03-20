@@ -3,7 +3,10 @@ export const ActionType = {
   CHANGE_SORT_TYPE: `mainPage/changeSortType`,
   CHANGE_ACTIVE_OFFER_ID: `placeCard/changeActiveOfferID`,
   RESET_ACTIVE_OFFER_ID: `placeCard/resetActiveOfferID`,
-  UPDATE_OFFERS: `server/updateOffers`
+  LOAD_OFFERS: `data/loadOffers`,
+  REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
+  REDIRECT_TO_ROUTE: `user/redirectToRoute`,
+  CHANGE_USER_EMAIL: `user/changeUserEmail`
 };
 
 export const ActionCreator = {
@@ -22,8 +25,20 @@ export const ActionCreator = {
   resetActiveOfferID: () => ({
     type: ActionType.RESET_ACTIVE_OFFER_ID
   }),
-  updateOffers: (data) => ({
-    type: ActionType.UPDATE_OFFERS,
-    payload: data,
+  loadOffers: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url
+  }),
+  changeUserEmail: (email) => ({
+    type: ActionType.CHANGE_USER_EMAIL,
+    payload: email
   })
 };

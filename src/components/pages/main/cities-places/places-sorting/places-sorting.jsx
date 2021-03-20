@@ -45,5 +45,5 @@ export {
   PlacesSorting
 };
 
-export default connect(mapStateToProps, null)(PlacesSorting);
+export default connect(mapStateToProps)(PlacesSorting);
 

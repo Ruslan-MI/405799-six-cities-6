@@ -11,12 +11,12 @@ import {
 
 const CitiesPlaces = ({
   currentCity,
-  currentOffers
+  offersInCurrentCity
 }) => {
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{currentOffers.length} {currentOffers.length > 1 ? `places` : `place`} to stay in {currentCity}</b>
+      <b className="places__found">{offersInCurrentCity.length} {offersInCurrentCity.length > 1 ? `places` : `place`} to stay in {currentCity}</b>
       <PlacesSorting />
       <PlacesList />
     </section>
@@ -25,16 +25,16 @@ const CitiesPlaces = ({
 
 CitiesPlaces.propTypes = {
   currentCity: PropTypes.string.isRequired,
-  currentOffers: offersPropTypes
+  offersInCurrentCity: offersPropTypes
 };
 
 const mapStateToProps = (state) => ({
   currentCity: state.currentCity,
-  currentOffers: state.currentOffers
+  offersInCurrentCity: state.offersInCurrentCity
 });
 
 export {
   CitiesPlaces
 };
 
-export default connect(mapStateToProps, null)(CitiesPlaces);
+export default connect(mapStateToProps)(CitiesPlaces);
