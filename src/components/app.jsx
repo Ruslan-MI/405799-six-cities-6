@@ -1,7 +1,4 @@
-import React, {
-  useEffect
-} from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import {
   Router as BrowserRouter,
   Switch,
@@ -10,7 +7,6 @@ import {
 import {
   connect
 } from "react-redux";
-import LoadingScreen from "./containers/loading-screen";
 import FavoritesPage from "./pages/favorites/favorites-page";
 import LoginPage from "./pages/login/login-page";
 import MainPage from "./pages/main/main-page";
@@ -25,35 +21,21 @@ import {
   propertyPages as offersPropTypes
 } from "../prop-types/offers-validation";
 import {
-  fetchOffers
-} from "../store/api-actions";
+  AppRoute
+} from "../const";
 
 const App = ({
-  offers,
-  isDataLoaded,
-  onLoadData
+  offers
 }) => {
-  useEffect(() => {
-    if (!isDataLoaded) {
-      onLoadData();
-    }
-  }, [isDataLoaded]);
-
-  if (!isDataLoaded) {
-    return (
-      <LoadingScreen />
-    );
-  }
-
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={AppRoute.ROOT}>
           <MainPage />
         </Route>
-        <Route exact path="/login" component={LoginPage} />
-        <PrivateRoute exact path="/favorites" render={() => <FavoritesPage />} />
-        <Route exact path="/offer/:id" render={({
+        <Route exact path={AppRoute.LOGIN} component={LoginPage} />
+        <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <FavoritesPage />} />
+        <Route exact path={`${AppRoute.OFFER}/:id`} render={({
           match: {
             params: {
               id
@@ -69,24 +51,15 @@ const App = ({
 };
 
 App.propTypes = {
-  offers: offersPropTypes,
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired
+  offers: offersPropTypes
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  isDataLoaded: state.isDataLoaded,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchOffers());
-  },
+  offers: state.offers
 });
 
 export {
   App
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

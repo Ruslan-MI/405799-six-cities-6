@@ -8,7 +8,8 @@ import {
   connect
 } from "react-redux";
 import {
-  AuthorizationStatus
+  AuthorizationStatus,
+  AppRoute
 } from "../../const";
 
 
@@ -26,7 +27,7 @@ const PrivateRoute = ({
         return (
           authorizationStatus === AuthorizationStatus.AUTH
             ? render(routeProps)
-            : <Redirect to={`/login`} />
+            : <Redirect to={AppRoute.LOGIN} />
         );
       }}
     />

@@ -16,6 +16,9 @@ import {
 import {
   placeCard as offerPropTypes
 } from "../../prop-types/offers-validation";
+import {
+  AppRoute
+} from "../../const";
 
 const PlaceCard = ({
   offer,
@@ -79,7 +82,7 @@ const PlaceCard = ({
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

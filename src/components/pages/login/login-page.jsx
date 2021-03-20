@@ -16,7 +16,8 @@ import {
   ActionCreator
 } from "../../../store/action";
 import {
-  CITIES
+  CITIES,
+  AppRoute
 } from "../../../const";
 
 const cityForLink = CITIES[3];
@@ -60,7 +61,7 @@ const LoginPage = ({
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={`/`} onClick={onClick} >
+              <Link className="locations__item-link" to={AppRoute.ROOT} onClick={onClick} >
                 <span>{cityForLink}</span>
               </Link>
             </div>

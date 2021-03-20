@@ -1,7 +1,11 @@
-import React from "react";
+import React, {
+  useEffect
+} from "react";
+import PropTypes from "prop-types";
 import {
   connect
 } from "react-redux";
+import LoadingScreen from "../../containers/loading-screen";
 import Header from "../../containers/header";
 import LocationsList from "./locations-list/locations-list";
 import CitiesPlaces from "./cities-places/cities-places";
@@ -10,11 +14,28 @@ import CitiesMap from "./citiesMap";
 import {
   placeCards as offersPropTypes
 } from "../../../prop-types/offers-validation";
+import {
+  fetchOffers
+} from "../../../store/api-actions";
 
 const MainPage = ({
-  offersInCurrentCity
+  offersInCurrentCity,
+  isDataLoaded,
+  onLoadData
 }) => {
   const isNoOffersInCurrentCity = offersInCurrentCity.length === 0;
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -40,15 +61,24 @@ const MainPage = ({
 };
 
 MainPage.propTypes = {
-  offersInCurrentCity: offersPropTypes
+  offersInCurrentCity: offersPropTypes,
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  offersInCurrentCity: state.offersInCurrentCity
+  offersInCurrentCity: state.offersInCurrentCity,
+  isDataLoaded: state.isDataLoaded,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchOffers());
+  },
 });
 
 export {
   MainPage
 };
 
-export default connect(mapStateToProps)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
