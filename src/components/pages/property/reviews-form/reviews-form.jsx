@@ -11,6 +11,13 @@ import {
   sendReview
 } from "../../../../store/api-actions";
 
+const RATING_MIN_VALUE = 1;
+
+const ReviewLength = {
+  MIN: 50,
+  MAX: 300
+};
+
 const ReviewsForm = ({
   offerID,
   onSubmit
@@ -44,7 +51,7 @@ const ReviewsForm = ({
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit} >
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <FormRating checkedRating={rating} onChange={setRating} />
       <FormTextarea value={review} onChange={setReview} />
@@ -53,7 +60,9 @@ const ReviewsForm = ({
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least
           <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit"
+          disabled={(rating < RATING_MIN_VALUE || review.length < ReviewLength.MIN || review.length > ReviewLength.MAX) ?
+            true : false}>Submit</button>
       </div>
     </form>
   );
