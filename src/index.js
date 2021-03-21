@@ -25,6 +25,7 @@ import {
   checkAuth
 } from "./store/api-actions";
 import {
+  AppRoute,
   AuthorizationStatus
 } from "./const";
 import {
@@ -32,7 +33,8 @@ import {
 } from "./store/redirect";
 
 const api = createAPI(() =>
-  store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)));
+  store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)), () =>
+  store.dispatch(ActionCreator.redirectToRoute(AppRoute.NOT_FOUND)));
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)), applyMiddleware(redirect)));
 

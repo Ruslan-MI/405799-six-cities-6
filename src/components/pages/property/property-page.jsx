@@ -1,7 +1,11 @@
-import React from "react";
+import React, {
+  useEffect
+} from "react";
+import PropTypes from "prop-types";
 import {
   connect
 } from "react-redux";
+import LoadingScreen from "../../containers/loading-screen";
 import Header from "../../containers/header";
 import PropertyGallery from "./property-gallery";
 import PremiumMark from "../../containers/premium-mark";
@@ -10,6 +14,7 @@ import ReviewsList from "./reviews-list/reviews-list";
 import ReviewsForm from "./reviews-form/reviews-form";
 import PropertyMap from "./propertyMap";
 import NearPlaces from "./near-places/near-places";
+import PropertyDescription from "./property-description";
 import {
   getWidthForRating
 } from "../../../utils/common";
@@ -17,7 +22,9 @@ import {
   propertyPage as offerPropTypes,
   propertyPages as offersPropTypes
 } from "../../../prop-types/offers-validation";
-import PropertyDescription from "./property-description";
+import {
+  fetchPropertyPageOffer
+} from "../../../store/api-actions";
 import getReviews from "../../../mocks/reviews";
 
 const MAX_NEAR_OFFERS_COUNT = 3;
@@ -25,9 +32,23 @@ const MAX_NEAR_OFFERS_COUNT = 3;
 const reviews = getReviews();
 
 const PropertyPage = ({
-  offer,
-  nearOffers
+  id,
+  propertyPageOffer,
+  nearOffers,
+  onLoadData
 }) => {
+  useEffect(() => {
+    if (!propertyPageOffer || propertyPageOffer.id !== id) {
+      onLoadData(id);
+    }
+  }, [propertyPageOffer]);
+
+  if (!propertyPageOffer || propertyPageOffer.id !== id) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   const {
     images,
     isPremium,
@@ -45,7 +66,7 @@ const PropertyPage = ({
       isPro
     },
     description
-  } = offer;
+  } = propertyPageOffer;
 
   const isNearOffersAvailable = nearOffers.length > 0;
 
@@ -113,16 +134,25 @@ const PropertyPage = ({
 };
 
 PropertyPage.propTypes = {
-  offer: offerPropTypes,
-  nearOffers: offersPropTypes
+  id: PropTypes.number.isRequired,
+  propertyPageOffer: offerPropTypes,
+  nearOffers: offersPropTypes,
+  onLoadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
+  propertyPageOffer: state.propertyPageOffer,
   nearOffers: state.offersInCurrentCity.slice(0, MAX_NEAR_OFFERS_COUNT)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData(id) {
+    dispatch(fetchPropertyPageOffer(id));
+  },
 });
 
 export {
   PropertyPage
 };
 
-export default connect(mapStateToProps)(PropertyPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PropertyPage);

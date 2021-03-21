@@ -16,7 +16,8 @@ export const AppRoute = {
   ROOT: `/`,
   LOGIN: `/login`,
   FAVORITES: `/favorites`,
-  OFFER: `/offer`
+  OFFER: `/offer`,
+  NOT_FOUND: `/404`
 };
 
 export const APIRoute = {

@@ -4,9 +4,6 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import {
-  connect
-} from "react-redux";
 import FavoritesPage from "./pages/favorites/favorites-page";
 import LoginPage from "./pages/login/login-page";
 import MainPage from "./pages/main/main-page";
@@ -15,18 +12,10 @@ import PropertyPage from "./pages/property/property-page";
 import PrivateRoute from "./containers/private-route";
 import browserHistory from "../utils/browser-history";
 import {
-  getOfferForID
-} from "../utils/common";
-import {
-  propertyPages as offersPropTypes
-} from "../prop-types/offers-validation";
-import {
   AppRoute
 } from "../const";
 
-const App = ({
-  offers
-}) => {
+const App = () => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
@@ -42,7 +31,7 @@ const App = ({
             }
           }
         }) =>
-          <PropertyPage offer={getOfferForID(offers, id)} />
+          <PropertyPage id={Number(id)} />
         } />
         <Route component={NotFoundPage} />
       </Switch>
@@ -50,16 +39,4 @@ const App = ({
   );
 };
 
-App.propTypes = {
-  offers: offersPropTypes
-};
-
-const mapStateToProps = (state) => ({
-  offers: state.offers
-});
-
-export {
-  App
-};
-
-export default connect(mapStateToProps)(App);
+export default App;

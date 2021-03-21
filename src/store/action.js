@@ -6,7 +6,9 @@ export const ActionType = {
   LOAD_OFFERS: `data/loadOffers`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `user/redirectToRoute`,
-  CHANGE_USER_EMAIL: `user/changeUserEmail`
+  REDIRECT_TO_NOT_FOUND: `user/redirectToNotFound`,
+  CHANGE_USER_EMAIL: `user/changeUserEmail`,
+  LOAD_PROPERTY_PAGE_OFFER: `data/loadPropertyPageOffer`
 };
 
 export const ActionCreator = {
@@ -37,8 +39,15 @@ export const ActionCreator = {
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url
   }),
+  redirectToNotFound: () => ({
+    type: ActionType.REDIRECT_TO_NOT_FOUND
+  }),
   changeUserEmail: (email) => ({
     type: ActionType.CHANGE_USER_EMAIL,
     payload: email
+  }),
+  loadPropertyPageOffer: (offer) => ({
+    type: ActionType.LOAD_PROPERTY_PAGE_OFFER,
+    payload: offer
   })
 };

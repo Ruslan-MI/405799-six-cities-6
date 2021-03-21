@@ -19,7 +19,8 @@ const initialState = {
   activeOfferID: 0,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   isDataLoaded: false,
-  userEmail: ``
+  userEmail: ``,
+  propertyPageOffer: null
 };
 
 export const reducer = (state = initialState, action) => {
@@ -63,6 +64,11 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         userEmail: action.payload
+      };
+    case ActionType.LOAD_PROPERTY_PAGE_OFFER:
+      return {
+        ...state,
+        propertyPageOffer: adaptToClient(action.payload)
       };
     default:
       return state;

@@ -23,8 +23,6 @@ const MainPage = ({
   isDataLoaded,
   onLoadData
 }) => {
-  const isNoOffersInCurrentCity = offersInCurrentCity.length === 0;
-
   useEffect(() => {
     if (!isDataLoaded) {
       onLoadData();
@@ -36,6 +34,8 @@ const MainPage = ({
       <LoadingScreen />
     );
   }
+
+  const isNoOffersInCurrentCity = offersInCurrentCity.length === 0;
 
   return (
     <div className="page page--gray page--main">

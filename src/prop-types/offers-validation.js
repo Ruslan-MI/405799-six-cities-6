@@ -42,7 +42,7 @@ export const placeCards = PropTypes.arrayOf(PropTypes.shape({
 
 export const propertyPage = PropTypes.shape({
   ...getPropertyPagePropTypes()
-}).isRequired;
+});
 
 export const propertyPages = PropTypes.arrayOf(PropTypes.shape({
   ...getPropertyPagePropTypes()

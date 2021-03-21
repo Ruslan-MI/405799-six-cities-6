@@ -12,6 +12,15 @@ export const fetchOffers = () => (dispatch, _getState, api) => (
     .then(({
       data
     }) => dispatch(ActionCreator.loadOffers(data)))
+    .catch(() => { })
+);
+
+export const fetchPropertyPageOffer = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.HOTELS}/${id}`)
+    .then(({
+      data
+    }) => dispatch(ActionCreator.loadPropertyPageOffer(data)))
+    .catch(() => { })
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
