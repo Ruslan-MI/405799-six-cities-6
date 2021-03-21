@@ -1,5 +1,6 @@
 import React, {
-  useState
+  useState,
+  useEffect
 } from "react";
 import PropTypes from "prop-types";
 import {
@@ -10,6 +11,9 @@ import FormTextarea from "./form-textarea";
 import {
   sendReview
 } from "../../../../store/api-actions";
+import {
+  reviewsList as reviewsPropTypes
+} from "../../../../prop-types/reviews-validation";
 
 const RATING_MIN_VALUE = 1;
 
@@ -20,7 +24,8 @@ const ReviewLength = {
 
 const ReviewsForm = ({
   offerID,
-  onSubmit
+  onSubmit,
+  reviews
 }) => {
   const initialState = {
     rating: 0,
@@ -45,10 +50,12 @@ const ReviewsForm = ({
       rating,
       review
     });
+  };
 
+  useEffect(() => {
     setRating(initialState.rating);
     setReview(initialState.review);
-  };
+  }, [reviews]);
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
@@ -70,8 +77,13 @@ const ReviewsForm = ({
 
 ReviewsForm.propTypes = {
   offerID: PropTypes.number.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  reviews: reviewsPropTypes
 };
+
+const mapStateToProps = (state) => ({
+  reviews: state.reviews
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(review) {
@@ -83,4 +95,4 @@ export {
   ReviewsForm
 };
 
-export default connect(null, mapDispatchToProps)(ReviewsForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewsForm);
