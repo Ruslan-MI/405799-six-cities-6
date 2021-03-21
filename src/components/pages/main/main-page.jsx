@@ -10,7 +10,7 @@ import Header from "../../containers/header";
 import LocationsList from "./locations-list/locations-list";
 import CitiesPlaces from "./cities-places/cities-places";
 import CitiesNoPlaces from "./cities-no-places";
-import CitiesMap from "./citiesMap";
+import CitiesMap from "./cities-map";
 import {
   placeCards as offersPropTypes
 } from "../../../prop-types/offers-validation";

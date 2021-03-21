@@ -7,7 +7,8 @@ import {
   ActionType
 } from "./action";
 import {
-  adaptToClient,
+  adaptOfferToClient,
+  adaptReviewToClient,
   getOffersInCity
 } from "../utils/common";
 
@@ -20,7 +21,8 @@ const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   isDataLoaded: false,
   userEmail: ``,
-  propertyPageOffer: null
+  propertyPageOffer: null,
+  reviews: []
 };
 
 export const reducer = (state = initialState, action) => {
@@ -47,7 +49,7 @@ export const reducer = (state = initialState, action) => {
         activeOfferID: initialState.ActiveOfferID
       };
     case ActionType.LOAD_OFFERS:
-      const offers = action.payload.map((offer) => adaptToClient(offer));
+      const offers = action.payload.map((offer) => adaptOfferToClient(offer));
 
       return {
         ...state,
@@ -68,7 +70,12 @@ export const reducer = (state = initialState, action) => {
     case ActionType.LOAD_PROPERTY_PAGE_OFFER:
       return {
         ...state,
-        propertyPageOffer: adaptToClient(action.payload)
+        propertyPageOffer: adaptOfferToClient(action.payload)
+      };
+    case ActionType.LOAD_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload.map((review) => adaptReviewToClient(review))
       };
     default:
       return state;

@@ -71,7 +71,7 @@ export const sortOffers = (offers, sortType) => {
   }
 };
 
-export const adaptToClient = (offer) => {
+export const adaptOfferToClient = (offer) => {
   const adaptedOffer = {
     ...offer,
     host: {
@@ -93,4 +93,20 @@ export const adaptToClient = (offer) => {
   delete adaptedOffer.preview_image;
 
   return adaptedOffer;
+};
+
+export const adaptReviewToClient = (review) => {
+  const adaptedReview = {
+    ...review,
+    user: {
+      ...review.user,
+      avatarUrl: review.user.avatar_url,
+      isPro: review.user.is_pro
+    }
+  };
+
+  delete adaptedReview.user.avatar_url;
+  delete adaptedReview.user.is_pro;
+
+  return adaptedReview;
 };

@@ -8,7 +8,8 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: `user/redirectToRoute`,
   REDIRECT_TO_NOT_FOUND: `user/redirectToNotFound`,
   CHANGE_USER_EMAIL: `user/changeUserEmail`,
-  LOAD_PROPERTY_PAGE_OFFER: `data/loadPropertyPageOffer`
+  LOAD_PROPERTY_PAGE_OFFER: `data/loadPropertyPageOffer`,
+  LOAD_REVIEWS: `data/loadReviews`
 };
 
 export const ActionCreator = {
@@ -49,5 +50,9 @@ export const ActionCreator = {
   loadPropertyPageOffer: (offer) => ({
     type: ActionType.LOAD_PROPERTY_PAGE_OFFER,
     payload: offer
+  }),
+  loadReviews: (reviews) => ({
+    type: ActionType.LOAD_REVIEWS,
+    payload: reviews
   })
 };

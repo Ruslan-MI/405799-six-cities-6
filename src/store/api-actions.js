@@ -8,7 +8,7 @@ import {
 } from "../const";
 
 export const fetchOffers = () => (dispatch, _getState, api) => (
-  api.get(APIRoute.HOTELS)
+  api.get(APIRoute.OFFERS)
     .then(({
       data
     }) => dispatch(ActionCreator.loadOffers(data)))
@@ -16,7 +16,7 @@ export const fetchOffers = () => (dispatch, _getState, api) => (
 );
 
 export const fetchPropertyPageOffer = (id) => (dispatch, _getState, api) => (
-  api.get(`${APIRoute.HOTELS}/${id}`)
+  api.get(`${APIRoute.OFFERS}/${id}`)
     .then(({
       data
     }) => dispatch(ActionCreator.loadPropertyPageOffer(data)))
@@ -41,5 +41,13 @@ export const login = ({
     .then((response) => dispatch(ActionCreator.changeUserEmail(response.data.email)))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.FAVORITES)))
+    .catch(() => { })
+);
+
+export const fetchReviews = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.REVIEWS}/${id}`)
+    .then(({
+      data
+    }) => dispatch(ActionCreator.loadReviews(data)))
     .catch(() => { })
 );

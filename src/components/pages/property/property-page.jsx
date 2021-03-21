@@ -12,7 +12,7 @@ import PremiumMark from "../../containers/premium-mark";
 import PropertyInside from "./property-inside";
 import ReviewsList from "./reviews-list/reviews-list";
 import ReviewsForm from "./reviews-form/reviews-form";
-import PropertyMap from "./propertyMap";
+import PropertyMap from "./property-map";
 import NearPlaces from "./near-places/near-places";
 import PropertyDescription from "./property-description";
 import {
@@ -23,27 +23,29 @@ import {
   propertyPages as offersPropTypes
 } from "../../../prop-types/offers-validation";
 import {
+  reviewsList as reviewsPropTypes
+} from "../../../prop-types/reviews-validation";
+import {
+  fetchReviews,
   fetchPropertyPageOffer
 } from "../../../store/api-actions";
-import getReviews from "../../../mocks/reviews";
 
 const MAX_NEAR_OFFERS_COUNT = 3;
 
-const reviews = getReviews();
-
 const PropertyPage = ({
-  id,
+  offerID,
   propertyPageOffer,
+  reviews,
   nearOffers,
   onLoadData
 }) => {
   useEffect(() => {
-    if (!propertyPageOffer || propertyPageOffer.id !== id) {
-      onLoadData(id);
+    if (!propertyPageOffer || propertyPageOffer.id !== offerID) {
+      onLoadData(offerID);
     }
   }, [propertyPageOffer]);
 
-  if (!propertyPageOffer || propertyPageOffer.id !== id) {
+  if (!propertyPageOffer || propertyPageOffer.id !== offerID) {
     return (
       <LoadingScreen />
     );
@@ -134,20 +136,23 @@ const PropertyPage = ({
 };
 
 PropertyPage.propTypes = {
-  id: PropTypes.number.isRequired,
+  offerID: PropTypes.number.isRequired,
   propertyPageOffer: offerPropTypes,
+  reviews: reviewsPropTypes,
   nearOffers: offersPropTypes,
   onLoadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   propertyPageOffer: state.propertyPageOffer,
+  reviews: state.reviews,
   nearOffers: state.offersInCurrentCity.slice(0, MAX_NEAR_OFFERS_COUNT)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(id) {
     dispatch(fetchPropertyPageOffer(id));
+    dispatch(fetchReviews(id));
   },
 });
 
