@@ -15,8 +15,8 @@ export const fetchOffers = () => (dispatch, _getState, api) => (
     .catch(() => { })
 );
 
-export const fetchPropertyPageOffer = (id) => (dispatch, _getState, api) => (
-  api.get(`${APIRoute.OFFERS}/${id}`)
+export const fetchPropertyPageOffer = (offerID) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.OFFERS}/${offerID}`)
     .then(({
       data
     }) => dispatch(ActionCreator.loadPropertyPageOffer(data)))
@@ -44,10 +44,23 @@ export const login = ({
     .catch(() => { })
 );
 
-export const fetchReviews = (id) => (dispatch, _getState, api) => (
-  api.get(`${APIRoute.REVIEWS}/${id}`)
+export const fetchReviews = (offerID) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.REVIEWS}/${offerID}`)
     .then(({
       data
     }) => dispatch(ActionCreator.loadReviews(data)))
+    .catch(() => { })
+);
+
+export const sendReview = ({
+  offerID,
+  rating,
+  review: comment
+}) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.REVIEWS}/${offerID}`, {
+    rating,
+    comment
+  })
+    .then(() => dispatch(fetchReviews(offerID)))
     .catch(() => { })
 );

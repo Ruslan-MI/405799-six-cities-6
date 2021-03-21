@@ -29,6 +29,9 @@ import {
   fetchReviews,
   fetchPropertyPageOffer
 } from "../../../store/api-actions";
+import {
+  AuthorizationStatus
+} from "../../../const";
 
 const MAX_NEAR_OFFERS_COUNT = 3;
 
@@ -36,6 +39,7 @@ const PropertyPage = ({
   offerID,
   propertyPageOffer,
   reviews,
+  authorizationStatus,
   nearOffers,
   onLoadData
 }) => {
@@ -123,7 +127,7 @@ const PropertyPage = ({
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 {reviews.length > 0 && <ReviewsList reviews={reviews} />}
-                <ReviewsForm />
+                {authorizationStatus === AuthorizationStatus.AUTH && <ReviewsForm offerID={offerID} />}
               </section>
             </div>
           </div>
@@ -139,6 +143,7 @@ PropertyPage.propTypes = {
   offerID: PropTypes.number.isRequired,
   propertyPageOffer: offerPropTypes,
   reviews: reviewsPropTypes,
+  authorizationStatus: PropTypes.string.isRequired,
   nearOffers: offersPropTypes,
   onLoadData: PropTypes.func.isRequired
 };
@@ -146,6 +151,7 @@ PropertyPage.propTypes = {
 const mapStateToProps = (state) => ({
   propertyPageOffer: state.propertyPageOffer,
   reviews: state.reviews,
+  authorizationStatus: state.authorizationStatus,
   nearOffers: state.offersInCurrentCity.slice(0, MAX_NEAR_OFFERS_COUNT)
 });
 
