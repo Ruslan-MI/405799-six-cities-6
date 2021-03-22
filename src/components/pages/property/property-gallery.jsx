@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const PropertyGallery = ({
-  images
+  images,
 }) => {
   return (
     <div className="property__gallery-container container">
@@ -16,7 +16,7 @@ const PropertyGallery = ({
 };
 
 PropertyGallery.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.string).isRequired
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default PropertyGallery;

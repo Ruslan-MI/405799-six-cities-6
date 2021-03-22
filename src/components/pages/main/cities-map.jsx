@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  connect
+  connect,
 } from "react-redux";
 import Map from "../../containers/map";
 import {
-  map as offersPropTypes
+  map as offersPropTypes,
 } from "../../../prop-types/offers-validation";
 
 const CitiesMap = ({
   offersInCurrentCity,
-  activeOfferID
+  activeOfferID,
 }) => {
   return (
     <section className="cities__map map">
@@ -21,16 +21,16 @@ const CitiesMap = ({
 
 CitiesMap.propTypes = {
   offersInCurrentCity: offersPropTypes,
-  activeOfferID: PropTypes.number
+  activeOfferID: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
   offersInCurrentCity: state.offersInCurrentCity,
-  activeOfferID: state.activeOfferID
+  activeOfferID: state.activeOfferID,
 });
 
 export {
-  CitiesMap
+  CitiesMap,
 };
 
 export default connect(mapStateToProps)(CitiesMap);

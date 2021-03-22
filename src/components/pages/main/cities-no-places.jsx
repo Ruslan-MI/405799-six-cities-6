@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  connect
+  connect,
 } from "react-redux";
 
 const CitiesNoPlaces = ({
-  currentCity
+  currentCity,
 }) => {
   return (
     <section className="cities__no-places">
@@ -18,15 +18,15 @@ const CitiesNoPlaces = ({
 };
 
 CitiesNoPlaces.propTypes = {
-  currentCity: PropTypes.string.isRequired
+  currentCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.currentCity
+  currentCity: state.currentCity,
 });
 
 export {
-  CitiesNoPlaces
+  CitiesNoPlaces,
 };
 
 export default connect(mapStateToProps)(CitiesNoPlaces);

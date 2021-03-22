@@ -1,21 +1,21 @@
 import React from "react";
 import Map from "../../containers/map";
 import {
-  map as offersPropTypes
+  map as offersPropTypes,
 } from "../../../prop-types/offers-validation";
 
 const PropertyMap = ({
-  nearOffers
+  nearbyOffers,
 }) => {
   return (
     <section className="property__map map">
-      <Map offers={nearOffers} />
+      <Map offers={nearbyOffers} />
     </section>
   );
 };
 
 PropertyMap.propTypes = {
-  nearOffers: offersPropTypes
+  nearbyOffers: offersPropTypes,
 };
 
 export default PropertyMap;

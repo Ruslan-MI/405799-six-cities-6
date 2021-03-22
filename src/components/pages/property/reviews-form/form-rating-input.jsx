@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 const FormRatingInput = ({
   rating,
   checked,
-  onChange
+  onChange,
 }) => {
   const {
     value,
-    title
+    title,
   } = rating;
 
   const handleChange = () => {
@@ -31,10 +31,10 @@ const FormRatingInput = ({
 FormRatingInput.propTypes = {
   rating: PropTypes.shape({
     value: PropTypes.number,
-    title: PropTypes.string
+    title: PropTypes.string,
   }),
   checked: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default FormRatingInput;

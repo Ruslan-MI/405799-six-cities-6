@@ -8,7 +8,7 @@ const placeCardPropTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   isPremium: PropTypes.bool.isRequired,
-  id: PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
 };
 
 const getPropertyPagePropTypes = () => {
@@ -21,9 +21,9 @@ const getPropertyPagePropTypes = () => {
     host: PropTypes.shape({
       avatarUrl: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired
+      isPro: PropTypes.bool.isRequired,
     }),
-    description: PropTypes.string.isRequired
+    description: PropTypes.string.isRequired,
   };
 
   delete types.previewImage;
@@ -33,19 +33,19 @@ const getPropertyPagePropTypes = () => {
 };
 
 export const placeCard = PropTypes.shape({
-  ...placeCardPropTypes
+  ...placeCardPropTypes,
 }).isRequired;
 
 export const placeCards = PropTypes.arrayOf(PropTypes.shape({
-  ...placeCardPropTypes
+  ...placeCardPropTypes,
 })).isRequired;
 
 export const propertyPage = PropTypes.shape({
-  ...getPropertyPagePropTypes()
+  ...getPropertyPagePropTypes(),
 });
 
 export const propertyPages = PropTypes.arrayOf(PropTypes.shape({
-  ...getPropertyPagePropTypes()
+  ...getPropertyPagePropTypes(),
 })).isRequired;
 
 export const map = PropTypes.arrayOf(PropTypes.shape({
@@ -53,11 +53,11 @@ export const map = PropTypes.arrayOf(PropTypes.shape({
     location: PropTypes.shape({
       latitude: PropTypes.number.isRequired,
       longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired
-    })
+      zoom: PropTypes.number.isRequired,
+    }),
   }),
   location: PropTypes.shape({
     latitude: PropTypes.number.isRequired,
     longitude: PropTypes.number.isRequired,
-  })
+  }),
 })).isRequired;

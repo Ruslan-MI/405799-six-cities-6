@@ -1,9 +1,9 @@
 import React, {
-  useEffect
+  useEffect,
 } from "react";
 import PropTypes from "prop-types";
 import {
-  connect
+  connect,
 } from "react-redux";
 import LoadingScreen from "../../containers/loading-screen";
 import Header from "../../containers/header";
@@ -12,16 +12,16 @@ import CitiesPlaces from "./cities-places/cities-places";
 import CitiesNoPlaces from "./cities-no-places";
 import CitiesMap from "./cities-map";
 import {
-  placeCards as offersPropTypes
+  placeCards as offersPropTypes,
 } from "../../../prop-types/offers-validation";
 import {
-  fetchOffers
+  fetchOffers,
 } from "../../../store/api-actions";
 
 const MainPage = ({
   offersInCurrentCity,
   isDataLoaded,
-  onLoadData
+  onLoadData,
 }) => {
   useEffect(() => {
     if (!isDataLoaded) {
@@ -63,7 +63,7 @@ const MainPage = ({
 MainPage.propTypes = {
   offersInCurrentCity: offersPropTypes,
   isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired
+  onLoadData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -78,7 +78,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {
-  MainPage
+  MainPage,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

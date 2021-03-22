@@ -1,9 +1,9 @@
 import browserHistory from "../utils/browser-history";
 import {
-  ActionType
+  ActionType,
 } from "../store/action";
 import {
-  AppRoute
+  AppRoute,
 } from "../const";
 
 export const redirect = (_store) => (next) => (action) => {

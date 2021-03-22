@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  connect
+  connect,
 } from "react-redux";
 import {
-  ActionCreator
+  ActionCreator,
 } from "../../../../store/action";
 
 const LocationsItem = ({
   city,
   currentCity,
-  onClick
+  onClick,
 }) => {
   const handleTabsItemClick = (evt) => {
     evt.preventDefault();
@@ -30,11 +30,11 @@ const LocationsItem = ({
 LocationsItem.propTypes = {
   city: PropTypes.string.isRequired,
   currentCity: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.currentCity
+  currentCity: state.currentCity,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -44,7 +44,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {
-  LocationsItem
+  LocationsItem,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LocationsItem);

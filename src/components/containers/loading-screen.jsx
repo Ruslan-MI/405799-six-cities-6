@@ -7,7 +7,7 @@ const LoadingScreen = () => {
       textAlign: `center`,
       fontWeight: `bolder`,
       fontSize: `50px`,
-      paddingTop: `150px`
+      paddingTop: `150px`,
     }}>Loading ...</p>
   );
 };

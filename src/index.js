@@ -2,34 +2,34 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {
   createStore,
-  applyMiddleware
+  applyMiddleware,
 } from "redux";
 import {
-  Provider
+  Provider,
 } from "react-redux";
 import {
-  composeWithDevTools
+  composeWithDevTools,
 } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import App from "./components/app";
 import {
-  reducer
+  reducer,
 } from "./store/reducer";
 import {
-  createAPI
+  createAPI,
 } from "./services/api";
 import {
-  ActionCreator
+  ActionCreator,
 } from "./store/action";
 import {
-  checkAuth
+  checkAuth,
 } from "./store/api-actions";
 import {
   AppRoute,
-  AuthorizationStatus
+  AuthorizationStatus,
 } from "./const";
 import {
-  redirect
+  redirect,
 } from "./store/redirect";
 
 const api = createAPI(() =>

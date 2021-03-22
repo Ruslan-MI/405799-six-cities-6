@@ -5,29 +5,29 @@ import FormRatingInput from "./form-rating-input";
 const ratings = [
   {
     value: 5,
-    title: `perfect`
+    title: `perfect`,
   },
   {
     value: 4,
-    title: `good`
+    title: `good`,
   },
   {
     value: 3,
-    title: `not bad`
+    title: `not bad`,
   },
   {
     value: 2,
-    title: `badly`
+    title: `badly`,
   },
   {
     value: 1,
-    title: `terribly`
+    title: `terribly`,
   }
 ];
 
 const FormRating = ({
   checkedRating,
-  onChange
+  onChange,
 }) => {
   return (
     <div className="reviews__rating-form form__rating">
@@ -39,7 +39,7 @@ const FormRating = ({
 
 FormRating.propTypes = {
   checkedRating: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default FormRating;

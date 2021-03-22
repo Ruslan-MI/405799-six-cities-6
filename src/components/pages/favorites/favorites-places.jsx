@@ -1,11 +1,11 @@
 import React from "react";
 import PlaceCard from "../../containers/place-card";
 import {
-  placeCards as offersPropTypes
+  placeCards as offersPropTypes,
 } from "../../../prop-types/offers-validation";
 
 const FavoritesPlaces = ({
-  favoriteOffersInCity
+  favoriteOffersInCity,
 }) => {
   return (
     <div className="favorites__places">
@@ -15,7 +15,7 @@ const FavoritesPlaces = ({
 };
 
 FavoritesPlaces.propTypes = {
-  favoriteOffersInCity: offersPropTypes
+  favoriteOffersInCity: offersPropTypes,
 };
 
 export default FavoritesPlaces;

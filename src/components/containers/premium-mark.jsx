@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const PremiumMark = ({
-  isPropertyPage = false
+  isPropertyPage = false,
 }) => {
   return (
     <div className={isPropertyPage ? `property__mark` : `place-card__mark`}>
@@ -12,7 +12,7 @@ const PremiumMark = ({
 };
 
 PremiumMark.propTypes = {
-  isPropertyPage: PropTypes.bool
+  isPropertyPage: PropTypes.bool,
 };
 
 export default PremiumMark;

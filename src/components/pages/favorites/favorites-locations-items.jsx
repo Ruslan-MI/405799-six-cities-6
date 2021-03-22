@@ -2,15 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import FavoritesPlaces from "./favorites-places";
 import {
-  getOffersInCity
+  getOffersInCity,
 } from "../../../utils/common";
 import {
-  placeCards as offersPropTypes
+  placeCards as offersPropTypes,
 } from "../../../prop-types/offers-validation";
 
 const FavoritesLocationsItems = ({
   city,
-  favoriteOffers
+  favoriteOffers,
 }) => {
   return (
     <li className="favorites__locations-items">
@@ -28,7 +28,7 @@ const FavoritesLocationsItems = ({
 
 FavoritesLocationsItems.propTypes = {
   city: PropTypes.string.isRequired,
-  favoriteOffers: offersPropTypes
+  favoriteOffers: offersPropTypes,
 };
 
 export default FavoritesLocationsItems;

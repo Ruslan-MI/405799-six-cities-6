@@ -1,30 +1,30 @@
 import React, {
-  useRef
+  useRef,
 } from "react";
 import {
-  Link
+  Link,
 } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
-  connect
+  connect,
 } from "react-redux";
 import {
-  login
+  login,
 } from "../../../store/api-actions";
 import Header from "../../containers/header";
 import {
-  ActionCreator
+  ActionCreator,
 } from "../../../store/action";
 import {
   CITIES,
-  AppRoute
+  AppRoute,
 } from "../../../const";
 
 const cityForLink = CITIES[3];
 
 const LoginPage = ({
   onSubmit,
-  onClick
+  onClick,
 }) => {
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -74,7 +74,7 @@ const LoginPage = ({
 
 LoginPage.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -83,11 +83,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onClick() {
     dispatch(ActionCreator.changeCity(cityForLink));
-  }
+  },
 });
 
 export {
-  LoginPage
+  LoginPage,
 };
 
 export default connect(null, mapDispatchToProps)(LoginPage);

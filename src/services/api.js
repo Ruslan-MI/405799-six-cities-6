@@ -5,7 +5,7 @@ const REQUEST_TIMEOUT = 5000;
 
 const HttpCode = {
   UNAUTHORIZED: 401,
-  NOT_FOUND: 404
+  NOT_FOUND: 404,
 };
 
 export const createAPI = (onUnauthorized, onNotFound) => {
@@ -19,7 +19,7 @@ export const createAPI = (onUnauthorized, onNotFound) => {
 
   const onFail = (err) => {
     const {
-      response
+      response,
     } = err;
 
     if (response.status === HttpCode.UNAUTHORIZED) {

@@ -1,17 +1,17 @@
 import React from "react";
 import {
-  connect
+  connect,
 } from "react-redux";
 import PlaceCard from "../../../containers/place-card";
 import {
-  sortOffers
+  sortOffers,
 } from "../../../../utils/common";
 import {
-  placeCards as offersPropTypes
+  placeCards as offersPropTypes,
 } from "../../../../prop-types/offers-validation";
 
 const PlacesList = ({
-  offersInCurrentCity
+  offersInCurrentCity,
 }) => (
   <div className="cities__places-list places__list tabs__content" >
     {offersInCurrentCity.map((offer) => <PlaceCard key={offer.id} offer={offer} isCitiesPlaceCard />)}
@@ -19,15 +19,15 @@ const PlacesList = ({
 );
 
 PlacesList.propTypes = {
-  offersInCurrentCity: offersPropTypes
+  offersInCurrentCity: offersPropTypes,
 };
 
 const mapStateToProps = (state) => ({
-  offersInCurrentCity: sortOffers(state.offersInCurrentCity, state.currentSortType)
+  offersInCurrentCity: sortOffers(state.offersInCurrentCity, state.currentSortType),
 });
 
 export {
-  PlacesList
+  PlacesList,
 };
 
 export default connect(mapStateToProps)(PlacesList);

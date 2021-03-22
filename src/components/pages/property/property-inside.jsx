@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const PropertyInside = ({
-  goods
+  goods,
 }) => {
   return (
     <div className="property__inside">

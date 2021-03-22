@@ -1,5 +1,5 @@
 import {
-  createBrowserHistory
+  createBrowserHistory,
 } from "history";
 
 const browserHistory = createBrowserHistory();

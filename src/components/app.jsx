@@ -2,7 +2,7 @@ import React from "react";
 import {
   Router as BrowserRouter,
   Switch,
-  Route
+  Route,
 } from "react-router-dom";
 import FavoritesPage from "./pages/favorites/favorites-page";
 import LoginPage from "./pages/login/login-page";
@@ -12,7 +12,7 @@ import PropertyPage from "./pages/property/property-page";
 import PrivateRoute from "./containers/private-route";
 import browserHistory from "../utils/browser-history";
 import {
-  AppRoute
+  AppRoute,
 } from "../const";
 
 const App = () => {

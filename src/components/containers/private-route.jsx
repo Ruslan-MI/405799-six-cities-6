@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import {
   Route,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 import {
-  connect
+  connect,
 } from "react-redux";
 import {
   AuthorizationStatus,
-  AppRoute
+  AppRoute,
 } from "../../const";
 
 
@@ -17,7 +17,7 @@ const PrivateRoute = ({
   render,
   path,
   exact,
-  authorizationStatus
+  authorizationStatus,
 }) => {
   return (
     <Route
@@ -46,7 +46,7 @@ const mapStateToProps = (state) => ({
 });
 
 export {
-  PrivateRoute
+  PrivateRoute,
 };
 
 export default connect(mapStateToProps)(PrivateRoute);

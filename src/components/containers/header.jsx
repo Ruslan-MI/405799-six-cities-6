@@ -1,18 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  connect
+  connect,
 } from "react-redux";
 import {
-  Link
+  Link,
 } from "react-router-dom";
 import {
-  AuthorizationStatus
+  AuthorizationStatus,
 } from "../../const";
 
 const Header = ({
   authorizationStatus,
-  userEmail
+  userEmail,
 }) => {
   return (
     <header className="header">
@@ -61,16 +61,16 @@ const Header = ({
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  userEmail: PropTypes.string.isRequired
+  userEmail: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
-  userEmail: state.userEmail
+  userEmail: state.userEmail,
 });
 
 export {
-  Header
+  Header,
 };
 
 export default connect(mapStateToProps)(Header);

@@ -1,17 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  connect
+  connect,
 } from "react-redux";
 import {
-  ActionCreator
+  ActionCreator,
 } from "../../../../../store/action";
 
 const PlacesOption = ({
   sortType,
   currentSortType,
   onClick,
-  onChange
+  onChange,
 }) => {
   const handlePlacesOptionClick = () => {
     onClick(sortType);
@@ -32,7 +32,7 @@ PlacesOption.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentSortType: state.currentSortType
+  currentSortType: state.currentSortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {
-  PlacesOption
+  PlacesOption,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlacesOption);

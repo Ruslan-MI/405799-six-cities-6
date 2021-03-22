@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const PropertyDescription = ({
-  description
+  description,
 }) => {
   return (
     <div className="property__description">
@@ -19,7 +19,7 @@ const PropertyDescription = ({
 };
 
 PropertyDescription.propTypes = {
-  description: PropTypes.string.isRequired
+  description: PropTypes.string.isRequired,
 };
 
 export default PropertyDescription;

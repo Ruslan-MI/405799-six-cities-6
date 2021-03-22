@@ -2,22 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 import PremiumMark from "./premium-mark";
 import {
-  Link
+  Link,
 } from "react-router-dom";
 import {
-  connect
+  connect,
 } from "react-redux";
 import {
-  ActionCreator
+  ActionCreator,
 } from "../../store/action";
 import {
-  getWidthForRating
+  getWidthForRating,
 } from "../../utils/common";
 import {
-  placeCard as offerPropTypes
+  placeCard as offerPropTypes,
 } from "../../prop-types/offers-validation";
 import {
-  AppRoute
+  AppRoute,
 } from "../../const";
 
 const PlaceCard = ({
@@ -26,7 +26,7 @@ const PlaceCard = ({
   onMouseLeave,
   isCitiesPlaceCard = false,
   isFavoriteCard = false,
-  isNearPlacesCard = false
+  isNearPlacesCard = false,
 }) => {
   const {
     isPremium,
@@ -36,7 +36,7 @@ const PlaceCard = ({
     rating,
     title,
     type,
-    id
+    id,
   } = offer;
 
   const handleMouseEnter = () => {
@@ -96,7 +96,7 @@ PlaceCard.propTypes = {
   onMouseLeave: PropTypes.func.isRequired,
   isCitiesPlaceCard: PropTypes.bool,
   isFavoriteCard: PropTypes.bool,
-  isNearPlacesCard: PropTypes.bool
+  isNearPlacesCard: PropTypes.bool,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -109,7 +109,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {
-  PlaceCard
+  PlaceCard,
 };
 
 export default connect(null, mapDispatchToProps)(PlaceCard);
