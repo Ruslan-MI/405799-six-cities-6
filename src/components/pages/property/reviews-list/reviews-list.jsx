@@ -1,11 +1,11 @@
 import React from "react";
 import ReviewsItem from "./reviews-item";
 import {
-  reviewsList as reviewsPropTypes
+  reviewsList as reviewsPropTypes,
 } from "../../../../prop-types/reviews-validation";
 
 const ReviewsList = ({
-  reviews
+  reviews,
 }) => {
   return (
     <ul className="reviews__list">
@@ -15,7 +15,7 @@ const ReviewsList = ({
 };
 
 ReviewsList.propTypes = {
-  reviews: reviewsPropTypes
+  reviews: reviewsPropTypes,
 };
 
 export default ReviewsList;

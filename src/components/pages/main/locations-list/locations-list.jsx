@@ -1,7 +1,7 @@
 import React from "react";
 import LocationsItem from "./locations-item";
 import {
-  CITIES
+  CITIES,
 } from "../../../../const";
 
 const LocationsList = () => {

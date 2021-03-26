@@ -1,4 +1,7 @@
 import dayjs from "dayjs";
+import {
+  SortType,
+} from "../const";
 
 export const getFavoriteOffers = (data) =>
   data.filter((item) => item.isFavorite);
@@ -53,4 +56,67 @@ export const sortRating = (pointA, pointB) => {
   }
 
   return 0;
+};
+
+export const sortOffers = (offers, sortType) => {
+  switch (sortType) {
+    case SortType.PRICE_LOW_TO_HIGH:
+      return offers.slice().sort(sortPriceLowToHigh);
+    case SortType.PRICE_HIGH_TO_LOW:
+      return offers.slice().sort(sortPriceHighToLow);
+    case SortType.TOP_RATED_FIRST:
+      return offers.slice().sort(sortRating);
+    default:
+      return offers;
+  }
+};
+
+export const adaptOfferToClient = (offer) => {
+  const adaptedOffer = {
+    ...offer,
+    host: {
+      ...offer.host,
+      avatarUrl: offer.host.avatar_url,
+      isPro: offer.host.is_pro,
+    },
+    isFavorite: offer.is_favorite,
+    isPremium: offer.is_premium,
+    maxAdults: offer.max_adults,
+    previewImage: offer.preview_image,
+  };
+
+  delete adaptedOffer.host.avatar_url;
+  delete adaptedOffer.host.is_pro;
+  delete adaptedOffer.is_favorite;
+  delete adaptedOffer.is_premium;
+  delete adaptedOffer.max_adults;
+  delete adaptedOffer.preview_image;
+
+  return adaptedOffer;
+};
+
+export const adaptReviewToClient = (review) => {
+  const adaptedReview = {
+    ...review,
+    user: {
+      ...review.user,
+      avatarUrl: review.user.avatar_url,
+      isPro: review.user.is_pro,
+    },
+  };
+
+  delete adaptedReview.user.avatar_url;
+  delete adaptedReview.user.is_pro;
+
+  return adaptedReview;
+};
+
+export const updateFavoriteOffer = (offers, updatedOffer) => {
+  const index = offers.findIndex((offer) => offer.id === updatedOffer.id);
+
+  return [
+    ...offers.slice(0, index),
+    updatedOffer,
+    ...offers.slice(index + 1)
+  ];
 };

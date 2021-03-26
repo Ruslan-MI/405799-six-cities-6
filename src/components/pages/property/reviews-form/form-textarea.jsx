@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const FormTextarea = ({
   value,
-  onChange
+  onChange,
 }) => {
   const handleReviewChange = (evt) => {
     onChange(evt.target.value);
@@ -18,7 +18,7 @@ const FormTextarea = ({
 
 FormTextarea.propTypes = {
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default FormTextarea;

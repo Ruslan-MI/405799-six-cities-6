@@ -1,51 +1,42 @@
 import React from "react";
 import {
-  BrowserRouter,
+  Router as BrowserRouter,
   Switch,
-  Route
+  Route,
 } from "react-router-dom";
-import FavoritesPage from "./pages/favorites/favorites-page";
+import FavoritesPageContaiter from "./pages/favorites/favorites-page-container";
 import LoginPage from "./pages/login/login-page";
-import MainPage from "./pages/main/main-page";
+import MainPageContainer from "./pages/main/main-page-container";
 import NotFoundPage from "./pages/not-found/not-found-page";
-import PropertyPage from "./pages/property/property-page";
+import PropertyPageContainer from "./pages/property/property-page-container";
+import PrivateRoute from "./containers/private-route";
+import browserHistory from "../utils/browser-history";
 import {
-  getOfferForID
-} from "../utils/common";
-import {
-  propertyPages as offersPropTypes
-} from "../prop-types/offers-validation";
+  AppRoute,
+} from "../const";
 
-const App = ({
-  offers
-}) => {
+const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path="/">
-          <MainPage />
+        <Route exact path={AppRoute.ROOT}>
+          <MainPageContainer />
         </Route>
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/favorites">
-          <FavoritesPage offers={offers} />
-        </Route>
-        <Route exact path="/offer/:id" render={({
+        <Route exact path={AppRoute.LOGIN} component={LoginPage} />
+        <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <FavoritesPageContaiter />} />
+        <Route exact path={`${AppRoute.OFFER}/:id`} render={({
           match: {
             params: {
               id
             }
           }
         }) =>
-          <PropertyPage offer={getOfferForID(offers, id)} offers={offers} />
+          <PropertyPageContainer offerID={Number(id)} />
         } />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
   );
-};
-
-App.propTypes = {
-  offers: offersPropTypes
 };
 
 export default App;

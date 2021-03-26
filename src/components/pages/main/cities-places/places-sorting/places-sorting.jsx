@@ -1,14 +1,14 @@
 import React, {
-  useState
+  useState,
 } from "react";
 import PropTypes from "prop-types";
 import {
-  connect
+  connect,
 } from "react-redux";
 import PlacesOptions from "./places-options";
 
 const PlacesSorting = ({
-  currentSortType
+  currentSortType,
 }) => {
   const [
     isPlacesOptionsOpened,
@@ -34,16 +34,16 @@ const PlacesSorting = ({
 };
 
 PlacesSorting.propTypes = {
-  currentSortType: PropTypes.string.isRequired
+  currentSortType: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentSortType: state.currentSortType
+  currentSortType: state.currentSortType,
 });
 
 export {
-  PlacesSorting
+  PlacesSorting,
 };
 
-export default connect(mapStateToProps, null)(PlacesSorting);
+export default connect(mapStateToProps)(PlacesSorting);
 

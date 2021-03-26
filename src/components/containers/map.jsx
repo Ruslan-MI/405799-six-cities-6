@@ -12,12 +12,12 @@ import "leaflet/dist/leaflet.css";
 
 const Map = ({
   offers,
-  activeOfferID = 0
+  activeOfferID = 0,
 }) => {
   const {
     latitude,
     longitude,
-    zoom
+    zoom,
   } = offers[0].city.location;
 
   const mapRef = useRef();
@@ -27,10 +27,10 @@ const Map = ({
     mapRef.current = leaflet.map(`map`, {
       center: {
         lat: latitude,
-        lng: longitude
+        lng: longitude,
       },
       zoom,
-      zoomControl: false
+      zoomControl: false,
     });
 
     leaflet
@@ -42,25 +42,25 @@ const Map = ({
     return () => {
       mapRef.current.remove();
     };
-  }, []);
+  }, [offers]);
 
   useEffect(() => {
     const markers = offers.map((offer) => {
       const {
         latitude: offerLatitude,
-        longitude: offerLongitude
+        longitude: offerLongitude,
       } = offer.location;
 
       const icon = leaflet.icon({
         iconUrl: `${activeOfferID === offer.id ? `img/pin-active.svg` : `img/pin.svg`}`,
-        iconSize: [27, 39]
+        iconSize: [27, 39],
       });
 
       return leaflet.marker({
         lat: offerLatitude,
-        lng: offerLongitude
+        lng: offerLongitude,
       }, {
-        icon
+        icon,
       });
     });
 
@@ -74,14 +74,14 @@ const Map = ({
 
   return (
     <div id="map" style={{
-      height: `100%`
+      height: `100%`,
     }} />
   );
 };
 
 Map.propTypes = {
   offers: offersPropTypes,
-  activeOfferID: PropTypes.number
+  activeOfferID: PropTypes.number,
 };
 
 export default Map;

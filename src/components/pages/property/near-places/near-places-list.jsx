@@ -1,21 +1,21 @@
 import React from "react";
 import PlaceCard from "../../../containers/place-card";
 import {
-  propertyPages as offersPropTypes
+  propertyPages as offersPropTypes,
 } from "../../../../prop-types/offers-validation";
 
 const NearPlacesList = ({
-  offers
+  nearbyOffers,
 }) => {
   return (
     <div className="near-places__list places__list">
-      {new Array(3).fill().map((item, i) => <PlaceCard key={i} offer={offers[i]} isNearPlacesCard />)}
+      {nearbyOffers.map((offer, i) => <PlaceCard key={i} offer={offer} isNearPlacesCard />)}
     </div>
   );
 };
 
 NearPlacesList.propTypes = {
-  offers: offersPropTypes
+  nearbyOffers: offersPropTypes,
 };
 
 export default NearPlacesList;

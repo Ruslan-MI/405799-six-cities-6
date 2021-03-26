@@ -1,31 +1,44 @@
 import React from "react";
+import PropTypes from "prop-types";
+import {
+  connect,
+} from "react-redux";
 import Header from "../../containers/header";
 import PropertyGallery from "./property-gallery";
 import PremiumMark from "../../containers/premium-mark";
 import PropertyInside from "./property-inside";
 import ReviewsList from "./reviews-list/reviews-list";
 import ReviewsForm from "./reviews-form/reviews-form";
-import PropertyMap from "./propertyMap";
+import PropertyMap from "./property-map";
 import NearPlaces from "./near-places/near-places";
+import PropertyDescription from "./property-description";
+import withLoad from "../../hoc/with-load";
 import {
-  getWidthForRating
+  getWidthForRating,
 } from "../../../utils/common";
 import {
   propertyPage as offerPropTypes,
-  propertyPages as offersPropTypes
+  propertyPages as offersPropTypes,
 } from "../../../prop-types/offers-validation";
-import PropertyDescription from "./property-description";
-import getReviews from "../../../mocks/reviews";
-
-const MAX_NEAR_OFFERS_COUNT = 3;
-
-const reviews = getReviews();
+import {
+  reviewsList as reviewsPropTypes,
+} from "../../../prop-types/reviews-validation";
+import {
+  AuthorizationStatus,
+} from "../../../const";
+import {
+  toggleFavoriteStatus,
+} from "../../../store/api-actions";
 
 const PropertyPage = ({
-  offer,
-  offers
+  propertyPageOffer,
+  reviews,
+  nearbyOffers,
+  authorizationStatus,
+  onFavoriteClick,
 }) => {
   const {
+    id,
     images,
     isPremium,
     title,
@@ -39,13 +52,19 @@ const PropertyPage = ({
     host: {
       avatarUrl,
       name,
-      isPro
+      isPro,
     },
-    description
-  } = offer;
+    description,
+  } = propertyPageOffer;
 
-  const nearOffers = offers.slice(0, MAX_NEAR_OFFERS_COUNT);
-  const isNearOffersAvailable = nearOffers.length > 0;
+  const isNearOffersAvailable = nearbyOffers.length > 0;
+
+  const handleFavoriteClick = () => {
+    onFavoriteClick({
+      id,
+      isFavorite,
+    });
+  };
 
   return (
     <div className="page">
@@ -58,7 +77,8 @@ const PropertyPage = ({
               {isPremium && <PremiumMark isPropertyPage />}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <button className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`} type="button">
+                <button className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`}
+                  onClick={handleFavoriteClick} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -98,21 +118,41 @@ const PropertyPage = ({
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 {reviews.length > 0 && <ReviewsList reviews={reviews} />}
-                <ReviewsForm />
+                {authorizationStatus === AuthorizationStatus.AUTH && <ReviewsForm offerID={id} />}
               </section>
             </div>
           </div>
-          {isNearOffersAvailable && <PropertyMap nearOffers={nearOffers} />}
+          {isNearOffersAvailable && <PropertyMap nearbyOffers={nearbyOffers} />}
         </section>
-        {isNearOffersAvailable && <NearPlaces offers={nearOffers} />}
+        {isNearOffersAvailable && <NearPlaces nearbyOffers={nearbyOffers} />}
       </main >
     </div >
   );
 };
 
 PropertyPage.propTypes = {
-  offer: offerPropTypes,
-  offers: offersPropTypes
+  propertyPageOffer: offerPropTypes,
+  reviews: reviewsPropTypes,
+  nearbyOffers: offersPropTypes,
+  authorizationStatus: PropTypes.string.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
 };
 
-export default PropertyPage;
+const mapStateToProps = (state) => ({
+  propertyPageOffer: state.propertyPageOffer,
+  reviews: state.reviews,
+  nearbyOffers: state.nearbyOffers,
+  authorizationStatus: state.authorizationStatus,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFavoriteClick(data) {
+    dispatch(toggleFavoriteStatus(data));
+  },
+});
+
+export {
+  PropertyPage,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withLoad(PropertyPage));

@@ -2,14 +2,14 @@ import React from "react";
 import {
   getWidthForRating,
   getDateTimeForReviewsTime,
-  getDateForReviewsTime
+  getDateForReviewsTime,
 } from "../../../../utils/common";
 import {
-  reviewsItem as reviewPropTypes
+  reviewsItem as reviewPropTypes,
 } from "../../../../prop-types/reviews-validation";
 
 const ReviewsItem = ({
-  review
+  review,
 }) => {
   const {
     rating,
@@ -17,8 +17,8 @@ const ReviewsItem = ({
     date,
     user: {
       avatarUrl,
-      name
-    }
+      name,
+    },
   } = review;
 
   return (
@@ -49,7 +49,7 @@ const ReviewsItem = ({
 };
 
 ReviewsItem.propTypes = {
-  review: reviewPropTypes
+  review: reviewPropTypes,
 };
 
 export default ReviewsItem;

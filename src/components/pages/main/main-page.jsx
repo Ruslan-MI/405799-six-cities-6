@@ -1,25 +1,26 @@
 import React from "react";
 import {
-  connect
+  connect,
 } from "react-redux";
 import Header from "../../containers/header";
 import LocationsList from "./locations-list/locations-list";
 import CitiesPlaces from "./cities-places/cities-places";
 import CitiesNoPlaces from "./cities-no-places";
-import CitiesMap from "./citiesMap";
+import CitiesMap from "./cities-map";
+import withLoad from "../../hoc/with-load";
 import {
-  placeCards as offersPropTypes
+  placeCards as offersPropTypes,
 } from "../../../prop-types/offers-validation";
 
 const MainPage = ({
-  currentOffers
+  offersInCurrentCity,
 }) => {
-  const isNoCurrentOffers = currentOffers.length === 0;
+  const isNoOffersInCurrentCity = offersInCurrentCity.length === 0;
 
   return (
     <div className="page page--gray page--main">
       <Header />
-      <main className={`page__main page__main--index ${isNoCurrentOffers ? `page__main--index-empty` : ``}`}>
+      <main className={`page__main page__main--index ${isNoOffersInCurrentCity ? `page__main--index-empty` : ``}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -27,10 +28,10 @@ const MainPage = ({
           </section>
         </div>
         <div className="cities">
-          <div className={`cities__places-container container ${isNoCurrentOffers ? `cities__places-container--empty` : ``}`}>
-            {isNoCurrentOffers ? <CitiesNoPlaces /> : <CitiesPlaces />}
+          <div className={`cities__places-container container ${isNoOffersInCurrentCity ? `cities__places-container--empty` : ``}`}>
+            {isNoOffersInCurrentCity ? <CitiesNoPlaces /> : <CitiesPlaces />}
             <div className="cities__right-section">
-              {isNoCurrentOffers || <CitiesMap />}
+              {isNoOffersInCurrentCity || <CitiesMap />}
             </div>
           </div>
         </div>
@@ -40,15 +41,15 @@ const MainPage = ({
 };
 
 MainPage.propTypes = {
-  currentOffers: offersPropTypes
+  offersInCurrentCity: offersPropTypes,
 };
 
 const mapStateToProps = (state) => ({
-  currentOffers: state.currentOffers,
+  offersInCurrentCity: state.offersInCurrentCity,
 });
 
 export {
-  MainPage
+  MainPage,
 };
 
-export default connect(mapStateToProps, null)(MainPage);
+export default connect(mapStateToProps)(withLoad(MainPage));

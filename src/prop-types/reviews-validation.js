@@ -6,10 +6,10 @@ export const reviewsItem = PropTypes.shape({
   date: PropTypes.string.isRequired,
   user: PropTypes.shape({
     avatarUrl: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  })
+    name: PropTypes.string.isRequired,
+  }),
 }).isRequired;
 
 export const reviewsList = PropTypes.arrayOf(PropTypes.shape({
-  ...reviewsItem
+  ...reviewsItem,
 })).isRequired;

@@ -1,55 +1,142 @@
 import {
   CITIES,
-  SortType
+  SortType,
+  AuthorizationStatus,
 } from "../const";
 import {
-  ActionType
+  ActionType,
 } from "./action";
 import {
-  getOffersInCity
+  adaptOfferToClient,
+  adaptReviewToClient,
+  getOffersInCity,
+  updateFavoriteOffer,
 } from "../utils/common";
-import getMockOffers from "../mocks/offers";
-
-const offers = getMockOffers();
-const initialCity = CITIES[0];
-const initialOffers = getOffersInCity(offers, initialCity);
-const initialSortType = SortType.POPULAR;
-const initialActiveOfferID = 0;
 
 const initialState = {
-  currentCity: initialCity,
-  currentOffers: initialOffers,
-  currentSortType: initialSortType,
-  activeOfferID: initialActiveOfferID
+  isOffersLoaded: false,
+  offers: [],
+  isPropertyPageOfferLoaded: false,
+  propertyPageOffer: null,
+  isReviewsLoaded: false,
+  reviews: [],
+  isNearbyOffersLoaded: false,
+  nearbyOffers: [],
+  isFavoriteOffersLoaded: false,
+  favoriteOffers: [],
+
+  authorizationStatus: AuthorizationStatus.VERIFIED,
+  currentCity: CITIES[0],
+  offersInCurrentCity: [],
+  currentSortType: SortType.POPULAR,
+  activeOfferID: 0,
+  userEmail: ``,
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.RUN_OFFERS_LOADING:
+      return {
+        ...state,
+        isOffersLoaded: false,
+      };
+    case ActionType.LOAD_OFFERS:
+      const offers = action.payload.map((offer) => adaptOfferToClient(offer));
+      return {
+        ...state,
+        offers,
+        offersInCurrentCity: getOffersInCity(offers, state.currentCity),
+        isOffersLoaded: true,
+      };
+    case ActionType.RUN_PROPERTY_PAGE_OFFER_LOADING:
+      return {
+        ...state,
+        isPropertyPageOfferLoaded: false,
+      };
+    case ActionType.LOAD_PROPERTY_PAGE_OFFER:
+      return {
+        ...state,
+        propertyPageOffer: adaptOfferToClient(action.payload),
+        isPropertyPageOfferLoaded: true,
+      };
+    case ActionType.RUN_REVIEWS_LOADING:
+      return {
+        ...state,
+        isReviewsLoaded: false,
+      };
+    case ActionType.LOAD_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload.map((review) => adaptReviewToClient(review)),
+        isReviewsLoaded: true,
+      };
+    case ActionType.RUN_NEARBY_OFFERS_LOADING:
+      return {
+        ...state,
+        isNearbyOffersLoaded: false,
+      };
+    case ActionType.LOAD_NEARBY_OFFERS:
+      return {
+        ...state,
+        nearbyOffers: action.payload.map((offer) => adaptOfferToClient(offer)),
+        isNearbyOffersLoaded: true,
+      };
+    case ActionType.RUN_FAVORITE_OFFERS_LOADING:
+      return {
+        ...state,
+        isFavoriteOffersLoaded: false,
+      };
+    case ActionType.LOAD_FAVORITE_OFFERS:
+      return {
+        ...state,
+        favoriteOffers: action.payload.map((offer) => adaptOfferToClient(offer)),
+        isFavoriteOffersLoaded: true,
+      };
+    case ActionType.UPDATE_FAVORITE_STATUS:
+      const adaptedPayload = adaptOfferToClient(action.payload);
+      return {
+        ...state,
+        favoriteOffers: updateFavoriteOffer(state.favoriteOffers, adaptedPayload),
+        offers: updateFavoriteOffer(state.offers, adaptedPayload),
+        offersInCurrentCity: updateFavoriteOffer(state.offersInCurrentCity, adaptedPayload),
+        propertyPageOffer: adaptedPayload,
+        nearbyOffers: updateFavoriteOffer(state.nearbyOffers, adaptedPayload),
+      };
+
     case ActionType.CHANGE_CITY:
       return {
         ...state,
         currentCity: action.payload,
-        currentOffers: getOffersInCity(offers, action.payload)
-      };
-    case ActionType.UPDATE_OFFERS:
-      return {
-        ...state,
-        currentOffers: action.payload
+        offersInCurrentCity: getOffersInCity(state.offers, action.payload),
       };
     case ActionType.CHANGE_SORT_TYPE:
       return {
         ...state,
-        currentSortType: action.payload
+        currentSortType: action.payload,
       };
+
+
     case ActionType.CHANGE_ACTIVE_OFFER_ID:
       return {
         ...state,
-        activeOfferID: action.payload
+        activeOfferID: action.payload,
       };
     case ActionType.RESET_ACTIVE_OFFER_ID:
       return {
         ...state,
-        activeOfferID: initialActiveOfferID
+        activeOfferID: initialState.ActiveOfferID,
+      };
+
+
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
+    case ActionType.CHANGE_USER_EMAIL:
+      return {
+        ...state,
+        userEmail: action.payload,
       };
     default:
       return state;
