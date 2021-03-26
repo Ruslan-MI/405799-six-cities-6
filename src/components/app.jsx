@@ -4,11 +4,11 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import FavoritesPage from "./pages/favorites/favorites-page";
+import FavoritesPageContaiter from "./pages/favorites/favorites-page-container";
 import LoginPage from "./pages/login/login-page";
-import MainPage from "./pages/main/main-page";
+import MainPageContainer from "./pages/main/main-page-container";
 import NotFoundPage from "./pages/not-found/not-found-page";
-import PropertyPage from "./pages/property/property-page";
+import PropertyPageContainer from "./pages/property/property-page-container";
 import PrivateRoute from "./containers/private-route";
 import browserHistory from "../utils/browser-history";
 import {
@@ -20,10 +20,10 @@ const App = () => {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainPage />
+          <MainPageContainer />
         </Route>
         <Route exact path={AppRoute.LOGIN} component={LoginPage} />
-        <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <FavoritesPage />} />
+        <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <FavoritesPageContaiter />} />
         <Route exact path={`${AppRoute.OFFER}/:id`} render={({
           match: {
             params: {
@@ -31,7 +31,7 @@ const App = () => {
             }
           }
         }) =>
-          <PropertyPage offerID={Number(id)} />
+          <PropertyPageContainer offerID={Number(id)} />
         } />
         <Route component={NotFoundPage} />
       </Switch>

@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../containers/header";
 import Footer from "../../containers/footer";
 import FavoritesList from "./favorites-list";
+import withLoad from "../../hoc/with-load";
 
 const FavoritesPage = () => {
   return (
@@ -19,4 +20,4 @@ const FavoritesPage = () => {
   );
 };
 
-export default FavoritesPage;
+export default withLoad(FavoritesPage);

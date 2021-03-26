@@ -36,7 +36,7 @@ const api = createAPI(() =>
   store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)), () =>
   store.dispatch(ActionCreator.redirectToRoute(AppRoute.NOT_FOUND)));
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)), applyMiddleware(redirect)));
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api), redirect)));
 
 store.dispatch(checkAuth());
 
