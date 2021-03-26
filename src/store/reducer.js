@@ -10,6 +10,7 @@ import {
   adaptOfferToClient,
   adaptReviewToClient,
   getOffersInCity,
+  updateFavoriteOffer,
 } from "../utils/common";
 
 const initialState = {
@@ -90,6 +91,16 @@ export const reducer = (state = initialState, action) => {
         ...state,
         favoriteOffers: action.payload.map((offer) => adaptOfferToClient(offer)),
         isFavoriteOffersLoaded: true,
+      };
+    case ActionType.UPDATE_FAVORITE_STATUS:
+      const adaptedPayload = adaptOfferToClient(action.payload);
+      return {
+        ...state,
+        favoriteOffers: updateFavoriteOffer(state.favoriteOffers, adaptedPayload),
+        offers: updateFavoriteOffer(state.offers, adaptedPayload),
+        offersInCurrentCity: updateFavoriteOffer(state.offersInCurrentCity, adaptedPayload),
+        propertyPageOffer: adaptedPayload,
+        nearbyOffers: updateFavoriteOffer(state.nearbyOffers, adaptedPayload),
       };
 
     case ActionType.CHANGE_CITY:

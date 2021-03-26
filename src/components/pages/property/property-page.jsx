@@ -26,12 +26,16 @@ import {
 import {
   AuthorizationStatus,
 } from "../../../const";
+import {
+  toggleFavoriteStatus,
+} from "../../../store/api-actions";
 
 const PropertyPage = ({
   propertyPageOffer,
   reviews,
   nearbyOffers,
   authorizationStatus,
+  onFavoriteClick,
 }) => {
   const {
     id,
@@ -55,6 +59,13 @@ const PropertyPage = ({
 
   const isNearOffersAvailable = nearbyOffers.length > 0;
 
+  const handleFavoriteClick = () => {
+    onFavoriteClick({
+      id,
+      isFavorite,
+    });
+  };
+
   return (
     <div className="page">
       <Header />
@@ -66,7 +77,8 @@ const PropertyPage = ({
               {isPremium && <PremiumMark isPropertyPage />}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <button className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`} type="button">
+                <button className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`}
+                  onClick={handleFavoriteClick} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -123,6 +135,7 @@ PropertyPage.propTypes = {
   reviews: reviewsPropTypes,
   nearbyOffers: offersPropTypes,
   authorizationStatus: PropTypes.string.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -132,8 +145,14 @@ const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onFavoriteClick(data) {
+    dispatch(toggleFavoriteStatus(data));
+  },
+});
+
 export {
   PropertyPage,
 };
 
-export default connect(mapStateToProps)(withLoad(PropertyPage));
+export default connect(mapStateToProps, mapDispatchToProps)(withLoad(PropertyPage));

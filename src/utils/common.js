@@ -110,3 +110,13 @@ export const adaptReviewToClient = (review) => {
 
   return adaptedReview;
 };
+
+export const updateFavoriteOffer = (offers, updatedOffer) => {
+  const index = offers.findIndex((offer) => offer.id === updatedOffer.id);
+
+  return [
+    ...offers.slice(0, index),
+    updatedOffer,
+    ...offers.slice(index + 1)
+  ];
+};

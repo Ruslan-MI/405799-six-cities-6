@@ -7,6 +7,11 @@ import {
   APIRoute,
 } from "../const";
 
+const IsFavoriteChangeCommand = {
+  ADD: `1`,
+  REMOVE: `0`,
+};
+
 export const fetchOffers = () => (dispatch, _getState, api) => {
   dispatch(ActionCreator.runOffersLoading());
   api.get(APIRoute.OFFERS)
@@ -64,6 +69,17 @@ export const fetchFavoriteOffers = () => (dispatch, _getState, api) => {
     .then(({
       data,
     }) => dispatch(ActionCreator.loadFavoriteOffers(data)))
+    .catch(() => { });
+};
+
+export const toggleFavoriteStatus = ({
+  id: offerID,
+  isFavorite,
+}) => (dispatch, _getState, api) => {
+  api.post(`${APIRoute.FAVORITE}/${offerID}/${isFavorite ? IsFavoriteChangeCommand.REMOVE : IsFavoriteChangeCommand.ADD}`)
+    .then(({
+      data
+    }) => dispatch(ActionCreator.updateFavoriteStatus(data)))
     .catch(() => { });
 };
 

@@ -9,6 +9,7 @@ export const ActionType = {
   LOAD_NEARBY_OFFERS: `data/loadNearbyOffers`,
   RUN_FAVORITE_OFFERS_LOADING: `data/runFavoriteOffersLoading`,
   LOAD_FAVORITE_OFFERS: `data/loadFavoriteOffers`,
+  UPDATE_FAVORITE_STATUS: `data/updateFavoriteStatus`,
 
   CHANGE_CITY: `mainPage/changeCity`,
   CHANGE_SORT_TYPE: `mainPage/changeSortType`,
@@ -57,6 +58,10 @@ export const ActionCreator = {
   loadFavoriteOffers: (favoriteOffers) => ({
     type: ActionType.LOAD_FAVORITE_OFFERS,
     payload: favoriteOffers,
+  }),
+  updateFavoriteStatus: (offer) => ({
+    type: ActionType.UPDATE_FAVORITE_STATUS,
+    payload: offer,
   }),
 
   changeCity: (data) => ({
