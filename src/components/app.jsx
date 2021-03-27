@@ -22,7 +22,7 @@ const App = () => {
         <Route exact path={AppRoute.ROOT}>
           <MainPageContainer />
         </Route>
-        <Route exact path={AppRoute.LOGIN} component={LoginPage} />
+        <PrivateRoute exact path={AppRoute.LOGIN} render={() => <LoginPage />} />
         <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <FavoritesPageContaiter />} />
         <Route exact path={`${AppRoute.OFFER}/:id`} render={({
           match: {

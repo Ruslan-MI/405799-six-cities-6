@@ -1,6 +1,21 @@
 import {
-  ActionCreator,
-} from "./action";
+  runOffersLoading,
+  loadOffers,
+  runPropertyPageOfferLoading,
+  loadPropertyPageOffer,
+  runReviewsLoading,
+  loadReviews,
+  runNearbyOffersLoading,
+  loadNearbyOffers,
+  runFavoriteOffersLoading,
+  loadFavoriteOffers,
+  updateFavoriteStatus,
+} from "./actions/data";
+import {
+  changeUserData,
+  redirectToRoute,
+  requireAuthorization,
+} from "./actions/user";
 import {
   AuthorizationStatus,
   AppRoute,
@@ -13,29 +28,29 @@ const IsFavoriteChangeCommand = {
 };
 
 export const fetchOffers = () => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.runOffersLoading());
+  dispatch(runOffersLoading());
   api.get(APIRoute.OFFERS)
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadOffers(data)))
+    }) => dispatch(loadOffers(data)))
     .catch(() => { });
 };
 
 export const fetchPropertyPageOffer = (offerID) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.runPropertyPageOfferLoading());
+  dispatch(runPropertyPageOfferLoading());
   api.get(`${APIRoute.OFFERS}/${offerID}`)
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadPropertyPageOffer(data)))
+    }) => dispatch(loadPropertyPageOffer(data)))
     .catch(() => { });
 };
 
 export const fetchReviews = (offerID) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.runReviewsLoading());
+  dispatch(runReviewsLoading());
   api.get(`${APIRoute.REVIEWS}/${offerID}`)
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadReviews(data)))
+    }) => dispatch(loadReviews(data)))
     .catch(() => { });
 };
 
@@ -50,25 +65,25 @@ export const sendReview = ({
   })
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadReviews(data)))
+    }) => dispatch(loadReviews(data)))
     .catch(() => { })
 );
 
 export const fetchNearbyOffers = (offerID) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.runNearbyOffersLoading());
+  dispatch(runNearbyOffersLoading());
   api.get(`${APIRoute.OFFERS}/${offerID}${APIRoute.NEARBY}`)
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadNearbyOffers(data)))
+    }) => dispatch(loadNearbyOffers(data)))
     .catch(() => { });
 };
 
 export const fetchFavoriteOffers = () => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.runFavoriteOffersLoading());
+  dispatch(runFavoriteOffersLoading());
   api.get(APIRoute.FAVORITE)
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadFavoriteOffers(data)))
+    }) => dispatch(loadFavoriteOffers(data)))
     .catch(() => { });
 };
 
@@ -79,14 +94,16 @@ export const toggleFavoriteStatus = ({
   api.post(`${APIRoute.FAVORITE}/${offerID}/${isFavorite ? IsFavoriteChangeCommand.REMOVE : IsFavoriteChangeCommand.ADD}`)
     .then(({
       data
-    }) => dispatch(ActionCreator.updateFavoriteStatus(data)))
+    }) => dispatch(updateFavoriteStatus(data)))
     .catch(() => { });
 };
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then((response) => dispatch(ActionCreator.changeUserEmail(response.data.email)))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({
+      data
+    }) => dispatch(changeUserData(data)))
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .catch(() => { })
 );
 
@@ -98,14 +115,16 @@ export const login = ({
     email,
     password,
   })
-    .then((response) => dispatch(ActionCreator.changeUserEmail(response.data.email)))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.FAVORITES)))
+    .then(({
+      data
+    }) => dispatch(changeUserData(data)))
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(redirectToRoute(AppRoute.FAVORITES)))
     .catch(() => { })
 );
 
 export const logout = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGOUT)
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)))
     .catch(() => { })
 );

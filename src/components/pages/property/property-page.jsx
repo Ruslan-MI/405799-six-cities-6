@@ -12,7 +12,7 @@ import ReviewsForm from "./reviews-form/reviews-form";
 import PropertyMap from "./property-map";
 import NearPlaces from "./near-places/near-places";
 import PropertyDescription from "./property-description";
-import withLoad from "../../hoc/with-load";
+import withLoad from "../../hocs/with-load";
 import {
   getWidthForRating,
 } from "../../../utils/common";
@@ -57,13 +57,16 @@ const PropertyPage = ({
     description,
   } = propertyPageOffer;
 
+  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
   const isNearOffersAvailable = nearbyOffers.length > 0;
 
   const handleFavoriteClick = () => {
-    onFavoriteClick({
-      id,
-      isFavorite,
-    });
+    if (isAuthorized) {
+      onFavoriteClick({
+        id,
+        isFavorite,
+      });
+    }
   };
 
   return (
@@ -118,7 +121,7 @@ const PropertyPage = ({
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 {reviews.length > 0 && <ReviewsList reviews={reviews} />}
-                {authorizationStatus === AuthorizationStatus.AUTH && <ReviewsForm offerID={id} />}
+                {isAuthorized && <ReviewsForm offerID={id} />}
               </section>
             </div>
           </div>

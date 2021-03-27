@@ -4,8 +4,8 @@ import {
   connect,
 } from "react-redux";
 import {
-  ActionCreator,
-} from "../../../../../store/action";
+  changeSortType,
+} from "../../../../../store/actions/main-page";
 
 const PlacesOption = ({
   sortType,
@@ -13,13 +13,18 @@ const PlacesOption = ({
   onClick,
   onChange,
 }) => {
+  const isCurrentSortType = currentSortType === sortType;
+
   const handlePlacesOptionClick = () => {
-    onClick(sortType);
+    if (!isCurrentSortType) {
+      onClick(sortType);
+    }
+
     onChange();
   };
 
   return (
-    <li className={`places__option ${currentSortType === sortType ? `places__option--active` : ``}`} tabIndex="0"
+    <li className={`places__option ${isCurrentSortType ? `places__option--active` : ``}`} tabIndex="0"
       onClick={handlePlacesOptionClick}>{sortType}</li>
   );
 };
@@ -37,7 +42,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onClick(sortType) {
-    dispatch(ActionCreator.changeSortType(sortType));
+    dispatch(changeSortType(sortType));
   },
 });
 

@@ -19,8 +19,9 @@ import {
   createAPI,
 } from "./services/api";
 import {
-  ActionCreator,
-} from "./store/action";
+  requireAuthorization,
+  redirectToRoute,
+} from "./store/actions/user";
 import {
   checkAuth,
 } from "./store/api-actions";
@@ -33,8 +34,8 @@ import {
 } from "./store/redirect";
 
 const api = createAPI(() =>
-  store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)), () =>
-  store.dispatch(ActionCreator.redirectToRoute(AppRoute.NOT_FOUND)));
+  store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)), () =>
+  store.dispatch(redirectToRoute(AppRoute.NOT_FOUND)));
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api), redirect)));
 

@@ -111,6 +111,19 @@ export const adaptReviewToClient = (review) => {
   return adaptedReview;
 };
 
+export const adaptAuthInfoToClient = (data) => {
+  const adaptedAuthInfo = {
+    ...data,
+    avatarUrl: data.avatar_url,
+    isPro: data.is_pro,
+  };
+
+  delete adaptedAuthInfo.avatar_url;
+  delete adaptedAuthInfo.is_pro;
+
+  return adaptedAuthInfo;
+};
+
 export const updateFavoriteOffer = (offers, updatedOffer) => {
   const index = offers.findIndex((offer) => offer.id === updatedOffer.id);
 

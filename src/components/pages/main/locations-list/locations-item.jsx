@@ -4,22 +4,27 @@ import {
   connect,
 } from "react-redux";
 import {
-  ActionCreator,
-} from "../../../../store/action";
+  changeCity,
+} from "../../../../store/actions/main-page";
 
 const LocationsItem = ({
   city,
   currentCity,
   onClick,
 }) => {
+  const isCurrentCity = currentCity === city;
+
   const handleTabsItemClick = (evt) => {
     evt.preventDefault();
-    onClick(city);
+
+    if (!isCurrentCity) {
+      onClick(city);
+    }
   };
 
   return (
     <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${currentCity === city ? `tabs__item--active` : ``}`} href="#"
+      <a className={`locations__item-link tabs__item ${isCurrentCity ? `tabs__item--active` : ``}`} href="#"
         onClick={handleTabsItemClick}>
         <span>{city}</span>
       </a>
@@ -39,7 +44,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onClick(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(changeCity(city));
   },
 });
 

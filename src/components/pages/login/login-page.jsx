@@ -13,8 +13,8 @@ import {
 } from "../../../store/api-actions";
 import Header from "../../containers/header";
 import {
-  ActionCreator,
-} from "../../../store/action";
+  changeCity,
+} from "../../../store/actions/main-page";
 import {
   CITIES,
   AppRoute,
@@ -40,7 +40,7 @@ const LoginPage = ({
 
   return (
     <div className="page page--gray page--login">
-      <Header />
+      <Header isLoginPage />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(login(authData));
   },
   onClick() {
-    dispatch(ActionCreator.changeCity(cityForLink));
+    dispatch(changeCity(cityForLink));
   },
 });
 

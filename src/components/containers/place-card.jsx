@@ -8,8 +8,9 @@ import {
   connect,
 } from "react-redux";
 import {
-  ActionCreator,
-} from "../../store/action";
+  changeActiveOfferID,
+  resetActiveOfferID,
+} from "../../store/actions/place-card";
 import {
   getWidthForRating,
 } from "../../utils/common";
@@ -18,6 +19,7 @@ import {
 } from "../../prop-types/offers-validation";
 import {
   AppRoute,
+  AuthorizationStatus,
 } from "../../const";
 import {
   toggleFavoriteStatus,
@@ -25,12 +27,13 @@ import {
 
 const PlaceCard = ({
   offer,
-  onMouseEnter,
-  onMouseLeave,
-  onFavoriteClick,
   isCitiesPlaceCard = false,
   isFavoriteCard = false,
   isNearPlacesCard = false,
+  authorizationStatus,
+  onMouseEnter,
+  onMouseLeave,
+  onFavoriteClick,
 }) => {
   const {
     isPremium,
@@ -43,6 +46,8 @@ const PlaceCard = ({
     id,
   } = offer;
 
+  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
   const handleMouseEnter = () => {
     onMouseEnter(id);
   };
@@ -52,10 +57,12 @@ const PlaceCard = ({
   };
 
   const handleFavoriteClick = () => {
-    onFavoriteClick({
-      id,
-      isFavorite,
-    });
+    if (isAuthorized) {
+      onFavoriteClick({
+        id,
+        isFavorite,
+      });
+    }
   };
 
   return (
@@ -104,20 +111,25 @@ const PlaceCard = ({
 
 PlaceCard.propTypes = {
   offer: offerPropTypes,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
-  onFavoriteClick: PropTypes.func.isRequired,
   isCitiesPlaceCard: PropTypes.bool,
   isFavoriteCard: PropTypes.bool,
   isNearPlacesCard: PropTypes.bool,
+  authorizationStatus: PropTypes.string.isRequired,
+  onMouseEnter: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onMouseEnter(id) {
-    dispatch(ActionCreator.changeActiveOfferID(id));
+    dispatch(changeActiveOfferID(id));
   },
   onMouseLeave() {
-    dispatch(ActionCreator.resetActiveOfferID());
+    dispatch(resetActiveOfferID());
   },
   onFavoriteClick(data) {
     dispatch(toggleFavoriteStatus(data));
@@ -128,4 +140,4 @@ export {
   PlaceCard,
 };
 
-export default connect(null, mapDispatchToProps)(PlaceCard);
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);

@@ -2,13 +2,13 @@ import React from 'react';
 import LoadingScreen from "../containers/loading-screen";
 
 const withLoad = (Component) => {
-  const fn = ({
+  const withLoadInnerFunction = ({
     isDataLoaded,
     ...props
   }) => {
     return (isDataLoaded && <Component {...props} />) || <LoadingScreen />;
   };
-  return fn;
+  return withLoadInnerFunction;
 };
 
 export default withLoad;
