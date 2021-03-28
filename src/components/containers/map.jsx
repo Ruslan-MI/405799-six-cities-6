@@ -1,11 +1,11 @@
 import React, {
   useEffect,
-  useRef
+  useRef,
 } from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import {
-  map as offersPropTypes
+  map as offersPropTypes,
 } from "../../prop-types/offers-validation";
 
 import "leaflet/dist/leaflet.css";

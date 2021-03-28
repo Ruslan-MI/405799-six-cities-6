@@ -2,6 +2,9 @@ import dayjs from "dayjs";
 import {
   SortType,
 } from "../const";
+import {
+  toast,
+} from "./toast/toast";
 
 export const getFavoriteCities = (data) =>
   [...new Set(data.map((item) => item.city.name))];
@@ -77,4 +80,8 @@ export const updateFavoriteOffer = (offers, updatedOffer) => {
     updatedOffer,
     ...offers.slice(index + 1)
   ];
+};
+
+export const toastAddFavoritesNoAuthMessage = () => {
+  toast(`Authorization is required to add offers to favorites`);
 };

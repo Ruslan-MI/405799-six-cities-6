@@ -17,6 +17,7 @@ import {
 } from "../../store/actions/place-card";
 import {
   getWidthForRating,
+  toastAddFavoritesNoAuthMessage,
 } from "../../utils/common";
 import {
   placeCard as offerPropTypes,
@@ -73,7 +74,10 @@ const PlaceCard = ({
         id,
         isFavorite,
       }));
+      return;
     }
+
+    toastAddFavoritesNoAuthMessage();
   };
 
   const handleImageClick = (evt) => {

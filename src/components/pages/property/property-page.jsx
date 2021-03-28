@@ -15,6 +15,7 @@ import PropertyDescription from "./property-description";
 import withLoad from "../../hocs/with-load";
 import {
   getWidthForRating,
+  toastAddFavoritesNoAuthMessage,
 } from "../../../utils/common";
 import {
   AuthorizationStatus,
@@ -66,7 +67,10 @@ const PropertyPage = () => {
         id,
         isFavorite,
       }));
+      return;
     }
+
+    toastAddFavoritesNoAuthMessage();
   };
 
   return (
