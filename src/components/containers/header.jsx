@@ -1,4 +1,6 @@
-import React from "react";
+import React, {
+  memo,
+} from "react";
 import PropTypes from "prop-types";
 import {
   useSelector,
@@ -93,4 +95,4 @@ Header.propTypes = {
   isFavoritesPage: PropTypes.bool,
 };
 
-export default Header;
+export default memo(Header);

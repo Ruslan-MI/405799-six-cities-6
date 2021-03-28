@@ -1,4 +1,6 @@
-import React from "react";
+import React, {
+  memo,
+} from "react";
 import PropTypes from "prop-types";
 
 const FormTextarea = ({
@@ -21,4 +23,4 @@ FormTextarea.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default FormTextarea;
+export default memo(FormTextarea);

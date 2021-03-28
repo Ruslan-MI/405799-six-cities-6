@@ -1,4 +1,6 @@
-import React from "react";
+import React, {
+  memo,
+} from "react";
 import {
   useSelector,
 } from "react-redux";
@@ -24,4 +26,4 @@ const CitiesPlaces = () => {
   );
 };
 
-export default CitiesPlaces;
+export default memo(CitiesPlaces);

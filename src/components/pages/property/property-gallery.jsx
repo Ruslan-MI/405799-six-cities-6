@@ -1,4 +1,6 @@
-import React from "react";
+import React, {
+  memo,
+} from "react";
 import PropTypes from "prop-types";
 
 const PropertyGallery = ({
@@ -19,4 +21,4 @@ PropertyGallery.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default PropertyGallery;
+export default memo(PropertyGallery);

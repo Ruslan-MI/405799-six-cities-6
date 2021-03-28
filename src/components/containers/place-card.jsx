@@ -1,4 +1,7 @@
-import React from "react";
+import React, {
+  memo,
+  useMemo,
+} from "react";
 import PropTypes from "prop-types";
 import PremiumMark from "./premium-mark";
 import {
@@ -113,7 +116,7 @@ const PlaceCard = ({
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
+          {useMemo(() => <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>, [])}
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -128,4 +131,4 @@ PlaceCard.propTypes = {
   isNearPlacesCard: PropTypes.bool,
 };
 
-export default PlaceCard;
+export default memo(PlaceCard);

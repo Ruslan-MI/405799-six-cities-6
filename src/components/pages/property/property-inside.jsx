@@ -1,4 +1,6 @@
-import React from "react";
+import React, {
+  memo,
+} from "react";
 import PropTypes from "prop-types";
 
 const PropertyInside = ({
@@ -18,4 +20,4 @@ PropertyInside.propTypes = {
   goods: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default PropertyInside;
+export default memo(PropertyInside);

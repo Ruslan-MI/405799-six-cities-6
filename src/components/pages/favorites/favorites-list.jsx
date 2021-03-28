@@ -1,4 +1,6 @@
-import React from "react";
+import React, {
+  memo,
+} from "react";
 import {
   useSelector,
 } from "react-redux";
@@ -25,4 +27,4 @@ const FavoritesList = () => {
   );
 };
 
-export default FavoritesList;
+export default memo(FavoritesList);

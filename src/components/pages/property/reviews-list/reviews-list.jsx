@@ -1,4 +1,6 @@
-import React from "react";
+import React, {
+  memo,
+} from "react";
 import ReviewsItem from "./reviews-item";
 import {
   reviewsList as reviewsPropTypes,
@@ -18,4 +20,4 @@ ReviewsList.propTypes = {
   reviews: reviewsPropTypes,
 };
 
-export default ReviewsList;
+export default memo(ReviewsList);

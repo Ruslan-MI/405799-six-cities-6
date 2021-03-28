@@ -1,4 +1,7 @@
-import React from "react";
+import React, {
+  memo,
+  useMemo,
+} from "react";
 import PropTypes from "prop-types";
 import FavoritesPlaces from "./favorites-places";
 import {
@@ -7,18 +10,36 @@ import {
 import {
   placeCards as offersPropTypes,
 } from "../../../prop-types/offers-validation";
+import {
+  Link,
+} from "react-router-dom";
+import {
+  AppRoute,
+} from "../../../const";
+import {
+  useDispatch,
+} from "react-redux";
+import {
+  changeCurrentCity,
+} from "../../../store/actions/main-page";
 
 const FavoritesLocationsItems = ({
   city,
   favoriteOffers,
 }) => {
+  const dispatch = useDispatch();
+
+  const handleLinkClick = () => {
+    dispatch(changeCurrentCity(city));
+  };
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="#">
+          {useMemo(() => (<Link className="locations__item-link" to={AppRoute.ROOT} onClick={handleLinkClick}>
             <span>{city}</span>
-          </a>
+          </Link>), [])}
         </div>
       </div>
       <FavoritesPlaces favoriteOffersInCity={getOffersInCity(favoriteOffers, city)} />
@@ -31,4 +52,4 @@ FavoritesLocationsItems.propTypes = {
   favoriteOffers: offersPropTypes,
 };
 
-export default FavoritesLocationsItems;
+export default memo(FavoritesLocationsItems);

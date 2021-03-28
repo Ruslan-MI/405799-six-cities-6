@@ -1,4 +1,6 @@
-import React from "react";
+import React, {
+  memo,
+} from "react";
 import PlaceCard from "../../containers/place-card";
 import {
   placeCards as offersPropTypes,
@@ -18,4 +20,4 @@ FavoritesPlaces.propTypes = {
   favoriteOffersInCity: offersPropTypes,
 };
 
-export default FavoritesPlaces;
+export default memo(FavoritesPlaces);

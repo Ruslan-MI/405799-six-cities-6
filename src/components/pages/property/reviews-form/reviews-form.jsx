@@ -1,6 +1,7 @@
 import React, {
   useState,
   useEffect,
+  memo,
 } from "react";
 import PropTypes from "prop-types";
 import {
@@ -84,4 +85,4 @@ ReviewsForm.propTypes = {
   offerID: PropTypes.number.isRequired,
 };
 
-export default ReviewsForm;
+export default memo(ReviewsForm);
