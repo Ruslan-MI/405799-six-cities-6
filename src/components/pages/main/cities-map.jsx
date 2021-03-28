@@ -26,9 +26,10 @@ CitiesMap.propTypes = {
 
 const mapStateToProps = ({
   MAIN_PAGE,
+  PLACE_CARD,
 }) => ({
   offersInCurrentCity: MAIN_PAGE.offersInCurrentCity,
-  activeOfferID: MAIN_PAGE.activeOfferID,
+  activeOfferID: PLACE_CARD.activeOfferID,
 });
 
 export {

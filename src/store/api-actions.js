@@ -25,7 +25,7 @@ import {
   adaptOfferToClient,
   adaptReviewToClient,
   adaptAuthInfoToClient,
-} from "../utils/common";
+} from "../utils/api";
 
 const IsFavoriteChangeCommand = {
   ADD: `1`,

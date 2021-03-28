@@ -13,7 +13,7 @@ import {
 } from "../../../store/api-actions";
 import Header from "../../containers/header";
 import {
-  changeCity,
+  changeCurrentCity,
 } from "../../../store/actions/main-page";
 import {
   CITIES,
@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(login(authData));
   },
   onClick() {
-    dispatch(changeCity(cityForLink));
+    dispatch(changeCurrentCity(cityForLink));
   },
 });
 

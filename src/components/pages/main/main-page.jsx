@@ -17,6 +17,9 @@ import {
 import {
   setOffersInCurrentCity,
 } from "../../../store/actions/main-page";
+import {
+  getOffersInCity,
+} from "../../../utils/common";
 
 const MainPage = ({
   offers,
@@ -25,7 +28,7 @@ const MainPage = ({
   onChange,
 }) => {
   useEffect(() => {
-    onChange(offers);
+    onChange(getOffersInCity(offers, currentCity));
   }, [
     offers,
     currentCity,

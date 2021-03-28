@@ -1,24 +1,21 @@
 import {
-  ActionType as placeCardActionType,
+  createReducer,
+} from "@reduxjs/toolkit";
+import {
+  changeActiveOfferID,
+  resetActiveOfferID,
 } from "../actions/place-card";
 
 const initialState = {
   activeOfferID: 0,
 };
 
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case placeCardActionType.CHANGE_ACTIVE_OFFER_ID:
-      return {
-        ...state,
-        activeOfferID: action.payload,
-      };
-    case placeCardActionType.RESET_ACTIVE_OFFER_ID:
-      return {
-        ...state,
-        activeOfferID: initialState.ActiveOfferID,
-      };
-    default:
-      return state;
-  }
-};
+export const reducer = createReducer(initialState, (builder) => {
+  builder.addCase(changeActiveOfferID, (state, action) => {
+    state.activeOfferID = action.payload;
+  });
+
+  builder.addCase(resetActiveOfferID, (state) => {
+    state.activeOfferID = initialState.activeOfferID;
+  });
+});

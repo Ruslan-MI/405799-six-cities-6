@@ -49,11 +49,15 @@ const PlaceCard = ({
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
   const handleMouseEnter = () => {
-    onMouseEnter(id);
+    if (isCitiesPlaceCard) {
+      onMouseEnter(id);
+    }
   };
 
   const handleMouseLeave = () => {
-    onMouseLeave();
+    if (isCitiesPlaceCard) {
+      onMouseLeave();
+    }
   };
 
   const handleFavoriteClick = () => {

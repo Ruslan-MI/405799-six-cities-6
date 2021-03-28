@@ -1,5 +1,18 @@
 import {
-  ActionType as dataActionType,
+  createReducer,
+} from "@reduxjs/toolkit";
+import {
+  runOffersLoading,
+  loadOffers,
+  runPropertyPageOfferLoading,
+  loadPropertyPageOffer,
+  runReviewsLoading,
+  loadReviews,
+  runNearbyOffersLoading,
+  loadNearbyOffers,
+  runFavoriteOffersLoading,
+  loadFavoriteOffers,
+  updateFavoriteStatus,
 } from "../actions/data";
 import {
   updateFavoriteOffer,
@@ -18,72 +31,51 @@ const initialState = {
   favoriteOffers: [],
 };
 
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case dataActionType.RUN_OFFERS_LOADING:
-      return {
-        ...state,
-        isOffersLoaded: false,
-      };
-    case dataActionType.LOAD_OFFERS:
-      return {
-        ...state,
-        offers: action.payload,
-        isOffersLoaded: true,
-      };
-    case dataActionType.RUN_PROPERTY_PAGE_OFFER_LOADING:
-      return {
-        ...state,
-        isPropertyPageOfferLoaded: false,
-      };
-    case dataActionType.LOAD_PROPERTY_PAGE_OFFER:
-      return {
-        ...state,
-        propertyPageOffer: action.payload,
-        isPropertyPageOfferLoaded: true,
-      };
-    case dataActionType.RUN_REVIEWS_LOADING:
-      return {
-        ...state,
-        isReviewsLoaded: false,
-      };
-    case dataActionType.LOAD_REVIEWS:
-      return {
-        ...state,
-        reviews: action.payload,
-        isReviewsLoaded: true,
-      };
-    case dataActionType.RUN_NEARBY_OFFERS_LOADING:
-      return {
-        ...state,
-        isNearbyOffersLoaded: false,
-      };
-    case dataActionType.LOAD_NEARBY_OFFERS:
-      return {
-        ...state,
-        nearbyOffers: action.payload,
-        isNearbyOffersLoaded: true,
-      };
-    case dataActionType.RUN_FAVORITE_OFFERS_LOADING:
-      return {
-        ...state,
-        isFavoriteOffersLoaded: false,
-      };
-    case dataActionType.LOAD_FAVORITE_OFFERS:
-      return {
-        ...state,
-        favoriteOffers: action.payload,
-        isFavoriteOffersLoaded: true,
-      };
-    case dataActionType.UPDATE_FAVORITE_STATUS:
-      return {
-        ...state,
-        favoriteOffers: updateFavoriteOffer(state.favoriteOffers, action.payload),
-        offers: updateFavoriteOffer(state.offers, action.payload),
-        propertyPageOffer: action.payload,
-        nearbyOffers: updateFavoriteOffer(state.nearbyOffers, action.payload),
-      };
-    default:
-      return state;
-  }
-};
+export const reducer = createReducer(initialState, (builder) => {
+  builder.addCase(runOffersLoading, (state) => {
+    state.isOffersLoaded = false;
+  });
+  builder.addCase(loadOffers, (state, action) => {
+    state.offers = action.payload;
+    state.isOffersLoaded = true;
+  });
+
+  builder.addCase(runPropertyPageOfferLoading, (state) => {
+    state.isPropertyPageOfferLoaded = false;
+  });
+  builder.addCase(loadPropertyPageOffer, (state, action) => {
+    state.propertyPageOffer = action.payload;
+    state.isPropertyPageOfferLoaded = true;
+  });
+
+  builder.addCase(runReviewsLoading, (state) => {
+    state.isReviewsLoaded = false;
+  });
+  builder.addCase(loadReviews, (state, action) => {
+    state.reviews = action.payload;
+    state.isReviewsLoaded = true;
+  });
+
+  builder.addCase(runNearbyOffersLoading, (state) => {
+    state.isNearbyOffersLoaded = false;
+  });
+  builder.addCase(loadNearbyOffers, (state, action) => {
+    state.nearbyOffers = action.payload;
+    state.isNearbyOffersLoaded = true;
+  });
+
+  builder.addCase(runFavoriteOffersLoading, (state) => {
+    state.isFavoriteOffersLoaded = false;
+  });
+  builder.addCase(loadFavoriteOffers, (state, action) => {
+    state.favoriteOffers = action.payload;
+    state.isFavoriteOffersLoaded = true;
+  });
+
+  builder.addCase(updateFavoriteStatus, (state, action) => {
+    state.offers = updateFavoriteOffer(state.offers, action.payload);
+    state.propertyPageOffer = action.payload;
+    state.nearbyOffers = updateFavoriteOffer(state.nearbyOffers, action.payload);
+    state.favoriteOffers = updateFavoriteOffer(state.favoriteOffers, action.payload);
+  });
+});

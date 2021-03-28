@@ -1,3 +1,7 @@
+import {
+  createAction,
+} from "@reduxjs/toolkit";
+
 export const ActionType = {
   RUN_OFFERS_LOADING: `data/runOffersLoading`,
   LOAD_OFFERS: `data/loadOffers`,
@@ -12,52 +16,31 @@ export const ActionType = {
   UPDATE_FAVORITE_STATUS: `data/updateFavoriteStatus`,
 };
 
-export const runOffersLoading = () => ({
-  type: ActionType.RUN_OFFERS_LOADING,
-});
-
-export const loadOffers = (offers) => ({
-  type: ActionType.LOAD_OFFERS,
+export const runOffersLoading = createAction(ActionType.RUN_OFFERS_LOADING);
+export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
   payload: offers,
-});
+}));
 
-export const runPropertyPageOfferLoading = () => ({
-  type: ActionType.RUN_PROPERTY_PAGE_OFFER_LOADING,
-});
-
-export const loadPropertyPageOffer = (offer) => ({
-  type: ActionType.LOAD_PROPERTY_PAGE_OFFER,
+export const runPropertyPageOfferLoading = createAction(ActionType.RUN_PROPERTY_PAGE_OFFER_LOADING);
+export const loadPropertyPageOffer = createAction(ActionType.LOAD_PROPERTY_PAGE_OFFER, (offer) => ({
   payload: offer,
-});
+}));
 
-export const runReviewsLoading = () => ({
-  type: ActionType.RUN_REVIEWS_LOADING,
-});
-
-export const loadReviews = (reviews) => ({
-  type: ActionType.LOAD_REVIEWS,
+export const runReviewsLoading = createAction(ActionType.RUN_REVIEWS_LOADING);
+export const loadReviews = createAction(ActionType.LOAD_REVIEWS, (reviews) => ({
   payload: reviews,
-});
+}));
 
-export const runNearbyOffersLoading = () => ({
-  type: ActionType.RUN_NEARBY_OFFERS_LOADING,
-});
-
-export const loadNearbyOffers = (nearbyOffers) => ({
-  type: ActionType.LOAD_NEARBY_OFFERS,
+export const runNearbyOffersLoading = createAction(ActionType.RUN_NEARBY_OFFERS_LOADING);
+export const loadNearbyOffers = createAction(ActionType.LOAD_NEARBY_OFFERS, (nearbyOffers) => ({
   payload: nearbyOffers,
-});
+}));
 
-export const runFavoriteOffersLoading = () => ({
-  type: ActionType.RUN_FAVORITE_OFFERS_LOADING,
-});
-
-export const loadFavoriteOffers = (favoriteOffers) => ({
-  type: ActionType.LOAD_FAVORITE_OFFERS,
+export const runFavoriteOffersLoading = createAction(ActionType.RUN_FAVORITE_OFFERS_LOADING);
+export const loadFavoriteOffers = createAction(ActionType.LOAD_FAVORITE_OFFERS, (favoriteOffers) => ({
   payload: favoriteOffers,
-});
+}));
 
-export const updateFavoriteStatus = (offer) => ({
-  type: ActionType.UPDATE_FAVORITE_STATUS,
+export const updateFavoriteStatus = createAction(ActionType.UPDATE_FAVORITE_STATUS, (offer) => ({
   payload: offer,
-});
+}));

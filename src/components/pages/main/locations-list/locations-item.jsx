@@ -4,7 +4,7 @@ import {
   connect,
 } from "react-redux";
 import {
-  changeCity,
+  changeCurrentCity,
 } from "../../../../store/actions/main-page";
 
 const LocationsItem = ({
@@ -46,7 +46,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => ({
   onClick(city) {
-    dispatch(changeCity(city));
+    dispatch(changeCurrentCity(city));
   },
 });
 
