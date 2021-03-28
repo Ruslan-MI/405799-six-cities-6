@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import {
   changeSortType,
@@ -9,15 +10,19 @@ import {
 
 const PlacesOption = ({
   sortType,
-  currentSortType,
-  onClick,
   onChange,
 }) => {
+  const {
+    currentSortType,
+  } = useSelector((state) => state.MAIN_PAGE);
+
   const isCurrentSortType = currentSortType === sortType;
+
+  const dispatch = useDispatch();
 
   const handlePlacesOptionClick = () => {
     if (!isCurrentSortType) {
-      onClick(sortType);
+      dispatch(changeSortType(sortType));
     }
 
     onChange();
@@ -31,25 +36,7 @@ const PlacesOption = ({
 
 PlacesOption.propTypes = {
   sortType: PropTypes.string.isRequired,
-  currentSortType: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({
-  MAIN_PAGE,
-}) => ({
-  currentSortType: MAIN_PAGE.currentSortType,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onClick(sortType) {
-    dispatch(changeSortType(sortType));
-  },
-});
-
-export {
-  PlacesOption,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlacesOption);
+export default PlacesOption;

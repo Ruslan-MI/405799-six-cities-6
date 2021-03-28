@@ -2,9 +2,9 @@ import React, {
   useEffect,
 } from "react";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
-import PropTypes from "prop-types";
 import Header from "../../containers/header";
 import LocationsList from "./locations-list/locations-list";
 import CitiesPlaces from "./cities-places/cities-places";
@@ -12,23 +12,26 @@ import CitiesNoPlaces from "./cities-no-places";
 import CitiesMap from "./cities-map";
 import withLoad from "../../hocs/with-load";
 import {
-  placeCards as offersPropTypes,
-} from "../../../prop-types/offers-validation";
-import {
   setOffersInCurrentCity,
 } from "../../../store/actions/main-page";
 import {
   getOffersInCity,
 } from "../../../utils/common";
 
-const MainPage = ({
-  offers,
-  currentCity,
-  offersInCurrentCity,
-  onChange,
-}) => {
+const MainPage = () => {
+  const {
+    offers,
+  } = useSelector((state) => state.DATA);
+
+  const {
+    currentCity,
+    offersInCurrentCity,
+  } = useSelector((state) => state.MAIN_PAGE);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    onChange(getOffersInCity(offers, currentCity));
+    dispatch(setOffersInCurrentCity(getOffersInCity(offers, currentCity)));
   }, [
     offers,
     currentCity,
@@ -59,30 +62,4 @@ const MainPage = ({
   );
 };
 
-MainPage.propTypes = {
-  offers: offersPropTypes,
-  currentCity: PropTypes.string.isRequired,
-  offersInCurrentCity: offersPropTypes,
-  onChange: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({
-  DATA,
-  MAIN_PAGE,
-}) => ({
-  offers: DATA.offers,
-  currentCity: MAIN_PAGE.currentCity,
-  offersInCurrentCity: MAIN_PAGE.offersInCurrentCity,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChange(data) {
-    dispatch(setOffersInCurrentCity(data));
-  },
-});
-
-export {
-  MainPage,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withLoad(MainPage));
+export default withLoad(MainPage);

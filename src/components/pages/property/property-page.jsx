@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import Header from "../../containers/header";
 import PropertyGallery from "./property-gallery";
@@ -17,26 +17,23 @@ import {
   getWidthForRating,
 } from "../../../utils/common";
 import {
-  propertyPage as offerPropTypes,
-  propertyPages as offersPropTypes,
-} from "../../../prop-types/offers-validation";
-import {
-  reviewsList as reviewsPropTypes,
-} from "../../../prop-types/reviews-validation";
-import {
   AuthorizationStatus,
 } from "../../../const";
 import {
   toggleFavoriteStatus,
 } from "../../../store/api-actions";
 
-const PropertyPage = ({
-  propertyPageOffer,
-  reviews,
-  nearbyOffers,
-  authorizationStatus,
-  onFavoriteClick,
-}) => {
+const PropertyPage = () => {
+  const {
+    propertyPageOffer,
+    reviews,
+    nearbyOffers,
+  } = useSelector((state) => state.DATA);
+
+  const {
+    authorizationStatus,
+  } = useSelector((state) => state.USER);
+
   const {
     id,
     images,
@@ -60,12 +57,14 @@ const PropertyPage = ({
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
   const isNearOffersAvailable = nearbyOffers.length > 0;
 
+  const dispatch = useDispatch();
+
   const handleFavoriteClick = () => {
     if (isAuthorized) {
-      onFavoriteClick({
+      dispatch(toggleFavoriteStatus({
         id,
         isFavorite,
-      });
+      }));
     }
   };
 
@@ -133,32 +132,4 @@ const PropertyPage = ({
   );
 };
 
-PropertyPage.propTypes = {
-  propertyPageOffer: offerPropTypes,
-  reviews: reviewsPropTypes,
-  nearbyOffers: offersPropTypes,
-  authorizationStatus: PropTypes.string.isRequired,
-  onFavoriteClick: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({
-  DATA,
-  USER,
-}) => ({
-  propertyPageOffer: DATA.propertyPageOffer,
-  reviews: DATA.reviews,
-  nearbyOffers: DATA.nearbyOffers,
-  authorizationStatus: USER.authorizationStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onFavoriteClick(data) {
-    dispatch(toggleFavoriteStatus(data));
-  },
-});
-
-export {
-  PropertyPage,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withLoad(PropertyPage));
+export default withLoad(PropertyPage);

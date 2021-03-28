@@ -5,7 +5,8 @@ import {
   Link,
 } from "react-router-dom";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import {
   changeActiveOfferID,
@@ -30,10 +31,6 @@ const PlaceCard = ({
   isCitiesPlaceCard = false,
   isFavoriteCard = false,
   isNearPlacesCard = false,
-  authorizationStatus,
-  onMouseEnter,
-  onMouseLeave,
-  onFavoriteClick,
 }) => {
   const {
     isPremium,
@@ -46,27 +43,37 @@ const PlaceCard = ({
     id,
   } = offer;
 
+  const {
+    authorizationStatus,
+  } = useSelector((state) => state.USER);
+
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
+  const dispatch = useDispatch();
 
   const handleMouseEnter = () => {
     if (isCitiesPlaceCard) {
-      onMouseEnter(id);
+      dispatch(changeActiveOfferID(id));
     }
   };
 
   const handleMouseLeave = () => {
     if (isCitiesPlaceCard) {
-      onMouseLeave();
+      dispatch(resetActiveOfferID());
     }
   };
 
   const handleFavoriteClick = () => {
     if (isAuthorized) {
-      onFavoriteClick({
+      dispatch(toggleFavoriteStatus({
         id,
         isFavorite,
-      });
+      }));
     }
+  };
+
+  const handleImageClick = (evt) => {
+    evt.preventDefault();
   };
 
   return (
@@ -77,7 +84,7 @@ const PlaceCard = ({
       <div className={`${isCitiesPlaceCard ? `cities__image-wrapper` : ``}
                       ${isFavoriteCard ? `favorites__image-wrapper` : ``}
                       ${isNearPlacesCard ? `near-places__image-wrapper` : ``} place-card__image-wrapper`}>
-        <a href="#">
+        <a href="#" onClick={handleImageClick}>
           <img className="place-card__image" src={previewImage} width={isFavoriteCard ? `150` : `260`}
             height={isFavoriteCard ? `110` : `200`} alt="Place image" />
         </a>
@@ -118,32 +125,6 @@ PlaceCard.propTypes = {
   isCitiesPlaceCard: PropTypes.bool,
   isFavoriteCard: PropTypes.bool,
   isNearPlacesCard: PropTypes.bool,
-  authorizationStatus: PropTypes.string.isRequired,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
-  onFavoriteClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({
-  USER,
-}) => ({
-  authorizationStatus: USER.authorizationStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onMouseEnter(id) {
-    dispatch(changeActiveOfferID(id));
-  },
-  onMouseLeave() {
-    dispatch(resetActiveOfferID());
-  },
-  onFavoriteClick(data) {
-    dispatch(toggleFavoriteStatus(data));
-  },
-});
-
-export {
-  PlaceCard,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
+export default PlaceCard;

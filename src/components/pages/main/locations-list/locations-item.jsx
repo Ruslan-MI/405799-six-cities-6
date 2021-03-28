@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import {
   changeCurrentCity,
@@ -9,16 +10,20 @@ import {
 
 const LocationsItem = ({
   city,
-  currentCity,
-  onClick,
 }) => {
+  const {
+    currentCity,
+  } = useSelector((state) => state.MAIN_PAGE);
+
   const isCurrentCity = currentCity === city;
+
+  const dispatch = useDispatch();
 
   const handleTabsItemClick = (evt) => {
     evt.preventDefault();
 
     if (!isCurrentCity) {
-      onClick(city);
+      dispatch(changeCurrentCity(city));
     }
   };
 
@@ -34,24 +39,6 @@ const LocationsItem = ({
 
 LocationsItem.propTypes = {
   city: PropTypes.string.isRequired,
-  currentCity: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({
-  MAIN_PAGE,
-}) => ({
-  currentCity: MAIN_PAGE.currentCity,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onClick(city) {
-    dispatch(changeCurrentCity(city));
-  },
-});
-
-export {
-  LocationsItem,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LocationsItem);
+export default LocationsItem;

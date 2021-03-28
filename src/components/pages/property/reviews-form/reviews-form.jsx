@@ -4,16 +4,14 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import FormRating from "./form-rating";
 import FormTextarea from "./form-textarea";
 import {
   sendReview,
 } from "../../../../store/api-actions";
-import {
-  reviewsList as reviewsPropTypes,
-} from "../../../../prop-types/reviews-validation";
 
 const RATING_MIN_VALUE = 1;
 
@@ -24,9 +22,11 @@ const ReviewLength = {
 
 const ReviewsForm = ({
   offerID,
-  onSubmit,
-  reviews,
 }) => {
+  const {
+    reviews,
+  } = useSelector((state) => state.DATA);
+
   const initialState = {
     rating: 0,
     review: ``,
@@ -42,14 +42,16 @@ const ReviewsForm = ({
     setReview
   ] = useState(initialState.review);
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    dispatch(sendReview({
       offerID,
       rating,
       review,
-    });
+    }));
   };
 
   useEffect(() => {
@@ -77,24 +79,6 @@ const ReviewsForm = ({
 
 ReviewsForm.propTypes = {
   offerID: PropTypes.number.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  reviews: reviewsPropTypes,
 };
 
-const mapStateToProps = ({
-  DATA,
-}) => ({
-  reviews: DATA.reviews,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(review) {
-    dispatch(sendReview(review));
-  },
-});
-
-export {
-  ReviewsForm,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewsForm);
+export default ReviewsForm;

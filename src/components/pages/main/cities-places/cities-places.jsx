@@ -1,18 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
 } from "react-redux";
 import PlacesSorting from "./places-sorting/places-sorting";
 import PlacesList from "./places-list";
-import {
-  placeCards as offersPropTypes,
-} from "../../../../prop-types/offers-validation";
 
-const CitiesPlaces = ({
-  currentCity,
-  offersInCurrentCity,
-}) => {
+const CitiesPlaces = () => {
+  const {
+    currentCity,
+    offersInCurrentCity,
+  } = useSelector((state) => state.MAIN_PAGE);
+
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
@@ -23,20 +21,4 @@ const CitiesPlaces = ({
   );
 };
 
-CitiesPlaces.propTypes = {
-  currentCity: PropTypes.string.isRequired,
-  offersInCurrentCity: offersPropTypes,
-};
-
-const mapStateToProps = ({
-  MAIN_PAGE,
-}) => ({
-  currentCity: MAIN_PAGE.currentCity,
-  offersInCurrentCity: MAIN_PAGE.offersInCurrentCity,
-});
-
-export {
-  CitiesPlaces,
-};
-
-export default connect(mapStateToProps)(CitiesPlaces);
+export default CitiesPlaces;

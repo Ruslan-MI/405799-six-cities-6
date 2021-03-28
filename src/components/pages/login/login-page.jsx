@@ -4,9 +4,8 @@ import React, {
 import {
   Link,
 } from "react-router-dom";
-import PropTypes from "prop-types";
 import {
-  connect,
+  useDispatch,
 } from "react-redux";
 import {
   login,
@@ -22,20 +21,23 @@ import {
 
 const cityForLink = CITIES[3];
 
-const LoginPage = ({
-  onSubmit,
-  onClick,
-}) => {
+const LoginPage = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    dispatch(login({
       email: emailRef.current.value,
       password: passwordRef.current.value,
-    });
+    }));
+  };
+
+  const handleLinkClick = () => {
+    dispatch(changeCurrentCity(cityForLink));
   };
 
   return (
@@ -61,7 +63,7 @@ const LoginPage = ({
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.ROOT} onClick={onClick} >
+              <Link className="locations__item-link" to={AppRoute.ROOT} onClick={handleLinkClick} >
                 <span>{cityForLink}</span>
               </Link>
             </div>
@@ -72,22 +74,4 @@ const LoginPage = ({
   );
 };
 
-LoginPage.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-  },
-  onClick() {
-    dispatch(changeCurrentCity(cityForLink));
-  },
-});
-
-export {
-  LoginPage,
-};
-
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default LoginPage;

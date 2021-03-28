@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import {
   Link,
@@ -18,17 +19,21 @@ const Header = ({
   isMainPage = false,
   isLoginPage = false,
   isFavoritesPage = false,
-  authorizationStatus,
-  userEmail,
-  userAvatar,
-  onLogoutClick,
 }) => {
+  const {
+    authorizationStatus,
+    userEmail,
+    userAvatar,
+  } = useSelector((state) => state.USER);
+
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
+  const dispatch = useDispatch();
 
   const handleLogoutClick = (evt) => {
     evt.preventDefault();
 
-    onLogoutClick();
+    dispatch(logout());
   };
 
   const handleHeaderLogoLinkClick = (evt) => {
@@ -85,28 +90,6 @@ Header.propTypes = {
   isMainPage: PropTypes.bool,
   isLoginPage: PropTypes.bool,
   isFavoritesPage: PropTypes.bool,
-  authorizationStatus: PropTypes.string.isRequired,
-  userEmail: PropTypes.string.isRequired,
-  userAvatar: PropTypes.string.isRequired,
-  onLogoutClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({
-  USER,
-}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  userEmail: USER.userEmail,
-  userAvatar: USER.userAvatar,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLogoutClick() {
-    dispatch(logout());
-  },
-});
-
-export {
-  Header,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

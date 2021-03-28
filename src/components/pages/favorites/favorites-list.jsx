@@ -1,18 +1,17 @@
 import React from "react";
 import {
-  connect,
+  useSelector,
 } from "react-redux";
 import FavoritesLocationsItems from "./favorites-locations-items";
 import {
   getFavoriteCities,
 } from "../../../utils/common";
-import {
-  placeCards as offersPropTypes,
-} from "../../../prop-types/offers-validation";
 
-const FavoritesList = ({
-  favoriteOffers,
-}) => {
+const FavoritesList = () => {
+  const {
+    favoriteOffers,
+  } = useSelector((state) => state.DATA);
+
   return (
     <>
       <h1 className="favorites__title">Saved listing</h1>
@@ -23,18 +22,4 @@ const FavoritesList = ({
   );
 };
 
-FavoritesList.propTypes = {
-  favoriteOffers: offersPropTypes,
-};
-
-const mapStateToProps = ({
-  DATA,
-}) => ({
-  favoriteOffers: DATA.favoriteOffers,
-});
-
-export {
-  FavoritesList,
-};
-
-export default connect(mapStateToProps)(FavoritesList);
+export default FavoritesList;
