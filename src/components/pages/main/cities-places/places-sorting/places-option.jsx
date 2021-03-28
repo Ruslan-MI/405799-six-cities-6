@@ -36,8 +36,10 @@ PlacesOption.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentSortType: state.currentSortType,
+const mapStateToProps = ({
+  MAIN_PAGE,
+}) => ({
+  currentSortType: MAIN_PAGE.currentSortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -12,9 +12,7 @@ import {
 } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import App from "./components/app";
-import {
-  reducer,
-} from "./store/reducer";
+import reducer from "./store/reducers/root-reducer";
 import {
   createAPI,
 } from "./services/api";

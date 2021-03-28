@@ -21,8 +21,10 @@ CitiesNoPlaces.propTypes = {
   currentCity: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
+const mapStateToProps = ({
+  MAIN_PAGE,
+}) => ({
+  currentCity: MAIN_PAGE.currentCity,
 });
 
 export {

@@ -28,9 +28,11 @@ CitiesPlaces.propTypes = {
   offersInCurrentCity: offersPropTypes,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
-  offersInCurrentCity: state.offersInCurrentCity,
+const mapStateToProps = ({
+  MAIN_PAGE,
+}) => ({
+  currentCity: MAIN_PAGE.currentCity,
+  offersInCurrentCity: MAIN_PAGE.offersInCurrentCity,
 });
 
 export {

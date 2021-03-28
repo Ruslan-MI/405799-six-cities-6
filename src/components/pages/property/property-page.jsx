@@ -141,11 +141,14 @@ PropertyPage.propTypes = {
   onFavoriteClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  propertyPageOffer: state.propertyPageOffer,
-  reviews: state.reviews,
-  nearbyOffers: state.nearbyOffers,
-  authorizationStatus: state.authorizationStatus,
+const mapStateToProps = ({
+  DATA,
+  USER,
+}) => ({
+  propertyPageOffer: DATA.propertyPageOffer,
+  reviews: DATA.reviews,
+  nearbyOffers: DATA.nearbyOffers,
+  authorizationStatus: USER.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -37,8 +37,10 @@ PlacesSorting.propTypes = {
   currentSortType: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentSortType: state.currentSortType,
+const mapStateToProps = ({
+  MAIN_PAGE,
+}) => ({
+  currentSortType: MAIN_PAGE.currentSortType,
 });
 
 export {

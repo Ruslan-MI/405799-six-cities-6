@@ -26,8 +26,10 @@ MainPageContainer.propTypes = {
   onLoadData: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isOffersLoaded: state.isOffersLoaded,
+const mapStateToProps = ({
+  DATA,
+}) => ({
+  isOffersLoaded: DATA.isOffersLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

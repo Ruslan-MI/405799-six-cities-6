@@ -26,8 +26,10 @@ FavoritesPageContainer.propTypes = {
   onLoadData: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isFavoriteOffersLoaded: state.isFavoriteOffersLoaded,
+const mapStateToProps = ({
+  DATA,
+}) => ({
+  isFavoriteOffersLoaded: DATA.isFavoriteOffersLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

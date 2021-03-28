@@ -127,6 +127,10 @@ export const adaptAuthInfoToClient = (data) => {
 export const updateFavoriteOffer = (offers, updatedOffer) => {
   const index = offers.findIndex((offer) => offer.id === updatedOffer.id);
 
+  if (index < 0) {
+    return offers;
+  }
+
   return [
     ...offers.slice(0, index),
     updatedOffer,

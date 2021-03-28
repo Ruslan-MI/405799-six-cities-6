@@ -38,8 +38,10 @@ LocationsItem.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
+const mapStateToProps = ({
+  MAIN_PAGE,
+}) => ({
+  currentCity: MAIN_PAGE.currentCity,
 });
 
 const mapDispatchToProps = (dispatch) => ({

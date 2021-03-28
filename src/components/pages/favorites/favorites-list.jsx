@@ -27,8 +27,10 @@ FavoritesList.propTypes = {
   favoriteOffers: offersPropTypes,
 };
 
-const mapStateToProps = (state) => ({
-  favoriteOffers: state.favoriteOffers,
+const mapStateToProps = ({
+  DATA,
+}) => ({
+  favoriteOffers: DATA.favoriteOffers,
 });
 
 export {

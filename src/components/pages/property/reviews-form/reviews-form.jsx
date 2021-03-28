@@ -81,8 +81,10 @@ ReviewsForm.propTypes = {
   reviews: reviewsPropTypes,
 };
 
-const mapStateToProps = (state) => ({
-  reviews: state.reviews,
+const mapStateToProps = ({
+  DATA,
+}) => ({
+  reviews: DATA.reviews,
 });
 
 const mapDispatchToProps = (dispatch) => ({

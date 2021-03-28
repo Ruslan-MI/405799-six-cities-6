@@ -34,10 +34,12 @@ PropertyPageContainer.propTypes = {
   onLoadData: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isPropertyPageOfferLoaded: state.isPropertyPageOfferLoaded,
-  isReviewsLoaded: state.isReviewsLoaded,
-  isNearbyOffersLoaded: state.isNearbyOffersLoaded,
+const mapStateToProps = ({
+  DATA,
+}) => ({
+  isPropertyPageOfferLoaded: DATA.isPropertyPageOfferLoaded,
+  isReviewsLoaded: DATA.isReviewsLoaded,
+  isNearbyOffersLoaded: DATA.isNearbyOffersLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -22,8 +22,10 @@ PlacesList.propTypes = {
   offersInCurrentCity: offersPropTypes,
 };
 
-const mapStateToProps = (state) => ({
-  offersInCurrentCity: sortOffers(state.offersInCurrentCity, state.currentSortType),
+const mapStateToProps = ({
+  MAIN_PAGE,
+}) => ({
+  offersInCurrentCity: sortOffers(MAIN_PAGE.offersInCurrentCity, MAIN_PAGE.currentSortType),
 });
 
 export {

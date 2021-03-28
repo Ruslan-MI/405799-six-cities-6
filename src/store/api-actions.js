@@ -21,6 +21,11 @@ import {
   AppRoute,
   APIRoute,
 } from "../const";
+import {
+  adaptOfferToClient,
+  adaptReviewToClient,
+  adaptAuthInfoToClient,
+} from "../utils/common";
 
 const IsFavoriteChangeCommand = {
   ADD: `1`,
@@ -32,7 +37,7 @@ export const fetchOffers = () => (dispatch, _getState, api) => {
   api.get(APIRoute.OFFERS)
     .then(({
       data,
-    }) => dispatch(loadOffers(data)))
+    }) => dispatch(loadOffers(data.map((item) => adaptOfferToClient(item)))))
     .catch(() => { });
 };
 
@@ -41,7 +46,7 @@ export const fetchPropertyPageOffer = (offerID) => (dispatch, _getState, api) =>
   api.get(`${APIRoute.OFFERS}/${offerID}`)
     .then(({
       data,
-    }) => dispatch(loadPropertyPageOffer(data)))
+    }) => dispatch(loadPropertyPageOffer(adaptOfferToClient(data))))
     .catch(() => { });
 };
 
@@ -50,7 +55,7 @@ export const fetchReviews = (offerID) => (dispatch, _getState, api) => {
   api.get(`${APIRoute.REVIEWS}/${offerID}`)
     .then(({
       data,
-    }) => dispatch(loadReviews(data)))
+    }) => dispatch(loadReviews(data.map((item) => adaptReviewToClient(item)))))
     .catch(() => { });
 };
 
@@ -65,7 +70,7 @@ export const sendReview = ({
   })
     .then(({
       data,
-    }) => dispatch(loadReviews(data)))
+    }) => dispatch(loadReviews(data.map((item) => adaptReviewToClient(item)))))
     .catch(() => { })
 );
 
@@ -74,7 +79,7 @@ export const fetchNearbyOffers = (offerID) => (dispatch, _getState, api) => {
   api.get(`${APIRoute.OFFERS}/${offerID}${APIRoute.NEARBY}`)
     .then(({
       data,
-    }) => dispatch(loadNearbyOffers(data)))
+    }) => dispatch(loadNearbyOffers(data.map((item) => adaptOfferToClient(item)))))
     .catch(() => { });
 };
 
@@ -83,26 +88,26 @@ export const fetchFavoriteOffers = () => (dispatch, _getState, api) => {
   api.get(APIRoute.FAVORITE)
     .then(({
       data,
-    }) => dispatch(loadFavoriteOffers(data)))
+    }) => dispatch(loadFavoriteOffers(data.map((item) => adaptOfferToClient(item)))))
     .catch(() => { });
 };
 
 export const toggleFavoriteStatus = ({
   id: offerID,
   isFavorite,
-}) => (dispatch, _getState, api) => {
+}) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITE}/${offerID}/${isFavorite ? IsFavoriteChangeCommand.REMOVE : IsFavoriteChangeCommand.ADD}`)
     .then(({
       data
-    }) => dispatch(updateFavoriteStatus(data)))
-    .catch(() => { });
-};
+    }) => dispatch(updateFavoriteStatus(adaptOfferToClient(data))))
+    .catch(() => { })
+);
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({
       data
-    }) => dispatch(changeUserData(data)))
+    }) => dispatch(changeUserData(adaptAuthInfoToClient(data))))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .catch(() => { })
 );
@@ -117,7 +122,7 @@ export const login = ({
   })
     .then(({
       data
-    }) => dispatch(changeUserData(data)))
+    }) => dispatch(changeUserData(adaptAuthInfoToClient(data))))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoute.FAVORITES)))
     .catch(() => { })
