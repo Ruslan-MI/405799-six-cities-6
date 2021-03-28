@@ -21,6 +21,7 @@ import {
 import {
   AppRoute,
   AuthorizationStatus,
+  StoreNameSpace,
 } from "../../const";
 import {
   toggleFavoriteStatus,
@@ -45,7 +46,7 @@ const PlaceCard = ({
 
   const {
     authorizationStatus,
-  } = useSelector((state) => state.USER);
+  } = useSelector((state) => state[StoreNameSpace.USER]);
 
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 

@@ -9,11 +9,14 @@ import FavoritesPage from "./favorites-page";
 import {
   fetchFavoriteOffers,
 } from "../../../store/api-actions";
+import {
+  StoreNameSpace,
+} from "../../../const";
 
 const FavoritesPageContainer = () => {
   const {
     isFavoriteOffersLoaded,
-  } = useSelector((state) => state.DATA);
+  } = useSelector((state) => state[StoreNameSpace.DATA]);
 
   const dispatch = useDispatch();
 

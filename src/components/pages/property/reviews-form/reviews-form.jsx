@@ -12,6 +12,9 @@ import FormTextarea from "./form-textarea";
 import {
   sendReview,
 } from "../../../../store/api-actions";
+import {
+  StoreNameSpace,
+} from "../../../../const";
 
 const RATING_MIN_VALUE = 1;
 
@@ -25,7 +28,7 @@ const ReviewsForm = ({
 }) => {
   const {
     reviews,
-  } = useSelector((state) => state.DATA);
+  } = useSelector((state) => state[StoreNameSpace.DATA]);
 
   const initialState = {
     rating: 0,

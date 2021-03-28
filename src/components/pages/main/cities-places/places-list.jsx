@@ -6,12 +6,15 @@ import PlaceCard from "../../../containers/place-card";
 import {
   sortOffers,
 } from "../../../../utils/common";
+import {
+  StoreNameSpace,
+} from "../../../../const";
 
 const PlacesList = () => {
   const {
     offersInCurrentCity,
     currentSortType,
-  } = useSelector((state) => state.MAIN_PAGE);
+  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
 
   const sortedOffers = sortOffers(offersInCurrentCity, currentSortType);
 

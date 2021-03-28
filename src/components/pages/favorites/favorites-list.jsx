@@ -6,11 +6,14 @@ import FavoritesLocationsItems from "./favorites-locations-items";
 import {
   getFavoriteCities,
 } from "../../../utils/common";
+import {
+  StoreNameSpace,
+} from "../../../const";
 
 const FavoritesList = () => {
   const {
     favoriteOffers,
-  } = useSelector((state) => state.DATA);
+  } = useSelector((state) => state[StoreNameSpace.DATA]);
 
   return (
     <>

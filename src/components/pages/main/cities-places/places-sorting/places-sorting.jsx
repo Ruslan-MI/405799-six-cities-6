@@ -5,11 +5,14 @@ import {
   useSelector,
 } from "react-redux";
 import PlacesOptions from "./places-options";
+import {
+  StoreNameSpace,
+} from "../../../../../const";
 
 const PlacesSorting = () => {
   const {
     currentSortType,
-  } = useSelector((state) => state.MAIN_PAGE);
+  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
 
   const [
     isPlacesOptionsOpened,

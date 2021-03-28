@@ -17,16 +17,19 @@ import {
 import {
   getOffersInCity,
 } from "../../../utils/common";
+import {
+  StoreNameSpace,
+} from "../../../const";
 
 const MainPage = () => {
   const {
     offers,
-  } = useSelector((state) => state.DATA);
+  } = useSelector((state) => state[StoreNameSpace.DATA]);
 
   const {
     currentCity,
     offersInCurrentCity,
-  } = useSelector((state) => state.MAIN_PAGE);
+  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
 
   const dispatch = useDispatch();
 

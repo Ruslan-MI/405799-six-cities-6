@@ -7,6 +7,9 @@ import {
 import {
   changeSortType,
 } from "../../../../../store/actions/main-page";
+import {
+  StoreNameSpace,
+} from "../../../../../const";
 
 const PlacesOption = ({
   sortType,
@@ -14,7 +17,7 @@ const PlacesOption = ({
 }) => {
   const {
     currentSortType,
-  } = useSelector((state) => state.MAIN_PAGE);
+  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
 
   const isCurrentSortType = currentSortType === sortType;
 

@@ -10,6 +10,7 @@ import {
 import {
   AuthorizationStatus,
   AppRoute,
+  StoreNameSpace,
 } from "../../const";
 
 
@@ -20,7 +21,7 @@ const PrivateRoute = ({
 }) => {
   const {
     authorizationStatus,
-  } = useSelector((state) => state.USER);
+  } = useSelector((state) => state[StoreNameSpace.USER]);
 
   return (
     <Route

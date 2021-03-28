@@ -18,6 +18,7 @@ import {
 } from "../../../utils/common";
 import {
   AuthorizationStatus,
+  StoreNameSpace,
 } from "../../../const";
 import {
   toggleFavoriteStatus,
@@ -28,11 +29,11 @@ const PropertyPage = () => {
     propertyPageOffer,
     reviews,
     nearbyOffers,
-  } = useSelector((state) => state.DATA);
+  } = useSelector((state) => state[StoreNameSpace.DATA]);
 
   const {
     authorizationStatus,
-  } = useSelector((state) => state.USER);
+  } = useSelector((state) => state[StoreNameSpace.USER]);
 
   const {
     id,

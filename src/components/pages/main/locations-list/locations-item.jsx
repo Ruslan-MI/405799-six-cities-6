@@ -7,13 +7,16 @@ import {
 import {
   changeCurrentCity,
 } from "../../../../store/actions/main-page";
+import {
+  StoreNameSpace,
+} from "../../../../const";
 
 const LocationsItem = ({
   city,
 }) => {
   const {
     currentCity,
-  } = useSelector((state) => state.MAIN_PAGE);
+  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
 
   const isCurrentCity = currentCity === city;
 

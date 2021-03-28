@@ -12,6 +12,9 @@ import {
   fetchPropertyPageOffer,
   fetchNearbyOffers,
 } from "../../../store/api-actions";
+import {
+  StoreNameSpace,
+} from "../../../const";
 
 const PropertyPageContainer = ({
   offerID,
@@ -20,7 +23,7 @@ const PropertyPageContainer = ({
     isPropertyPageOfferLoaded,
     isReviewsLoaded,
     isNearbyOffersLoaded,
-  } = useSelector((state) => state.DATA);
+  } = useSelector((state) => state[StoreNameSpace.DATA]);
 
   const dispatch = useDispatch();
 

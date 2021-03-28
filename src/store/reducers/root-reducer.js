@@ -13,17 +13,13 @@ import {
 import {
   reducer as userReducer
 } from "./user";
-
-export const NameSpace = {
-  DATA: `DATA`,
-  MAIN_PAGE: `MAIN_PAGE`,
-  PLACE_CARD: `PLACE_CARD`,
-  USER: `USER`,
-};
+import {
+  StoreNameSpace
+} from "../../const";
 
 export default combineReducers({
-  [NameSpace.DATA]: dataReducer,
-  [NameSpace.MAIN_PAGE]: mainPageReducer,
-  [NameSpace.PLACE_CARD]: placeCardReducer,
-  [NameSpace.USER]: userReducer,
+  [StoreNameSpace.DATA]: dataReducer,
+  [StoreNameSpace.MAIN_PAGE]: mainPageReducer,
+  [StoreNameSpace.PLACE_CARD]: placeCardReducer,
+  [StoreNameSpace.USER]: userReducer,
 });

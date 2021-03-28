@@ -2,12 +2,15 @@ import React from "react";
 import {
   useSelector,
 } from "react-redux";
+import {
+  StoreNameSpace,
+} from "../../../const";
 
 const CitiesNoPlaces = ({
 }) => {
   const {
     currentCity,
-  } = useSelector((state) => state.MAIN_PAGE);
+  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
 
   return (
     <section className="cities__no-places">

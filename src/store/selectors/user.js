@@ -1,7 +1,7 @@
 import {
-  NameSpace,
-} from "../reducers/root-reducer";
+  StoreNameSpace,
+} from "../../const";
 
-export const getAuthorizationStatus = (state) => state[NameSpace.USER].authorizationStatus;
-export const getUserEmail = (state) => state[NameSpace.USER].userEmail;
-export const getUserAvatar = (state) => state[NameSpace.USER].userAvatar;
+export const getAuthorizationStatus = (state) => state[StoreNameSpace.USER].authorizationStatus;
+export const getUserEmail = (state) => state[StoreNameSpace.USER].userEmail;
+export const getUserAvatar = (state) => state[StoreNameSpace.USER].userAvatar;

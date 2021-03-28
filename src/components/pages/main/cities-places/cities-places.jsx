@@ -4,12 +4,15 @@ import {
 } from "react-redux";
 import PlacesSorting from "./places-sorting/places-sorting";
 import PlacesList from "./places-list";
+import {
+  StoreNameSpace,
+} from "../../../../const";
 
 const CitiesPlaces = () => {
   const {
     currentCity,
     offersInCurrentCity,
-  } = useSelector((state) => state.MAIN_PAGE);
+  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
 
   return (
     <section className="cities__places places">

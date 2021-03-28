@@ -10,6 +10,7 @@ import {
 import {
   AuthorizationStatus,
   AppRoute,
+  StoreNameSpace,
 } from "../../const";
 import {
   logout
@@ -24,7 +25,7 @@ const Header = ({
     authorizationStatus,
     userEmail,
     userAvatar,
-  } = useSelector((state) => state.USER);
+  } = useSelector((state) => state[StoreNameSpace.USER]);
 
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 

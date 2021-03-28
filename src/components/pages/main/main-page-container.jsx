@@ -9,11 +9,14 @@ import MainPage from "./main-page";
 import {
   fetchOffers,
 } from "../../../store/api-actions";
+import {
+  StoreNameSpace,
+} from "../../../const";
 
 const MainPageContainer = () => {
   const {
     isOffersLoaded,
-  } = useSelector((state) => state.DATA);
+  } = useSelector((state) => state[StoreNameSpace.DATA]);
 
   const dispatch = useDispatch();
 

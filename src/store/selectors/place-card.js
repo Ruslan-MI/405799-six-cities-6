@@ -1,5 +1,5 @@
 import {
-  NameSpace,
-} from "../reducers/root-reducer";
+  StoreNameSpace,
+} from "../../const";
 
-export const getActiveOfferID = (state) => state[NameSpace.PLACE_CARD].activeOfferID;
+export const getActiveOfferID = (state) => state[StoreNameSpace.PLACE_CARD].activeOfferID;
