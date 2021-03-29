@@ -6,13 +6,11 @@ import {
 
 const PropertyMap = ({
   nearbyOffers,
-}) => {
-  return (
-    <section className="property__map map">
-      <Map offers={nearbyOffers} />
-    </section>
-  );
-};
+}) => (
+  <section className="property__map map">
+    <Map offers={nearbyOffers} />
+  </section>
+);
 
 PropertyMap.propTypes = {
   nearbyOffers: offersPropTypes,

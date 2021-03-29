@@ -13,7 +13,7 @@ import {
 
 const PlacesOption = ({
   sortType,
-  onChange,
+  onClick,
 }) => {
   const {
     currentSortType,
@@ -28,7 +28,7 @@ const PlacesOption = ({
       dispatch(changeSortType(sortType));
     }
 
-    onChange();
+    onClick();
   };
 
   return (
@@ -39,7 +39,7 @@ const PlacesOption = ({
 
 PlacesOption.propTypes = {
   sortType: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default PlacesOption;

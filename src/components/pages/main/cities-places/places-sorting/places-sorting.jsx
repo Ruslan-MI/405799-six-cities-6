@@ -32,7 +32,7 @@ const PlacesSorting = () => {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <PlacesOptions isPlacesOptionsOpened={isPlacesOptionsOpened} onChange={handlePlacesOptionsClick} />
+      <PlacesOptions isPlacesOptionsOpened={isPlacesOptionsOpened} onClick={handlePlacesOptionsClick} />
     </form>
   );
 };
