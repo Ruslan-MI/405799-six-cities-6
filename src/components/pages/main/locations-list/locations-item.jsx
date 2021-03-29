@@ -1,6 +1,4 @@
-import React, {
-  memo,
-} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {
   useSelector,
@@ -46,4 +44,4 @@ LocationsItem.propTypes = {
   city: PropTypes.string.isRequired,
 };
 
-export default memo(LocationsItem);
+export default LocationsItem;

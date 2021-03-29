@@ -1,6 +1,4 @@
-import React, {
-  memo,
-} from "react";
+import React from "react";
 import {
   useSelector,
 } from "react-redux";
@@ -9,12 +7,18 @@ import PlacesList from "./places-list";
 import {
   StoreNameSpace,
 } from "../../../../const";
+import {
+  getOffersInCurrentCity,
+} from "../../../../store/selectors";
 
 const CitiesPlaces = () => {
   const {
     currentCity,
     offersInCurrentCity,
-  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
+  } = useSelector((state) => ({
+    ...state[StoreNameSpace.MAIN_PAGE],
+    ...getOffersInCurrentCity(state),
+  }));
 
   return (
     <section className="cities__places places">
@@ -26,4 +30,4 @@ const CitiesPlaces = () => {
   );
 };
 
-export default memo(CitiesPlaces);
+export default CitiesPlaces;

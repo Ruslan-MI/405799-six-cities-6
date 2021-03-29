@@ -1,7 +1,6 @@
 import React, {
   useState,
   useEffect,
-  memo,
 } from "react";
 import PropTypes from "prop-types";
 import {
@@ -61,7 +60,9 @@ const ReviewsForm = ({
   useEffect(() => {
     setRating(initialState.rating);
     setReview(initialState.review);
-  }, [reviews]);
+  }, [
+    reviews,
+  ]);
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
@@ -85,4 +86,4 @@ ReviewsForm.propTypes = {
   offerID: PropTypes.number.isRequired,
 };
 
-export default memo(ReviewsForm);
+export default ReviewsForm;

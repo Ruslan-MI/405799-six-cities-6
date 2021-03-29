@@ -1,6 +1,4 @@
-import React, {
-  memo,
-} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 const PropertyDescription = ({
@@ -19,4 +17,4 @@ PropertyDescription.propTypes = {
   description: PropTypes.string.isRequired,
 };
 
-export default memo(PropertyDescription);
+export default PropertyDescription;

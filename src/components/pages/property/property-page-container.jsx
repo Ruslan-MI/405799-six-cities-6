@@ -31,7 +31,9 @@ const PropertyPageContainer = ({
     dispatch(fetchPropertyPageOffer(offerID));
     dispatch(fetchReviews(offerID));
     dispatch(fetchNearbyOffers(offerID));
-  }, [offerID]);
+  }, [
+    offerID,
+  ]);
 
   return <PropertyPage isDataLoaded={isPropertyPageOfferLoaded && isReviewsLoaded && isNearbyOffersLoaded} />;
 };

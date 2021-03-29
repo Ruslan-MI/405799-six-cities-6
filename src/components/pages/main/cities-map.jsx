@@ -6,19 +6,24 @@ import Map from "../../containers/map";
 import {
   StoreNameSpace,
 } from "../../../const";
+import {
+  getOffersInCurrentCity,
+} from "../../../store/selectors";
 
 const CitiesMap = () => {
   const {
-    offersInCurrentCity,
-  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
-
-  const {
     activeOfferID,
-  } = useSelector((state) => state[StoreNameSpace.PLACE_CARD]);
+    currentCity,
+    offersInCurrentCity,
+  } = useSelector((state) => ({
+    ...state[StoreNameSpace.PLACE_CARD],
+    ...state[StoreNameSpace.MAIN_PAGE],
+    ...getOffersInCurrentCity(state),
+  }));
 
   return (
     <section className="cities__map map">
-      <Map offers={offersInCurrentCity} activeOfferID={activeOfferID} />
+      <Map offers={offersInCurrentCity} activeOfferID={activeOfferID} currentCity={currentCity} />
     </section>
   );
 };

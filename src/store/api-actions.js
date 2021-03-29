@@ -26,6 +26,9 @@ import {
   adaptReviewToClient,
   adaptAuthInfoToClient,
 } from "../utils/api";
+import {
+  toastAddFavoritesNoAuthMessage,
+} from "../utils/common";
 
 const IsFavoriteChangeCommand = {
   ADD: `1`,
@@ -100,7 +103,7 @@ export const toggleFavoriteStatus = ({
     .then(({
       data
     }) => dispatch(updateFavoriteStatus(adaptOfferToClient(data))))
-    .catch(() => { })
+    .catch(() => toastAddFavoritesNoAuthMessage())
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (

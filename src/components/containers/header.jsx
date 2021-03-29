@@ -1,7 +1,4 @@
-import React, {
-  memo,
-} from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import {
   useSelector,
   useDispatch,
@@ -18,11 +15,7 @@ import {
   logout
 } from "../../store/api-actions";
 
-const Header = ({
-  isMainPage = false,
-  isLoginPage = false,
-  isFavoritesPage = false,
-}) => {
+const Header = () => {
   const {
     authorizationStatus,
     userEmail,
@@ -39,24 +32,12 @@ const Header = ({
     dispatch(logout());
   };
 
-  const handleHeaderLogoLinkClick = (evt) => {
-    if (isMainPage) {
-      evt.preventDefault();
-    }
-  };
-
-  const handleHeaderNavLinkProfileClick = (evt) => {
-    if (isLoginPage || isFavoritesPage) {
-      evt.preventDefault();
-    }
-  };
-
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link className="header__logo-link" to={AppRoute.ROOT} onClick={handleHeaderLogoLinkClick}>
+            <Link className="header__logo-link" to={AppRoute.ROOT}>
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </Link>
           </div>
@@ -66,8 +47,7 @@ const Header = ({
               alignItems: `flex-end`,
             }}>
               <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={isAuthorized ? AppRoute.FAVORITES : AppRoute.LOGIN}
-                  onClick={handleHeaderNavLinkProfileClick}>
+                <Link className="header__nav-link header__nav-link--profile" to={isAuthorized ? AppRoute.FAVORITES : AppRoute.LOGIN}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                     {isAuthorized && <img className="user__avatar" src={userAvatar} width="74" height="74" alt="User avatar" />}
                   </div>
@@ -89,10 +69,4 @@ const Header = ({
   );
 };
 
-Header.propTypes = {
-  isMainPage: PropTypes.bool,
-  isLoginPage: PropTypes.bool,
-  isFavoritesPage: PropTypes.bool,
-};
-
-export default memo(Header);
+export default Header;

@@ -1,6 +1,4 @@
-import React, {
-  memo,
-} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 const PremiumMark = ({
@@ -17,4 +15,4 @@ PremiumMark.propTypes = {
   isPropertyPage: PropTypes.bool,
 };
 
-export default memo(PremiumMark);
+export default PremiumMark;

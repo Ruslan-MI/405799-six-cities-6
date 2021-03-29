@@ -1,6 +1,4 @@
-import React, {
-  memo,
-} from "react";
+import React from "react";
 import LocationsItem from "./locations-item";
 import {
   CITIES,
@@ -14,4 +12,4 @@ const LocationsList = () => {
   );
 };
 
-export default memo(LocationsList);
+export default LocationsList;

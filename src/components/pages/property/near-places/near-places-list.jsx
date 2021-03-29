@@ -1,6 +1,4 @@
-import React, {
-  memo,
-} from "react";
+import React from "react";
 import PlaceCard from "../../../containers/place-card";
 import {
   propertyPages as offersPropTypes,
@@ -20,4 +18,4 @@ NearPlacesList.propTypes = {
   nearbyOffers: offersPropTypes,
 };
 
-export default memo(NearPlacesList);
+export default NearPlacesList;

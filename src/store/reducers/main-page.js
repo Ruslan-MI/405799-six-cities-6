@@ -8,12 +8,10 @@ import {
 import {
   changeCurrentCity,
   changeSortType,
-  setOffersInCurrentCity,
 } from "../actions/main-page";
 
 const initialState = {
   currentCity: CITIES[0],
-  offersInCurrentCity: [],
   currentSortType: SortType.POPULAR,
 };
 
@@ -24,9 +22,5 @@ export const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(changeSortType, (state, action) => {
     state.currentSortType = action.payload;
-  });
-
-  builder.addCase(setOffersInCurrentCity, (state, action) => {
-    state.offersInCurrentCity = action.payload;
   });
 });

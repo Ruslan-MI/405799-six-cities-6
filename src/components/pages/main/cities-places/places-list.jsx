@@ -1,30 +1,40 @@
-import React, {
-  memo,
-} from "react";
+import React from "react";
 import {
   useSelector,
+  useDispatch,
 } from "react-redux";
 import PlaceCard from "../../../containers/place-card";
 import {
-  sortOffers,
-} from "../../../../utils/common";
+  changeActiveOfferID,
+  resetActiveOfferID,
+} from "../../../../store/actions/place-card";
 import {
-  StoreNameSpace,
-} from "../../../../const";
+  getOffersInCurrentCity,
+} from "../../../../store/selectors";
 
 const PlacesList = () => {
   const {
     offersInCurrentCity,
-    currentSortType,
-  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
+  } = useSelector((state) => ({
+    ...getOffersInCurrentCity(state),
+  }));
 
-  const sortedOffers = sortOffers(offersInCurrentCity, currentSortType);
+  const dispatch = useDispatch();
+
+  const handlePlaceCardMouseEnter = (id) => {
+    dispatch(changeActiveOfferID(id));
+  };
+
+  const handlePlaceCardMouseLeave = () => {
+    dispatch(resetActiveOfferID());
+  };
 
   return (
     <div className="cities__places-list places__list tabs__content" >
-      {sortedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} isCitiesPlaceCard />)}
+      {offersInCurrentCity.map((offer) => <PlaceCard key={offer.id} offer={offer} isCitiesPlaceCard
+        onMouseEnter={handlePlaceCardMouseEnter} onMouseLeave={handlePlaceCardMouseLeave} />)}
     </div>
   );
 };
 
-export default memo(PlacesList);
+export default PlacesList;

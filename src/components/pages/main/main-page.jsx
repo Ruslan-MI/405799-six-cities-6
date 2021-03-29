@@ -1,9 +1,6 @@
-import React, {
-  useEffect,
-} from "react";
+import React from "react";
 import {
   useSelector,
-  useDispatch,
 } from "react-redux";
 import Header from "../../containers/header";
 import LocationsList from "./locations-list/locations-list";
@@ -12,39 +9,19 @@ import CitiesNoPlaces from "./cities-no-places";
 import CitiesMap from "./cities-map";
 import withLoad from "../../hocs/with-load";
 import {
-  setOffersInCurrentCity,
-} from "../../../store/actions/main-page";
-import {
-  getOffersInCity,
-} from "../../../utils/common";
-import {
-  StoreNameSpace,
-} from "../../../const";
+  getOffersInCurrentCity,
+} from "../../../store/selectors";
 
 const MainPage = () => {
   const {
-    offers,
-  } = useSelector((state) => state[StoreNameSpace.DATA]);
-
-  const {
-    currentCity,
     offersInCurrentCity,
-  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setOffersInCurrentCity(getOffersInCity(offers, currentCity)));
-  }, [
-    offers,
-    currentCity,
-  ]);
+  } = useSelector((state) => getOffersInCurrentCity(state));
 
   const isNoOffersInCurrentCity = offersInCurrentCity.length === 0;
 
   return (
     <div className="page page--gray page--main">
-      <Header isMainPage />
+      <Header />
       <main className={`page__main page__main--index ${isNoOffersInCurrentCity ? `page__main--index-empty` : ``}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

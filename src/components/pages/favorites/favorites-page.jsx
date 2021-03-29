@@ -20,7 +20,7 @@ const FavoritesPage = () => {
 
   return (
     <div className="page">
-      <Header isFavoritesPage />
+      <Header />
       <main className={`page__main page__main--favorites ${isFavoriteOffers ? `` : `page__main--favorites-empty`}`}>
         <div className="page__favorites-container container">
           <section className={`favorites ${isFavoriteOffers ? `` : `favorites--empty`}`}>

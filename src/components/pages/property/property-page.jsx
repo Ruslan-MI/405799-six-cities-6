@@ -15,7 +15,6 @@ import PropertyDescription from "./property-description";
 import withLoad from "../../hocs/with-load";
 import {
   getWidthForRating,
-  toastAddFavoritesNoAuthMessage,
 } from "../../../utils/common";
 import {
   AuthorizationStatus,
@@ -30,11 +29,11 @@ const PropertyPage = () => {
     propertyPageOffer,
     reviews,
     nearbyOffers,
-  } = useSelector((state) => state[StoreNameSpace.DATA]);
-
-  const {
     authorizationStatus,
-  } = useSelector((state) => state[StoreNameSpace.USER]);
+  } = useSelector((state) => ({
+    ...state[StoreNameSpace.DATA],
+    ...state[StoreNameSpace.USER],
+  }));
 
   const {
     id,
@@ -62,15 +61,10 @@ const PropertyPage = () => {
   const dispatch = useDispatch();
 
   const handleFavoriteClick = () => {
-    if (isAuthorized) {
-      dispatch(toggleFavoriteStatus({
-        id,
-        isFavorite,
-      }));
-      return;
-    }
-
-    toastAddFavoritesNoAuthMessage();
+    dispatch(toggleFavoriteStatus({
+      id,
+      isFavorite,
+    }));
   };
 
   return (

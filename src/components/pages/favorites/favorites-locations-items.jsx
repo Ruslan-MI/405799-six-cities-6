@@ -1,7 +1,4 @@
-import React, {
-  memo,
-  useMemo,
-} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import FavoritesPlaces from "./favorites-places";
 import {
@@ -37,9 +34,9 @@ const FavoritesLocationsItems = ({
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          {useMemo(() => (<Link className="locations__item-link" to={AppRoute.ROOT} onClick={handleLinkClick}>
+          <Link className="locations__item-link" to={AppRoute.ROOT} onClick={handleLinkClick}>
             <span>{city}</span>
-          </Link>), [])}
+          </Link>
         </div>
       </div>
       <FavoritesPlaces favoriteOffersInCity={getOffersInCity(favoriteOffers, city)} />
@@ -52,4 +49,4 @@ FavoritesLocationsItems.propTypes = {
   favoriteOffers: offersPropTypes,
 };
 
-export default memo(FavoritesLocationsItems);
+export default FavoritesLocationsItems;

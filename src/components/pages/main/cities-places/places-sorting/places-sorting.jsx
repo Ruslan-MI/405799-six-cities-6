@@ -1,5 +1,4 @@
 import React, {
-  memo,
   useState,
 } from "react";
 import {
@@ -38,4 +37,4 @@ const PlacesSorting = () => {
   );
 };
 
-export default memo(PlacesSorting);
+export default PlacesSorting;

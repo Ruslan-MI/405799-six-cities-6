@@ -1,31 +1,20 @@
-import React, {
-  memo,
-  useMemo,
-} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import PremiumMark from "./premium-mark";
 import {
   Link,
 } from "react-router-dom";
 import {
-  useSelector,
   useDispatch,
 } from "react-redux";
 import {
-  changeActiveOfferID,
-  resetActiveOfferID,
-} from "../../store/actions/place-card";
-import {
   getWidthForRating,
-  toastAddFavoritesNoAuthMessage,
 } from "../../utils/common";
 import {
   placeCard as offerPropTypes,
 } from "../../prop-types/offers-validation";
 import {
   AppRoute,
-  AuthorizationStatus,
-  StoreNameSpace,
 } from "../../const";
 import {
   toggleFavoriteStatus,
@@ -36,6 +25,8 @@ const PlaceCard = ({
   isCitiesPlaceCard = false,
   isFavoriteCard = false,
   isNearPlacesCard = false,
+  onMouseEnter = () => { },
+  onMouseLeave = () => { },
 }) => {
   const {
     isPremium,
@@ -48,40 +39,21 @@ const PlaceCard = ({
     id,
   } = offer;
 
-  const {
-    authorizationStatus,
-  } = useSelector((state) => state[StoreNameSpace.USER]);
-
-  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
-
   const dispatch = useDispatch();
 
   const handleMouseEnter = () => {
-    if (isCitiesPlaceCard) {
-      dispatch(changeActiveOfferID(id));
-    }
+    onMouseEnter(id);
   };
 
   const handleMouseLeave = () => {
-    if (isCitiesPlaceCard) {
-      dispatch(resetActiveOfferID());
-    }
+    onMouseLeave();
   };
 
   const handleFavoriteClick = () => {
-    if (isAuthorized) {
-      dispatch(toggleFavoriteStatus({
-        id,
-        isFavorite,
-      }));
-      return;
-    }
-
-    toastAddFavoritesNoAuthMessage();
-  };
-
-  const handleImageClick = (evt) => {
-    evt.preventDefault();
+    dispatch(toggleFavoriteStatus({
+      id,
+      isFavorite,
+    }));
   };
 
   return (
@@ -92,10 +64,10 @@ const PlaceCard = ({
       <div className={`${isCitiesPlaceCard ? `cities__image-wrapper` : ``}
                       ${isFavoriteCard ? `favorites__image-wrapper` : ``}
                       ${isNearPlacesCard ? `near-places__image-wrapper` : ``} place-card__image-wrapper`}>
-        <a href="#" onClick={handleImageClick}>
+        <Link to={`${AppRoute.OFFER}/${id}`}>
           <img className="place-card__image" src={previewImage} width={isFavoriteCard ? `150` : `260`}
             height={isFavoriteCard ? `110` : `200`} alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className={`${isFavoriteCard ? `favorites__card-info` : ``} place-card__info`}>
         <div className="place-card__price-wrapper">
@@ -120,7 +92,7 @@ const PlaceCard = ({
           </div>
         </div>
         <h2 className="place-card__name">
-          {useMemo(() => <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>, [])}
+          <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -133,6 +105,8 @@ PlaceCard.propTypes = {
   isCitiesPlaceCard: PropTypes.bool,
   isFavoriteCard: PropTypes.bool,
   isNearPlacesCard: PropTypes.bool,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
 };
 
-export default memo(PlaceCard);
+export default PlaceCard;

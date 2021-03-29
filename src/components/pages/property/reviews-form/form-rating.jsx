@@ -1,6 +1,4 @@
-import React, {
-  memo,
-} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import FormRatingInput from "./form-rating-input";
 
@@ -44,4 +42,4 @@ FormRating.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default memo(FormRating);
+export default FormRating;
