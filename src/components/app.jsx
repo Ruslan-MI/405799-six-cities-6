@@ -30,7 +30,7 @@ const App = () => (
           }
         }
       }) =>
-        <PropertyPageContainer offerID={Number(id)} />
+        <PropertyPageContainer offerID={id} />
       } />
       <Route component={NotFoundPage} />
     </Switch>

@@ -39,7 +39,7 @@ const PropertyPageContainer = ({
 };
 
 PropertyPageContainer.propTypes = {
-  offerID: PropTypes.number.isRequired,
+  offerID: PropTypes.string.isRequired,
 };
 
 export default PropertyPageContainer;

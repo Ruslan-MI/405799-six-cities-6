@@ -15,6 +15,9 @@ import {
 import {
   StoreNameSpace,
 } from "../../../../const";
+import {
+  disableRewiewForm,
+} from "../../../../store/actions/property-page";
 
 const RATING_MIN_VALUE = 1;
 
@@ -28,7 +31,11 @@ const ReviewsForm = ({
 }) => {
   const {
     reviews,
-  } = useSelector((state) => state[StoreNameSpace.DATA]);
+    isReviewFormDisabled,
+  } = useSelector((state) => ({
+    ...state[StoreNameSpace.DATA],
+    ...state[StoreNameSpace.PROPERTY_PAGE],
+  }));
 
   const initialState = {
     rating: 0,
@@ -50,6 +57,7 @@ const ReviewsForm = ({
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
+    dispatch(disableRewiewForm());
     dispatch(sendReview({
       offerID,
       rating,
@@ -67,15 +75,15 @@ const ReviewsForm = ({
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <FormRating checkedRating={rating} onChange={setRating} />
-      <FormTextarea value={review} onChange={setReview} />
+      <FormRating checkedRating={rating} onChange={setRating} isDisabled={isReviewFormDisabled} />
+      <FormTextarea value={review} onChange={setReview} isDisabled={isReviewFormDisabled} />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least
-          <b className="reviews__text-amount">50 characters</b>.
+          <b className="reviews__text-amount"> 50 characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit"
-          disabled={(rating < RATING_MIN_VALUE || review.length < ReviewLength.MIN || review.length > ReviewLength.MAX) ?
+          disabled={(rating < RATING_MIN_VALUE || review.length < ReviewLength.MIN || review.length > ReviewLength.MAX || isReviewFormDisabled) ?
             true : false}>Submit</button>
       </div>
     </form>

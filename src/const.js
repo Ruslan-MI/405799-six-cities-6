@@ -35,4 +35,5 @@ export const StoreNameSpace = {
   MAIN_PAGE: `MAIN_PAGE`,
   PLACE_CARD: `PLACE_CARD`,
   USER: `USER`,
+  PROPERTY_PAGE: `PROPERTY_PAGE`,
 };

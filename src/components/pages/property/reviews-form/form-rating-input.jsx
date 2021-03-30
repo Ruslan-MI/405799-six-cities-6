@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 const FormRatingInput = ({
   rating,
   checked,
+  isDisabled,
   onChange,
 }) => {
   const {
@@ -18,7 +19,7 @@ const FormRatingInput = ({
   return (
     <>
       <input className="form__rating-input visually-hidden" name="rating" value={value} id={`${value}-stars`} type="radio"
-        onChange={handleChange} checked={checked} />
+        onChange={handleChange} checked={checked} disabled={isDisabled} />
       <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={title}>
         <svg className="form__star-image" width="37" height="33">
           <use xlinkHref="#icon-star"></use>
@@ -34,6 +35,7 @@ FormRatingInput.propTypes = {
     title: PropTypes.string,
   }),
   checked: PropTypes.bool.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

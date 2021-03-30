@@ -17,6 +17,9 @@ import {
   requireAuthorization,
 } from "./actions/user";
 import {
+  enableRewiewForm,
+} from "./actions/property-page";
+import {
   AuthorizationStatus,
   AppRoute,
   APIRoute,
@@ -27,8 +30,8 @@ import {
   adaptAuthInfoToClient,
 } from "../utils/api";
 import {
-  toastAddFavoritesNoAuthMessage,
-} from "../utils/common";
+  toast,
+} from "../utils/toast/toast";
 
 const IsFavoriteChangeCommand = {
   ADD: `1`,
@@ -74,7 +77,11 @@ export const sendReview = ({
     .then(({
       data,
     }) => dispatch(loadReviews(data.map((item) => adaptReviewToClient(item)))))
-    .catch(() => { })
+    .then(() => dispatch(enableRewiewForm()))
+    .catch(() => {
+      dispatch(enableRewiewForm());
+      toast(`Failed to send feedback`);
+    })
 );
 
 export const fetchNearbyOffers = (offerID) => (dispatch, _getState, api) => {
@@ -103,7 +110,7 @@ export const toggleFavoriteStatus = ({
     .then(({
       data
     }) => dispatch(updateFavoriteStatus(adaptOfferToClient(data))))
-    .catch(() => toastAddFavoritesNoAuthMessage())
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (

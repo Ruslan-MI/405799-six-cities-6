@@ -23,16 +23,23 @@ import {
 import {
   toggleFavoriteStatus,
 } from "../../../store/api-actions";
+import {
+  getSortedReviews,
+} from "../../../store/selectors";
+
+const MAX_IMAGES_QUANTITY = 6;
+const MAX_REVIEWS_QUANTITY = 10;
 
 const PropertyPage = () => {
   const {
     propertyPageOffer,
-    reviews,
+    sortedReviews: reviews,
     nearbyOffers,
     authorizationStatus,
   } = useSelector((state) => ({
     ...state[StoreNameSpace.DATA],
     ...state[StoreNameSpace.USER],
+    ...getSortedReviews(state),
   }));
 
   const {
@@ -72,7 +79,7 @@ const PropertyPage = () => {
       <Header />
       <main className="page__main page__main--property">
         <section className="property">
-          {images.length > 0 && <PropertyGallery images={images} />}
+          {images.length > 0 && <PropertyGallery images={images.slice(0, MAX_IMAGES_QUANTITY)} />}
           <div className="property__container container">
             <div className="property__wrapper">
               {isPremium && <PremiumMark isPropertyPage />}
@@ -113,12 +120,13 @@ const PropertyPage = () => {
                       alt="Host avatar" />
                   </div>
                   <span className="property__user-name">{name}</span>
+                  {isPro && <span className="property__user-status">Pro</span>}
                 </div>
                 {description && <PropertyDescription description={description} />}
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                {reviews.length > 0 && <ReviewsList reviews={reviews} />}
+                {reviews.length > 0 && <ReviewsList reviews={reviews.slice(0, MAX_REVIEWS_QUANTITY)} />}
                 {isAuthorized && <ReviewsForm offerID={id} />}
               </section>
             </div>
