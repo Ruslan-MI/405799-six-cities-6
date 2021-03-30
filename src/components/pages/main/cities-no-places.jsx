@@ -1,12 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
 } from "react-redux";
+import {
+  StoreNameSpace,
+} from "../../../const";
 
 const CitiesNoPlaces = ({
-  currentCity,
 }) => {
+  const {
+    currentCity,
+  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
+
   return (
     <section className="cities__no-places">
       <div className="cities__status-wrapper tabs__content">
@@ -17,16 +22,4 @@ const CitiesNoPlaces = ({
   );
 };
 
-CitiesNoPlaces.propTypes = {
-  currentCity: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
-});
-
-export {
-  CitiesNoPlaces,
-};
-
-export default connect(mapStateToProps)(CitiesNoPlaces);
+export default CitiesNoPlaces;

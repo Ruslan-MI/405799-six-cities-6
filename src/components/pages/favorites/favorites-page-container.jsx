@@ -1,43 +1,30 @@
 import React, {
   useEffect,
 } from "react";
-import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import FavoritesPage from "./favorites-page";
 import {
   fetchFavoriteOffers,
 } from "../../../store/api-actions";
+import {
+  StoreNameSpace,
+} from "../../../const";
 
-const FavoritesPageContainer = ({
-  isFavoriteOffersLoaded,
-  onLoadData,
-}) => {
+const FavoritesPageContainer = () => {
+  const {
+    isFavoriteOffersLoaded,
+  } = useSelector((state) => state[StoreNameSpace.DATA]);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    onLoadData();
+    dispatch(fetchFavoriteOffers());
   }, []);
 
   return <FavoritesPage isDataLoaded={isFavoriteOffersLoaded} />;
 };
 
-FavoritesPageContainer.propTypes = {
-  isFavoriteOffersLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isFavoriteOffersLoaded: state.isFavoriteOffersLoaded,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchFavoriteOffers());
-  },
-});
-
-export {
-  FavoritesPageContainer,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPageContainer);
+export default FavoritesPageContainer;

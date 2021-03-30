@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import {
   Link,
@@ -9,22 +9,27 @@ import {
 import {
   AuthorizationStatus,
   AppRoute,
+  StoreNameSpace,
 } from "../../const";
 import {
   logout
 } from "../../store/api-actions";
 
-const Header = ({
-  authorizationStatus,
-  userEmail,
-  onLogoutClick,
-}) => {
+const Header = () => {
+  const {
+    authorizationStatus,
+    userEmail,
+    userAvatar,
+  } = useSelector((state) => state[StoreNameSpace.USER]);
+
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
+  const dispatch = useDispatch();
 
   const handleLogoutClick = (evt) => {
     evt.preventDefault();
 
-    onLogoutClick();
+    dispatch(logout());
   };
 
   return (
@@ -37,19 +42,25 @@ const Header = ({
             </Link>
           </div>
           <nav className="header__nav">
-            <ul className="header__nav-list">
+            <ul className="header__nav-list" style={{
+              flexDirection: `column`,
+              alignItems: `flex-end`,
+            }}>
               <li className="header__nav-item user">
                 <Link className="header__nav-link header__nav-link--profile" to={isAuthorized ? AppRoute.FAVORITES : AppRoute.LOGIN}>
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                  <div className="header__avatar-wrapper user__avatar-wrapper">
+                    {isAuthorized && <img className="user__avatar" src={userAvatar} width="74" height="74" alt="User avatar" />}
+                  </div>
                   <span className={isAuthorized ? `header__user-name user__name` : `header__login`}>{isAuthorized ? userEmail : `Sign in`}</span>
                 </Link>
-                {isAuthorized && <Link className="header__nav-link header__nav-link--profile" to={AppRoute.ROOT} onClick={handleLogoutClick}>
-                  <span className="header__login" style={{
-                    marginLeft: `auto`,
-                    padding: `10px 0 0`
-                  }}>Logout</span>
-                </Link>}
               </li>
+              {isAuthorized && (
+                <li className="header__nav-item user">
+                  <Link className="header__nav-link" to="#" onClick={handleLogoutClick}>
+                    <span>Logout</span>
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </div>
@@ -58,25 +69,4 @@ const Header = ({
   );
 };
 
-Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  userEmail: PropTypes.string.isRequired,
-  onLogoutClick: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  userEmail: state.userEmail,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLogoutClick() {
-    dispatch(logout());
-  },
-});
-
-export {
-  Header,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

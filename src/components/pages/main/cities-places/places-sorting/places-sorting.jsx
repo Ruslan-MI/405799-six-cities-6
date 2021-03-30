@@ -1,15 +1,19 @@
 import React, {
   useState,
 } from "react";
-import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
 } from "react-redux";
 import PlacesOptions from "./places-options";
+import {
+  StoreNameSpace,
+} from "../../../../../const";
 
-const PlacesSorting = ({
-  currentSortType,
-}) => {
+const PlacesSorting = () => {
+  const {
+    currentSortType,
+  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
+
   const [
     isPlacesOptionsOpened,
     setPlacesOptionsOpened
@@ -28,22 +32,9 @@ const PlacesSorting = ({
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <PlacesOptions isPlacesOptionsOpened={isPlacesOptionsOpened} onChange={handlePlacesOptionsClick} />
+      <PlacesOptions isPlacesOptionsOpened={isPlacesOptionsOpened} onClick={handlePlacesOptionsClick} />
     </form>
   );
 };
 
-PlacesSorting.propTypes = {
-  currentSortType: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  currentSortType: state.currentSortType,
-});
-
-export {
-  PlacesSorting,
-};
-
-export default connect(mapStateToProps)(PlacesSorting);
-
+export default PlacesSorting;

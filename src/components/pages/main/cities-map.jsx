@@ -1,36 +1,31 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
 } from "react-redux";
 import Map from "../../containers/map";
 import {
-  map as offersPropTypes,
-} from "../../../prop-types/offers-validation";
+  StoreNameSpace,
+} from "../../../const";
+import {
+  getOffersInCurrentCity,
+} from "../../../store/selectors";
 
-const CitiesMap = ({
-  offersInCurrentCity,
-  activeOfferID,
-}) => {
+const CitiesMap = () => {
+  const {
+    activeOfferID,
+    currentCity,
+    offersInCurrentCity,
+  } = useSelector((state) => ({
+    ...state[StoreNameSpace.PLACE_CARD],
+    ...state[StoreNameSpace.MAIN_PAGE],
+    ...getOffersInCurrentCity(state),
+  }));
+
   return (
     <section className="cities__map map">
-      <Map offers={offersInCurrentCity} activeOfferID={activeOfferID} />
+      <Map offers={offersInCurrentCity} activeOfferID={activeOfferID} currentCity={currentCity} />
     </section>
   );
 };
 
-CitiesMap.propTypes = {
-  offersInCurrentCity: offersPropTypes,
-  activeOfferID: PropTypes.number,
-};
-
-const mapStateToProps = (state) => ({
-  offersInCurrentCity: state.offersInCurrentCity,
-  activeOfferID: state.activeOfferID,
-});
-
-export {
-  CitiesMap,
-};
-
-export default connect(mapStateToProps)(CitiesMap);
+export default CitiesMap;

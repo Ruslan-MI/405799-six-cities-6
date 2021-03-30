@@ -6,13 +6,11 @@ import {
 
 const FavoritesPlaces = ({
   favoriteOffersInCity,
-}) => {
-  return (
-    <div className="favorites__places">
-      {favoriteOffersInCity.map((offer, i) => <PlaceCard key={i} offer={offer} isFavoriteCard />)}
-    </div>
-  );
-};
+}) => (
+  <div className="favorites__places">
+    {favoriteOffersInCity.map((offer, i) => <PlaceCard key={i} offer={offer} isFavoriteCard />)}
+  </div>
+);
 
 FavoritesPlaces.propTypes = {
   favoriteOffersInCity: offersPropTypes,

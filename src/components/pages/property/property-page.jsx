@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import Header from "../../containers/header";
 import PropertyGallery from "./property-gallery";
@@ -12,31 +12,36 @@ import ReviewsForm from "./reviews-form/reviews-form";
 import PropertyMap from "./property-map";
 import NearPlaces from "./near-places/near-places";
 import PropertyDescription from "./property-description";
-import withLoad from "../../hoc/with-load";
+import withLoad from "../../hocs/with-load";
 import {
   getWidthForRating,
 } from "../../../utils/common";
 import {
-  propertyPage as offerPropTypes,
-  propertyPages as offersPropTypes,
-} from "../../../prop-types/offers-validation";
-import {
-  reviewsList as reviewsPropTypes,
-} from "../../../prop-types/reviews-validation";
-import {
   AuthorizationStatus,
+  StoreNameSpace,
 } from "../../../const";
 import {
   toggleFavoriteStatus,
 } from "../../../store/api-actions";
+import {
+  getSortedReviews,
+} from "../../../store/selectors";
 
-const PropertyPage = ({
-  propertyPageOffer,
-  reviews,
-  nearbyOffers,
-  authorizationStatus,
-  onFavoriteClick,
-}) => {
+const MAX_IMAGES_QUANTITY = 6;
+const MAX_REVIEWS_QUANTITY = 10;
+
+const PropertyPage = () => {
+  const {
+    propertyPageOffer,
+    sortedReviews: reviews,
+    nearbyOffers,
+    authorizationStatus,
+  } = useSelector((state) => ({
+    ...state[StoreNameSpace.DATA],
+    ...state[StoreNameSpace.USER],
+    ...getSortedReviews(state),
+  }));
+
   const {
     id,
     images,
@@ -57,13 +62,16 @@ const PropertyPage = ({
     description,
   } = propertyPageOffer;
 
+  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
   const isNearOffersAvailable = nearbyOffers.length > 0;
 
+  const dispatch = useDispatch();
+
   const handleFavoriteClick = () => {
-    onFavoriteClick({
+    dispatch(toggleFavoriteStatus({
       id,
       isFavorite,
-    });
+    }));
   };
 
   return (
@@ -71,7 +79,7 @@ const PropertyPage = ({
       <Header />
       <main className="page__main page__main--property">
         <section className="property">
-          {images.length > 0 && <PropertyGallery images={images} />}
+          {images.length > 0 && <PropertyGallery images={images.slice(0, MAX_IMAGES_QUANTITY)} />}
           <div className="property__container container">
             <div className="property__wrapper">
               {isPremium && <PremiumMark isPropertyPage />}
@@ -112,13 +120,14 @@ const PropertyPage = ({
                       alt="Host avatar" />
                   </div>
                   <span className="property__user-name">{name}</span>
+                  {isPro && <span className="property__user-status">Pro</span>}
                 </div>
                 {description && <PropertyDescription description={description} />}
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                {reviews.length > 0 && <ReviewsList reviews={reviews} />}
-                {authorizationStatus === AuthorizationStatus.AUTH && <ReviewsForm offerID={id} />}
+                {reviews.length > 0 && <ReviewsList reviews={reviews.slice(0, MAX_REVIEWS_QUANTITY)} />}
+                {isAuthorized && <ReviewsForm offerID={id} />}
               </section>
             </div>
           </div>
@@ -130,29 +139,4 @@ const PropertyPage = ({
   );
 };
 
-PropertyPage.propTypes = {
-  propertyPageOffer: offerPropTypes,
-  reviews: reviewsPropTypes,
-  nearbyOffers: offersPropTypes,
-  authorizationStatus: PropTypes.string.isRequired,
-  onFavoriteClick: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  propertyPageOffer: state.propertyPageOffer,
-  reviews: state.reviews,
-  nearbyOffers: state.nearbyOffers,
-  authorizationStatus: state.authorizationStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onFavoriteClick(data) {
-    dispatch(toggleFavoriteStatus(data));
-  },
-});
-
-export {
-  PropertyPage,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withLoad(PropertyPage));
+export default withLoad(PropertyPage);

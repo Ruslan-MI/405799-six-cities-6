@@ -29,3 +29,11 @@ export const APIRoute = {
   LOGOUT: `/logout`,
   FAVORITE: `/favorite`,
 };
+
+export const StoreNameSpace = {
+  DATA: `DATA`,
+  MAIN_PAGE: `MAIN_PAGE`,
+  PLACE_CARD: `PLACE_CARD`,
+  USER: `USER`,
+  PROPERTY_PAGE: `PROPERTY_PAGE`,
+};

@@ -4,7 +4,8 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import FormRating from "./form-rating";
 import FormTextarea from "./form-textarea";
@@ -12,8 +13,11 @@ import {
   sendReview,
 } from "../../../../store/api-actions";
 import {
-  reviewsList as reviewsPropTypes,
-} from "../../../../prop-types/reviews-validation";
+  StoreNameSpace,
+} from "../../../../const";
+import {
+  disableRewiewForm,
+} from "../../../../store/actions/property-page";
 
 const RATING_MIN_VALUE = 1;
 
@@ -24,9 +28,15 @@ const ReviewLength = {
 
 const ReviewsForm = ({
   offerID,
-  onSubmit,
-  reviews,
 }) => {
+  const {
+    reviews,
+    isReviewFormDisabled,
+  } = useSelector((state) => ({
+    ...state[StoreNameSpace.DATA],
+    ...state[StoreNameSpace.PROPERTY_PAGE],
+  }));
+
   const initialState = {
     rating: 0,
     review: ``,
@@ -42,33 +52,38 @@ const ReviewsForm = ({
     setReview
   ] = useState(initialState.review);
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    dispatch(disableRewiewForm());
+    dispatch(sendReview({
       offerID,
       rating,
       review,
-    });
+    }));
   };
 
   useEffect(() => {
     setRating(initialState.rating);
     setReview(initialState.review);
-  }, [reviews]);
+  }, [
+    reviews,
+  ]);
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <FormRating checkedRating={rating} onChange={setRating} />
-      <FormTextarea value={review} onChange={setReview} />
+      <FormRating checkedRating={rating} onChange={setRating} isDisabled={isReviewFormDisabled} />
+      <FormTextarea value={review} onChange={setReview} isDisabled={isReviewFormDisabled} />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least
-          <b className="reviews__text-amount">50 characters</b>.
+          <b className="reviews__text-amount"> 50 characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit"
-          disabled={(rating < RATING_MIN_VALUE || review.length < ReviewLength.MIN || review.length > ReviewLength.MAX) ?
+          disabled={(rating < RATING_MIN_VALUE || review.length < ReviewLength.MIN || review.length > ReviewLength.MAX || isReviewFormDisabled) ?
             true : false}>Submit</button>
       </div>
     </form>
@@ -77,22 +92,6 @@ const ReviewsForm = ({
 
 ReviewsForm.propTypes = {
   offerID: PropTypes.number.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  reviews: reviewsPropTypes,
 };
 
-const mapStateToProps = (state) => ({
-  reviews: state.reviews,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(review) {
-    dispatch(sendReview(review));
-  },
-});
-
-export {
-  ReviewsForm,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewsForm);
+export default ReviewsForm;

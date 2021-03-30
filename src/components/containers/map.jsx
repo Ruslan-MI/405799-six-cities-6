@@ -1,11 +1,11 @@
 import React, {
   useEffect,
-  useRef
+  useRef,
 } from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import {
-  map as offersPropTypes
+  map as offersPropTypes,
 } from "../../prop-types/offers-validation";
 
 import "leaflet/dist/leaflet.css";
@@ -13,6 +13,7 @@ import "leaflet/dist/leaflet.css";
 const Map = ({
   offers,
   activeOfferID = 0,
+  currentCity = ``,
 }) => {
   const {
     latitude,
@@ -42,7 +43,9 @@ const Map = ({
     return () => {
       mapRef.current.remove();
     };
-  }, [offers]);
+  }, [
+    currentCity,
+  ]);
 
   useEffect(() => {
     const markers = offers.map((offer) => {
@@ -70,7 +73,10 @@ const Map = ({
     return () => {
       mapRef.current.removeLayer(markersRef.current);
     };
-  });
+  }, [
+    currentCity,
+    activeOfferID,
+  ]);
 
   return (
     <div id="map" style={{
@@ -82,6 +88,7 @@ const Map = ({
 Map.propTypes = {
   offers: offersPropTypes,
   activeOfferID: PropTypes.number,
+  currentCity: PropTypes.string,
 };
 
 export default Map;

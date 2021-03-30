@@ -5,11 +5,8 @@ import {
   Link,
 } from "react-router-dom";
 import {
-  connect,
+  useDispatch,
 } from "react-redux";
-import {
-  ActionCreator,
-} from "../../store/action";
 import {
   getWidthForRating,
 } from "../../utils/common";
@@ -25,12 +22,11 @@ import {
 
 const PlaceCard = ({
   offer,
-  onMouseEnter,
-  onMouseLeave,
-  onFavoriteClick,
   isCitiesPlaceCard = false,
   isFavoriteCard = false,
   isNearPlacesCard = false,
+  onMouseEnter = () => { },
+  onMouseLeave = () => { },
 }) => {
   const {
     isPremium,
@@ -43,6 +39,8 @@ const PlaceCard = ({
     id,
   } = offer;
 
+  const dispatch = useDispatch();
+
   const handleMouseEnter = () => {
     onMouseEnter(id);
   };
@@ -52,10 +50,10 @@ const PlaceCard = ({
   };
 
   const handleFavoriteClick = () => {
-    onFavoriteClick({
+    dispatch(toggleFavoriteStatus({
       id,
       isFavorite,
-    });
+    }));
   };
 
   return (
@@ -66,10 +64,10 @@ const PlaceCard = ({
       <div className={`${isCitiesPlaceCard ? `cities__image-wrapper` : ``}
                       ${isFavoriteCard ? `favorites__image-wrapper` : ``}
                       ${isNearPlacesCard ? `near-places__image-wrapper` : ``} place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={`${AppRoute.OFFER}/${id}`}>
           <img className="place-card__image" src={previewImage} width={isFavoriteCard ? `150` : `260`}
             height={isFavoriteCard ? `110` : `200`} alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className={`${isFavoriteCard ? `favorites__card-info` : ``} place-card__info`}>
         <div className="place-card__price-wrapper">
@@ -104,28 +102,11 @@ const PlaceCard = ({
 
 PlaceCard.propTypes = {
   offer: offerPropTypes,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
-  onFavoriteClick: PropTypes.func.isRequired,
   isCitiesPlaceCard: PropTypes.bool,
   isFavoriteCard: PropTypes.bool,
   isNearPlacesCard: PropTypes.bool,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onMouseEnter(id) {
-    dispatch(ActionCreator.changeActiveOfferID(id));
-  },
-  onMouseLeave() {
-    dispatch(ActionCreator.resetActiveOfferID());
-  },
-  onFavoriteClick(data) {
-    dispatch(toggleFavoriteStatus(data));
-  },
-});
-
-export {
-  PlaceCard,
-};
-
-export default connect(null, mapDispatchToProps)(PlaceCard);
+export default PlaceCard;

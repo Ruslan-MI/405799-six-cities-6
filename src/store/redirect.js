@@ -1,7 +1,7 @@
 import browserHistory from "../utils/browser-history";
 import {
   ActionType,
-} from "../store/action";
+} from "../store/actions/user";
 import {
   AppRoute,
 } from "../const";

@@ -27,18 +27,18 @@ const ratings = [
 
 const FormRating = ({
   checkedRating,
+  isDisabled,
   onChange,
-}) => {
-  return (
-    <div className="reviews__rating-form form__rating">
-      {ratings.map((rating, i) => <FormRatingInput key={i} rating={rating}
-        onChange={onChange} checked={checkedRating === rating.value} />)}
-    </div>
-  );
-};
+}) => (
+  <div className="reviews__rating-form form__rating">
+    {ratings.map((rating, i) => <FormRatingInput key={i} rating={rating}
+      onChange={onChange} checked={checkedRating === rating.value} isDisabled={isDisabled} />)}
+  </div>
+);
 
 FormRating.propTypes = {
   checkedRating: PropTypes.number.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

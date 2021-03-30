@@ -15,28 +15,26 @@ import {
   AppRoute,
 } from "../const";
 
-const App = () => {
-  return (
-    <BrowserRouter history={browserHistory}>
-      <Switch>
-        <Route exact path={AppRoute.ROOT}>
-          <MainPageContainer />
-        </Route>
-        <Route exact path={AppRoute.LOGIN} component={LoginPage} />
-        <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <FavoritesPageContaiter />} />
-        <Route exact path={`${AppRoute.OFFER}/:id`} render={({
-          match: {
-            params: {
-              id
-            }
+const App = () => (
+  <BrowserRouter history={browserHistory}>
+    <Switch>
+      <Route exact path={AppRoute.ROOT}>
+        <MainPageContainer />
+      </Route>
+      <PrivateRoute exact path={AppRoute.LOGIN} render={() => <LoginPage />} />
+      <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <FavoritesPageContaiter />} />
+      <Route exact path={`${AppRoute.OFFER}/:id`} render={({
+        match: {
+          params: {
+            id
           }
-        }) =>
-          <PropertyPageContainer offerID={Number(id)} />
-        } />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </BrowserRouter>
-  );
-};
+        }
+      }) =>
+        <PropertyPageContainer offerID={id} />
+      } />
+      <Route component={NotFoundPage} />
+    </Switch>
+  </BrowserRouter>
+);
 
 export default App;

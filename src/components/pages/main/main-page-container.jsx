@@ -1,43 +1,30 @@
 import React, {
   useEffect,
 } from "react";
-import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import MainPage from "./main-page";
 import {
   fetchOffers,
 } from "../../../store/api-actions";
+import {
+  StoreNameSpace,
+} from "../../../const";
 
-const MainPageContainer = ({
-  isOffersLoaded,
-  onLoadData,
-}) => {
+const MainPageContainer = () => {
+  const {
+    isOffersLoaded,
+  } = useSelector((state) => state[StoreNameSpace.DATA]);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    onLoadData();
+    dispatch(fetchOffers());
   }, []);
 
   return <MainPage isDataLoaded={isOffersLoaded} />;
 };
 
-MainPageContainer.propTypes = {
-  isOffersLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isOffersLoaded: state.isOffersLoaded,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchOffers());
-  },
-});
-
-export {
-  MainPageContainer,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainPageContainer);
+export default MainPageContainer;

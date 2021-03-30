@@ -6,13 +6,11 @@ import {
 
 const NearPlacesList = ({
   nearbyOffers,
-}) => {
-  return (
-    <div className="near-places__list places__list">
-      {nearbyOffers.map((offer, i) => <PlaceCard key={i} offer={offer} isNearPlacesCard />)}
-    </div>
-  );
-};
+}) => (
+  <div className="near-places__list places__list">
+    {nearbyOffers.map((offer, i) => <PlaceCard key={i} offer={offer} isNearPlacesCard />)}
+  </div>
+);
 
 NearPlacesList.propTypes = {
   nearbyOffers: offersPropTypes,

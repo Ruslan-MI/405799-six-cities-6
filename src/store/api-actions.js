@@ -1,11 +1,37 @@
 import {
-  ActionCreator,
-} from "./action";
+  runOffersLoading,
+  loadOffers,
+  runPropertyPageOfferLoading,
+  loadPropertyPageOffer,
+  runReviewsLoading,
+  loadReviews,
+  runNearbyOffersLoading,
+  loadNearbyOffers,
+  runFavoriteOffersLoading,
+  loadFavoriteOffers,
+  updateFavoriteStatus,
+} from "./actions/data";
+import {
+  changeUserData,
+  redirectToRoute,
+  requireAuthorization,
+} from "./actions/user";
+import {
+  enableRewiewForm,
+} from "./actions/property-page";
 import {
   AuthorizationStatus,
   AppRoute,
   APIRoute,
 } from "../const";
+import {
+  adaptOfferToClient,
+  adaptReviewToClient,
+  adaptAuthInfoToClient,
+} from "../utils/api";
+import {
+  toast,
+} from "../utils/toast/toast";
 
 const IsFavoriteChangeCommand = {
   ADD: `1`,
@@ -13,29 +39,29 @@ const IsFavoriteChangeCommand = {
 };
 
 export const fetchOffers = () => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.runOffersLoading());
+  dispatch(runOffersLoading());
   api.get(APIRoute.OFFERS)
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadOffers(data)))
+    }) => dispatch(loadOffers(data.map((item) => adaptOfferToClient(item)))))
     .catch(() => { });
 };
 
 export const fetchPropertyPageOffer = (offerID) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.runPropertyPageOfferLoading());
+  dispatch(runPropertyPageOfferLoading());
   api.get(`${APIRoute.OFFERS}/${offerID}`)
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadPropertyPageOffer(data)))
+    }) => dispatch(loadPropertyPageOffer(adaptOfferToClient(data))))
     .catch(() => { });
 };
 
 export const fetchReviews = (offerID) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.runReviewsLoading());
+  dispatch(runReviewsLoading());
   api.get(`${APIRoute.REVIEWS}/${offerID}`)
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadReviews(data)))
+    }) => dispatch(loadReviews(data.map((item) => adaptReviewToClient(item)))))
     .catch(() => { });
 };
 
@@ -50,43 +76,49 @@ export const sendReview = ({
   })
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadReviews(data)))
-    .catch(() => { })
+    }) => dispatch(loadReviews(data.map((item) => adaptReviewToClient(item)))))
+    .then(() => dispatch(enableRewiewForm()))
+    .catch(() => {
+      dispatch(enableRewiewForm());
+      toast(`Failed to send feedback`);
+    })
 );
 
 export const fetchNearbyOffers = (offerID) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.runNearbyOffersLoading());
+  dispatch(runNearbyOffersLoading());
   api.get(`${APIRoute.OFFERS}/${offerID}${APIRoute.NEARBY}`)
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadNearbyOffers(data)))
+    }) => dispatch(loadNearbyOffers(data.map((item) => adaptOfferToClient(item)))))
     .catch(() => { });
 };
 
 export const fetchFavoriteOffers = () => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.runFavoriteOffersLoading());
+  dispatch(runFavoriteOffersLoading());
   api.get(APIRoute.FAVORITE)
     .then(({
       data,
-    }) => dispatch(ActionCreator.loadFavoriteOffers(data)))
+    }) => dispatch(loadFavoriteOffers(data.map((item) => adaptOfferToClient(item)))))
     .catch(() => { });
 };
 
 export const toggleFavoriteStatus = ({
   id: offerID,
   isFavorite,
-}) => (dispatch, _getState, api) => {
+}) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITE}/${offerID}/${isFavorite ? IsFavoriteChangeCommand.REMOVE : IsFavoriteChangeCommand.ADD}`)
     .then(({
       data
-    }) => dispatch(ActionCreator.updateFavoriteStatus(data)))
-    .catch(() => { });
-};
+    }) => dispatch(updateFavoriteStatus(adaptOfferToClient(data))))
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
+);
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then((response) => dispatch(ActionCreator.changeUserEmail(response.data.email)))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({
+      data
+    }) => dispatch(changeUserData(adaptAuthInfoToClient(data))))
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .catch(() => { })
 );
 
@@ -98,14 +130,16 @@ export const login = ({
     email,
     password,
   })
-    .then((response) => dispatch(ActionCreator.changeUserEmail(response.data.email)))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.FAVORITES)))
+    .then(({
+      data
+    }) => dispatch(changeUserData(adaptAuthInfoToClient(data))))
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(redirectToRoute(AppRoute.FAVORITES)))
     .catch(() => { })
 );
 
 export const logout = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGOUT)
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)))
     .catch(() => { })
 );

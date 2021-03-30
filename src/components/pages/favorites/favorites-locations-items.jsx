@@ -7,18 +7,36 @@ import {
 import {
   placeCards as offersPropTypes,
 } from "../../../prop-types/offers-validation";
+import {
+  Link,
+} from "react-router-dom";
+import {
+  AppRoute,
+} from "../../../const";
+import {
+  useDispatch,
+} from "react-redux";
+import {
+  changeCurrentCity,
+} from "../../../store/actions/main-page";
 
 const FavoritesLocationsItems = ({
   city,
   favoriteOffers,
 }) => {
+  const dispatch = useDispatch();
+
+  const handleLinkClick = () => {
+    dispatch(changeCurrentCity(city));
+  };
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="#">
+          <Link className="locations__item-link" to={AppRoute.ROOT} onClick={handleLinkClick}>
             <span>{city}</span>
-          </a>
+          </Link>
         </div>
       </div>
       <FavoritesPlaces favoriteOffersInCity={getOffersInCity(favoriteOffers, city)} />

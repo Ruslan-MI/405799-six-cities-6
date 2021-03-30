@@ -1,33 +1,40 @@
 import React from "react";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import PlaceCard from "../../../containers/place-card";
 import {
-  sortOffers,
-} from "../../../../utils/common";
+  changeActiveOfferID,
+  resetActiveOfferID,
+} from "../../../../store/actions/place-card";
 import {
-  placeCards as offersPropTypes,
-} from "../../../../prop-types/offers-validation";
+  getOffersInCurrentCity,
+} from "../../../../store/selectors";
 
-const PlacesList = ({
-  offersInCurrentCity,
-}) => (
-  <div className="cities__places-list places__list tabs__content" >
-    {offersInCurrentCity.map((offer) => <PlaceCard key={offer.id} offer={offer} isCitiesPlaceCard />)}
-  </div>
-);
+const PlacesList = () => {
+  const {
+    offersInCurrentCity,
+  } = useSelector((state) => ({
+    ...getOffersInCurrentCity(state),
+  }));
 
-PlacesList.propTypes = {
-  offersInCurrentCity: offersPropTypes,
+  const dispatch = useDispatch();
+
+  const handlePlaceCardMouseEnter = (id) => {
+    dispatch(changeActiveOfferID(id));
+  };
+
+  const handlePlaceCardMouseLeave = () => {
+    dispatch(resetActiveOfferID());
+  };
+
+  return (
+    <div className="cities__places-list places__list tabs__content" >
+      {offersInCurrentCity.map((offer) => <PlaceCard key={offer.id} offer={offer} isCitiesPlaceCard
+        onMouseEnter={handlePlaceCardMouseEnter} onMouseLeave={handlePlaceCardMouseLeave} />)}
+    </div>
+  );
 };
 
-const mapStateToProps = (state) => ({
-  offersInCurrentCity: sortOffers(state.offersInCurrentCity, state.currentSortType),
-});
-
-export {
-  PlacesList,
-};
-
-export default connect(mapStateToProps)(PlacesList);
+export default PlacesList;

@@ -1,48 +1,45 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import {
-  ActionCreator,
-} from "../../../../../store/action";
+  changeSortType,
+} from "../../../../../store/actions/main-page";
+import {
+  StoreNameSpace,
+} from "../../../../../const";
 
 const PlacesOption = ({
   sortType,
-  currentSortType,
   onClick,
-  onChange,
 }) => {
+  const {
+    currentSortType,
+  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
+
+  const isCurrentSortType = currentSortType === sortType;
+
+  const dispatch = useDispatch();
+
   const handlePlacesOptionClick = () => {
-    onClick(sortType);
-    onChange();
+    if (!isCurrentSortType) {
+      dispatch(changeSortType(sortType));
+    }
+
+    onClick();
   };
 
   return (
-    <li className={`places__option ${currentSortType === sortType ? `places__option--active` : ``}`} tabIndex="0"
+    <li className={`places__option ${isCurrentSortType ? `places__option--active` : ``}`} tabIndex="0"
       onClick={handlePlacesOptionClick}>{sortType}</li>
   );
 };
 
 PlacesOption.propTypes = {
   sortType: PropTypes.string.isRequired,
-  currentSortType: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentSortType: state.currentSortType,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onClick(sortType) {
-    dispatch(ActionCreator.changeSortType(sortType));
-  },
-});
-
-export {
-  PlacesOption,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlacesOption);
+export default PlacesOption;

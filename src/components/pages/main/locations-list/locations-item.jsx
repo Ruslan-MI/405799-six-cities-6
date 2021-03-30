@@ -1,25 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import {
-  ActionCreator,
-} from "../../../../store/action";
+  changeCurrentCity,
+} from "../../../../store/actions/main-page";
+import {
+  StoreNameSpace,
+} from "../../../../const";
 
 const LocationsItem = ({
   city,
-  currentCity,
-  onClick,
 }) => {
+  const {
+    currentCity,
+  } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);
+
+  const isCurrentCity = currentCity === city;
+
+  const dispatch = useDispatch();
+
   const handleTabsItemClick = (evt) => {
     evt.preventDefault();
-    onClick(city);
+
+    if (!isCurrentCity) {
+      dispatch(changeCurrentCity(city));
+    }
   };
 
   return (
     <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${currentCity === city ? `tabs__item--active` : ``}`} href="#"
+      <a className={`locations__item-link tabs__item ${isCurrentCity ? `tabs__item--active` : ``}`} href="#"
         onClick={handleTabsItemClick}>
         <span>{city}</span>
       </a>
@@ -29,22 +42,6 @@ const LocationsItem = ({
 
 LocationsItem.propTypes = {
   city: PropTypes.string.isRequired,
-  currentCity: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onClick(city) {
-    dispatch(ActionCreator.changeCity(city));
-  },
-});
-
-export {
-  LocationsItem,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LocationsItem);
+export default LocationsItem;

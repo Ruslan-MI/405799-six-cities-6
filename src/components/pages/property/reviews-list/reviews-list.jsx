@@ -6,13 +6,11 @@ import {
 
 const ReviewsList = ({
   reviews,
-}) => {
-  return (
-    <ul className="reviews__list">
-      {reviews.map((review, i) => <ReviewsItem key={i} review={review} />)}
-    </ul>
-  );
-};
+}) => (
+  <ul className="reviews__list">
+    {reviews.map((review, i) => <ReviewsItem key={i} review={review} />)}
+  </ul>
+);
 
 ReviewsList.propTypes = {
   reviews: reviewsPropTypes,

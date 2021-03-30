@@ -1,20 +1,22 @@
 import React from "react";
 import {
-  connect,
+  useSelector,
 } from "react-redux";
 import Header from "../../containers/header";
 import LocationsList from "./locations-list/locations-list";
 import CitiesPlaces from "./cities-places/cities-places";
 import CitiesNoPlaces from "./cities-no-places";
 import CitiesMap from "./cities-map";
-import withLoad from "../../hoc/with-load";
+import withLoad from "../../hocs/with-load";
 import {
-  placeCards as offersPropTypes,
-} from "../../../prop-types/offers-validation";
+  getOffersInCurrentCity,
+} from "../../../store/selectors";
 
-const MainPage = ({
-  offersInCurrentCity,
-}) => {
+const MainPage = () => {
+  const {
+    offersInCurrentCity,
+  } = useSelector((state) => getOffersInCurrentCity(state));
+
   const isNoOffersInCurrentCity = offersInCurrentCity.length === 0;
 
   return (
@@ -40,16 +42,4 @@ const MainPage = ({
   );
 };
 
-MainPage.propTypes = {
-  offersInCurrentCity: offersPropTypes,
-};
-
-const mapStateToProps = (state) => ({
-  offersInCurrentCity: state.offersInCurrentCity,
-});
-
-export {
-  MainPage,
-};
-
-export default connect(mapStateToProps)(withLoad(MainPage));
+export default withLoad(MainPage);

@@ -3,7 +3,8 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import {
-  connect,
+  useSelector,
+  useDispatch,
 } from "react-redux";
 import PropertyPage from "./property-page";
 import {
@@ -11,45 +12,34 @@ import {
   fetchPropertyPageOffer,
   fetchNearbyOffers,
 } from "../../../store/api-actions";
+import {
+  StoreNameSpace,
+} from "../../../const";
 
 const PropertyPageContainer = ({
   offerID,
-  isPropertyPageOfferLoaded,
-  isReviewsLoaded,
-  isNearbyOffersLoaded,
-  onLoadData,
 }) => {
+  const {
+    isPropertyPageOfferLoaded,
+    isReviewsLoaded,
+    isNearbyOffersLoaded,
+  } = useSelector((state) => state[StoreNameSpace.DATA]);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    onLoadData(offerID);
-  }, [offerID]);
+    dispatch(fetchPropertyPageOffer(offerID));
+    dispatch(fetchReviews(offerID));
+    dispatch(fetchNearbyOffers(offerID));
+  }, [
+    offerID,
+  ]);
 
   return <PropertyPage isDataLoaded={isPropertyPageOfferLoaded && isReviewsLoaded && isNearbyOffersLoaded} />;
 };
 
 PropertyPageContainer.propTypes = {
-  offerID: PropTypes.number.isRequired,
-  isPropertyPageOfferLoaded: PropTypes.bool.isRequired,
-  isReviewsLoaded: PropTypes.bool.isRequired,
-  isNearbyOffersLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
+  offerID: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isPropertyPageOfferLoaded: state.isPropertyPageOfferLoaded,
-  isReviewsLoaded: state.isReviewsLoaded,
-  isNearbyOffersLoaded: state.isNearbyOffersLoaded,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData(id) {
-    dispatch(fetchPropertyPageOffer(id));
-    dispatch(fetchReviews(id));
-    dispatch(fetchNearbyOffers(id));
-  },
-});
-
-export {
-  PropertyPageContainer,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PropertyPageContainer);
+export default PropertyPageContainer;
