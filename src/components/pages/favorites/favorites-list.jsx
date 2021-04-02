@@ -5,6 +5,7 @@ import {
 import FavoritesLocationsItems from "./favorites-locations-items";
 import {
   getFavoriteCities,
+  appendIDForArrayItems,
 } from "../../../utils/common";
 import {
   StoreNameSpace,
@@ -19,7 +20,10 @@ const FavoritesList = () => {
     <>
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
-        {getFavoriteCities(favoriteOffers).map((city, i) => <FavoritesLocationsItems key={i} city={city} favoriteOffers={favoriteOffers} />)}
+        {appendIDForArrayItems(getFavoriteCities(favoriteOffers)).map(({
+          item,
+          id,
+        }) => <FavoritesLocationsItems key={id} city={item} favoriteOffers={favoriteOffers} />)}
       </ul>
     </>
   );

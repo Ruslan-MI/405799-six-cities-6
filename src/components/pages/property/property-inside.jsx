@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {
+  appendIDForArrayItems,
+} from "../../../utils/common";
 
 const PropertyInside = ({
   goods,
@@ -7,7 +10,10 @@ const PropertyInside = ({
   <div className="property__inside">
     <h2 className="property__inside-title">What&apos;s inside</h2>
     <ul className="property__inside-list">
-      {goods.map((item, i) => <li className="property__inside-item" key={i}>{item}</li>)}
+      {appendIDForArrayItems(goods).map(({
+        item,
+        id,
+      }) => <li className="property__inside-item" key={id}>{item}</li>)}
     </ul>
   </div>
 );

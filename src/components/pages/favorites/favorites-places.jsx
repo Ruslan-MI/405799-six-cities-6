@@ -8,7 +8,7 @@ const FavoritesPlaces = ({
   favoriteOffersInCity,
 }) => (
   <div className="favorites__places">
-    {favoriteOffersInCity.map((offer, i) => <PlaceCard key={i} offer={offer} isFavoriteCard />)}
+    {favoriteOffersInCity.map((offer) => <PlaceCard key={offer.id} offer={offer} isFavoriteCard />)}
   </div>
 );
 

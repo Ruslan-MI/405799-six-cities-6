@@ -8,7 +8,7 @@ const ReviewsList = ({
   reviews,
 }) => (
   <ul className="reviews__list">
-    {reviews.map((review, i) => <ReviewsItem key={i} review={review} />)}
+    {reviews.map((review) => <ReviewsItem key={review.id} review={review} />)}
   </ul>
 );
 

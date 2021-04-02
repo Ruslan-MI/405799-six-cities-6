@@ -4,13 +4,19 @@ import PlacesOption from "./places-option";
 import {
   SortType,
 } from "../../../../../const";
+import {
+  appendIDForArrayItems,
+} from "../../../../../utils/common";
 
 const PlacesOptions = ({
   isPlacesOptionsOpened,
   onClick,
 }) => (
   <ul className={`places__options places__options--custom ${isPlacesOptionsOpened ? `places__options--opened` : ``}`}>
-    {Object.values(SortType).map((sortType, i) => <PlacesOption key={i} sortType={sortType} onClick={onClick} />)}
+    {appendIDForArrayItems(Object.values(SortType)).map(({
+      item,
+      id,
+    }) => <PlacesOption key={id} sortType={item} onClick={onClick} />)}
   </ul>
 );
 

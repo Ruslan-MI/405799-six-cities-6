@@ -7,7 +7,7 @@ import LocationsList from "./locations-list/locations-list";
 import CitiesPlaces from "./cities-places/cities-places";
 import CitiesNoPlaces from "./cities-no-places";
 import CitiesMap from "./cities-map";
-import withLoad from "../../hocs/with-load";
+import withLoad from "../../../hocs/with-load";
 import {
   getOffersInCurrentCity,
 } from "../../../store/selectors";
