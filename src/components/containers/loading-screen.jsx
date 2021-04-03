@@ -7,7 +7,7 @@ const LoadingScreen = () => (
     fontWeight: `bolder`,
     fontSize: `50px`,
     paddingTop: `150px`,
-  }}>Loading ...</p>
+  }}>Loading...</p>
 );
 
 export default LoadingScreen;
