@@ -13,7 +13,7 @@ import {
   updateFavoriteStatus,
 } from "./data";
 
-const mockOffer = {
+export const mockOffer = {
   bedrooms: 3,
   city: {
     location: {
@@ -48,7 +48,7 @@ const mockOffer = {
   type: `apartment`
 };
 
-const mockOffers = [
+export const mockOffers = [
   mockOffer,
 ];
 
@@ -65,7 +65,7 @@ const mockReview = {
   }
 };
 
-const mockReviews = [
+export const mockReviews = [
   mockReview,
 ];
 
