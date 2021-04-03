@@ -18,7 +18,7 @@ import {
   mockOffer,
   mockOffers,
   mockReviews,
-} from "../actions/data.test";
+} from "../../mocks-for-test";
 
 const mockInitialState = {
   isOffersLoaded: false,
@@ -269,7 +269,6 @@ describe(`Reducers work correctly`, () => {
       ...mockOffer,
       isFavorite: false,
     }))).toEqual({
-      ...mockInitialState,
       ...mockInitialState,
       offers: [
         {

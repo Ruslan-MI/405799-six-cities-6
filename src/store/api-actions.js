@@ -40,7 +40,7 @@ const IsFavoriteChangeCommand = {
 
 export const fetchOffers = () => (dispatch, _getState, api) => {
   dispatch(runOffersLoading());
-  api.get(APIRoute.OFFERS)
+  return api.get(APIRoute.OFFERS)
     .then(({
       data,
     }) => dispatch(loadOffers(data.map((item) => adaptOfferToClient(item)))))
@@ -49,7 +49,7 @@ export const fetchOffers = () => (dispatch, _getState, api) => {
 
 export const fetchPropertyPageOffer = (offerID) => (dispatch, _getState, api) => {
   dispatch(runPropertyPageOfferLoading());
-  api.get(`${APIRoute.OFFERS}/${offerID}`)
+  return api.get(`${APIRoute.OFFERS}/${offerID}`)
     .then(({
       data,
     }) => dispatch(loadPropertyPageOffer(adaptOfferToClient(data))))
@@ -58,7 +58,7 @@ export const fetchPropertyPageOffer = (offerID) => (dispatch, _getState, api) =>
 
 export const fetchReviews = (offerID) => (dispatch, _getState, api) => {
   dispatch(runReviewsLoading());
-  api.get(`${APIRoute.REVIEWS}/${offerID}`)
+  return api.get(`${APIRoute.REVIEWS}/${offerID}`)
     .then(({
       data,
     }) => dispatch(loadReviews(data.map((item) => adaptReviewToClient(item)))))
@@ -86,7 +86,7 @@ export const sendReview = ({
 
 export const fetchNearbyOffers = (offerID) => (dispatch, _getState, api) => {
   dispatch(runNearbyOffersLoading());
-  api.get(`${APIRoute.OFFERS}/${offerID}${APIRoute.NEARBY}`)
+  return api.get(`${APIRoute.OFFERS}/${offerID}${APIRoute.NEARBY}`)
     .then(({
       data,
     }) => dispatch(loadNearbyOffers(data.map((item) => adaptOfferToClient(item)))))
@@ -95,7 +95,7 @@ export const fetchNearbyOffers = (offerID) => (dispatch, _getState, api) => {
 
 export const fetchFavoriteOffers = () => (dispatch, _getState, api) => {
   dispatch(runFavoriteOffersLoading());
-  api.get(APIRoute.FAVORITE)
+  return api.get(APIRoute.FAVORITE)
     .then(({
       data,
     }) => dispatch(loadFavoriteOffers(data.map((item) => adaptOfferToClient(item)))))
