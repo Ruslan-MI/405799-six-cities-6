@@ -8,7 +8,7 @@ const NearPlacesList = ({
   nearbyOffers,
 }) => (
   <div className="near-places__list places__list">
-    {nearbyOffers.map((offer, i) => <PlaceCard key={i} offer={offer} isNearPlacesCard />)}
+    {nearbyOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} isNearPlacesCard />)}
   </div>
 );
 

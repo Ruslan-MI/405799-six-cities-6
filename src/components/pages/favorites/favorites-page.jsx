@@ -3,7 +3,7 @@ import Header from "../../containers/header";
 import Footer from "../../containers/footer";
 import FavoritesList from "./favorites-list";
 import FavoritesEmpty from "./favorites-empty";
-import withLoad from "../../hocs/with-load";
+import withLoad from "../../../hocs/with-load";
 import {
   useSelector,
 } from "react-redux";

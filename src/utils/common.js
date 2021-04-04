@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import nanoid from "nanoid";
 import {
   SortType,
 } from "../const";
@@ -96,3 +97,9 @@ export const updateFavoriteOffer = (offers, updatedOffer) => {
     ...offers.slice(index + 1)
   ];
 };
+
+export const appendIDForArrayItems = (data) =>
+  data.map((item) => ({
+    item,
+    id: `id${nanoid()}`
+  }));

@@ -1,14 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {
+  appendIDForArrayItems,
+} from "../../../utils/common";
 
 const PropertyGallery = ({
   images,
 }) => (
   <div className="property__gallery-container container">
     <div className="property__gallery">
-      {images.map((image, i) => <div className="property__image-wrapper" key={i}>
-        <img className="property__image" src={image} alt="Photo studio" />
-      </div>)}
+      {appendIDForArrayItems(images).map(({
+        item,
+        id,
+      }) => (
+        <div className="property__image-wrapper" key={id}>
+          <img className="property__image" src={item} alt="Photo studio" />
+        </div>
+      ))}
     </div>
   </div>
 );

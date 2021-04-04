@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FormRatingInput from "./form-rating-input";
+import {
+  appendIDForArrayItems,
+} from "../../../../utils/common";
 
 const ratings = [
   {
@@ -31,8 +34,11 @@ const FormRating = ({
   onChange,
 }) => (
   <div className="reviews__rating-form form__rating">
-    {ratings.map((rating, i) => <FormRatingInput key={i} rating={rating}
-      onChange={onChange} checked={checkedRating === rating.value} isDisabled={isDisabled} />)}
+    {appendIDForArrayItems(ratings).map(({
+      item,
+      id,
+    }) => <FormRatingInput key={id} rating={item}
+      onChange={onChange} checked={checkedRating === item.value} isDisabled={isDisabled} />)}
   </div>
 );
 

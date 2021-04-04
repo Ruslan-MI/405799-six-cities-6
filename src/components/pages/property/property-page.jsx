@@ -12,7 +12,7 @@ import ReviewsForm from "./reviews-form/reviews-form";
 import PropertyMap from "./property-map";
 import NearPlaces from "./near-places/near-places";
 import PropertyDescription from "./property-description";
-import withLoad from "../../hocs/with-load";
+import withLoad from "../../../hocs/with-load";
 import {
   getWidthForRating,
 } from "../../../utils/common";
