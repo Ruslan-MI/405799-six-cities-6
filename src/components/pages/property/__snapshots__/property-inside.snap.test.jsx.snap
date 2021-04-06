@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Property inside should render correctly 1`] = `
+<div>
+  <div
+    class="property__inside"
+  >
+    <h2
+      class="property__inside-title"
+    >
+      What's inside
+    </h2>
+    <ul
+      class="property__inside-list"
+    >
+      <li
+        class="property__inside-item"
+      >
+        Heating
+      </li>
+      <li
+        class="property__inside-item"
+      >
+        Kitchen
+      </li>
+      <li
+        class="property__inside-item"
+      >
+        Cable TV
+      </li>
+      <li
+        class="property__inside-item"
+      >
+        Washing machine
+      </li>
+      <li
+        class="property__inside-item"
+      >
+        Coffee machine
+      </li>
+      <li
+        class="property__inside-item"
+      >
+        Dishwasher
+      </li>
+    </ul>
+  </div>
+</div>
+`;

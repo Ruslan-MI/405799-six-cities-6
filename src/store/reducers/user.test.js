@@ -8,12 +8,9 @@ import {
 import {
   AuthorizationStatus,
 } from "../../const";
-
-const mockInitialState = {
-  authorizationStatus: AuthorizationStatus.VERIFIED,
-  userEmail: ``,
-  userAvatar: ``,
-};
+import {
+  mockUserInitialState as mockInitialState,
+} from "../../mocks-for-test";
 
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {

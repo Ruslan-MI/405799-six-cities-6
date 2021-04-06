@@ -18,20 +18,8 @@ import {
   mockOffer,
   mockOffers,
   mockReviews,
+  mockDataInitialState as mockInitialState,
 } from "../../mocks-for-test";
-
-const mockInitialState = {
-  isOffersLoaded: false,
-  offers: [],
-  isPropertyPageOfferLoaded: false,
-  propertyPageOffer: null,
-  isReviewsLoaded: false,
-  reviews: [],
-  isNearbyOffersLoaded: false,
-  nearbyOffers: [],
-  isFavoriteOffersLoaded: false,
-  favoriteOffers: [],
-};
 
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {

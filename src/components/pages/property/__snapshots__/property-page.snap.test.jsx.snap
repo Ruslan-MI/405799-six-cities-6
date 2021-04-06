@@ -1,0 +1,301 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Property page should render correctly 1`] = `
+<div>
+  <div
+    class="page"
+  >
+    <header
+      class="header"
+    >
+      <div
+        class="container"
+      >
+        <div
+          class="header__wrapper"
+        >
+          <div
+            class="header__left"
+          >
+            <a
+              class="header__logo-link"
+              href="/"
+            >
+              <img
+                alt="6 cities logo"
+                class="header__logo"
+                height="41"
+                src="img/logo.svg"
+                width="81"
+              />
+            </a>
+          </div>
+          <nav
+            class="header__nav"
+          >
+            <ul
+              class="header__nav-list"
+              style="flex-direction: column; align-items: flex-end;"
+            >
+              <li
+                class="header__nav-item user"
+              >
+                <a
+                  class="header__nav-link header__nav-link--profile"
+                  href="/login"
+                >
+                  <div
+                    class="header__avatar-wrapper user__avatar-wrapper"
+                  />
+                  <span
+                    class="header__login"
+                  >
+                    Sign in
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main
+      class="page__main page__main--property"
+    >
+      <section
+        class="property"
+      >
+        <div
+          class="property__gallery-container container"
+        >
+          <div
+            class="property__gallery"
+          >
+            <div
+              class="property__image-wrapper"
+            >
+              <img
+                alt="Photo studio"
+                class="property__image"
+                src="img/1.png"
+              />
+            </div>
+            <div
+              class="property__image-wrapper"
+            >
+              <img
+                alt="Photo studio"
+                class="property__image"
+                src="img/2.png"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="property__container container"
+        >
+          <div
+            class="property__wrapper"
+          >
+            <div
+              class="property__mark"
+            >
+              <span>
+                Premium
+              </span>
+            </div>
+            <div
+              class="property__name-wrapper"
+            >
+              <h1
+                class="property__name"
+              >
+                Beautiful & luxurious studio at great location
+              </h1>
+              <button
+                class="property__bookmark-button button "
+                type="button"
+              >
+                <svg
+                  class="property__bookmark-icon"
+                  height="33"
+                  width="31"
+                >
+                  <use
+                    xlink:href="#icon-bookmark"
+                  />
+                </svg>
+                <span
+                  class="visually-hidden"
+                >
+                  To bookmarks
+                </span>
+              </button>
+            </div>
+            <div
+              class="property__rating rating"
+            >
+              <div
+                class="property__stars rating__stars"
+              >
+                <span
+                  style="width: 100%;"
+                />
+                <span
+                  class="visually-hidden"
+                >
+                  Rating
+                </span>
+              </div>
+              <span
+                class="property__rating-value rating__value"
+              >
+                4.8
+              </span>
+            </div>
+            <ul
+              class="property__features"
+            >
+              <li
+                class="property__feature property__feature--entire"
+              >
+                apartment
+              </li>
+              <li
+                class="property__feature property__feature--bedrooms"
+              >
+                3
+                 
+                Bedrooms
+              </li>
+              <li
+                class="property__feature property__feature--adults"
+              >
+                Max 
+                4
+                 
+                adults
+              </li>
+            </ul>
+            <div
+              class="property__price"
+            >
+              <b
+                class="property__price-value"
+              >
+                €
+                120
+              </b>
+              <span
+                class="property__price-text"
+              >
+                 night
+              </span>
+            </div>
+            <div
+              class="property__inside"
+            >
+              <h2
+                class="property__inside-title"
+              >
+                What's inside
+              </h2>
+              <ul
+                class="property__inside-list"
+              >
+                <li
+                  class="property__inside-item"
+                >
+                  Heating
+                </li>
+                <li
+                  class="property__inside-item"
+                >
+                  Kitchen
+                </li>
+                <li
+                  class="property__inside-item"
+                >
+                  Cable TV
+                </li>
+                <li
+                  class="property__inside-item"
+                >
+                  Washing machine
+                </li>
+                <li
+                  class="property__inside-item"
+                >
+                  Coffee machine
+                </li>
+                <li
+                  class="property__inside-item"
+                >
+                  Dishwasher
+                </li>
+              </ul>
+            </div>
+            <div
+              class="property__host"
+            >
+              <h2
+                class="property__host-title"
+              >
+                Meet the host
+              </h2>
+              <div
+                class="property__host-user user"
+              >
+                <div
+                  class="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper"
+                >
+                  <img
+                    alt="Host avatar"
+                    class="property__avatar user__avatar"
+                    height="74"
+                    src="img/1.png"
+                    width="74"
+                  />
+                </div>
+                <span
+                  class="property__user-name"
+                >
+                  Angelina
+                </span>
+                <span
+                  class="property__user-status"
+                >
+                  Pro
+                </span>
+              </div>
+              <div
+                class="property__description"
+              >
+                <p
+                  class="property__text"
+                >
+                  A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+                </p>
+              </div>
+            </div>
+            <section
+              class="property__reviews reviews"
+            >
+              <h2
+                class="reviews__title"
+              >
+                Reviews · 
+                <span
+                  class="reviews__amount"
+                >
+                  0
+                </span>
+              </h2>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+`;

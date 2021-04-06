@@ -5,10 +5,9 @@ import {
 import {
   reducer,
 } from "./property-page";
-
-const mockInitialState = {
-  isReviewFormDisabled: false,
-};
+import {
+  mockPropertyPageInitialState as mockInitialState,
+} from "../../mocks-for-test";
 
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {

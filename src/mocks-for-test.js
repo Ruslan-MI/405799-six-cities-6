@@ -1,8 +1,25 @@
+import React from "react";
+import PropTypes from "prop-types";
+import configureStore from "redux-mock-store";
+import {
+  Provider,
+} from "react-redux";
+import {
+  Router,
+} from "react-router-dom";
+import {
+  createMemoryHistory,
+} from "history";
 import {
   adaptOfferToClient,
   adaptReviewToClient,
   adaptAuthInfoToClient,
 } from "./utils/api";
+import {
+  CITIES,
+  SortType,
+  AuthorizationStatus,
+} from "./const";
 
 export const mockServerOffer = {
   "bedrooms": 3,
@@ -25,7 +42,7 @@ export const mockServerOffer = {
   "id": 1,
   "images": [`img/1.png`, `img/2.png`],
   "is_favorite": false,
-  "is_premium": false,
+  "is_premium": true,
   "location": {
     "latitude": 52.35514938496378,
     "longitude": 4.673877537499948,
@@ -79,3 +96,66 @@ export const mockServerAuthInfo = {
 };
 
 export const mockAuthInfo = adaptAuthInfoToClient(mockServerAuthInfo);
+
+export const mockDataInitialState = {
+  isOffersLoaded: false,
+  offers: [],
+  isPropertyPageOfferLoaded: false,
+  propertyPageOffer: null,
+  isReviewsLoaded: false,
+  reviews: [],
+  isNearbyOffersLoaded: false,
+  nearbyOffers: [],
+  isFavoriteOffersLoaded: false,
+  favoriteOffers: [],
+};
+
+export const mockMainPageInitialState = {
+  currentCity: CITIES[0],
+  currentSortType: SortType.POPULAR,
+};
+
+export const mockPlaceCardInitialState = {
+  activeOfferID: 0,
+};
+
+export const mockPropertyPageInitialState = {
+  isReviewFormDisabled: false,
+};
+
+export const mockUserInitialState = {
+  authorizationStatus: AuthorizationStatus.VERIFIED,
+  userEmail: ``,
+  userAvatar: ``,
+};
+
+const Test = ({
+  children,
+  dataForStore = {},
+  pushURL = null,
+}) => {
+  const history = createMemoryHistory();
+  if (pushURL) {
+    history.push(pushURL);
+  }
+
+  const store = configureStore({})(dataForStore);
+
+  store.dispatch = () => { };
+
+  return (
+    <Provider store={store}>
+      <Router history={history}>
+        {children}
+      </Router>
+    </Provider>
+  );
+};
+
+Test.propTypes = {
+  children: PropTypes.element.isRequired,
+  dataForStore: PropTypes.object,
+  pushURL: PropTypes.string,
+};
+
+export default Test;

@@ -5,10 +5,9 @@ import {
 import {
   reducer,
 } from "./place-card";
-
-const mockInitialState = {
-  activeOfferID: 0,
-};
+import {
+  mockPlaceCardInitialState as mockInitialState,
+} from "../../mocks-for-test";
 
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {

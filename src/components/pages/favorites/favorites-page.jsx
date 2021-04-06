@@ -33,4 +33,8 @@ const FavoritesPage = () => {
   );
 };
 
+export {
+  FavoritesPage,
+};
+
 export default withLoad(FavoritesPage);

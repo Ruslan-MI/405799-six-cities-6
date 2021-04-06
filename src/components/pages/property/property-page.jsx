@@ -139,4 +139,8 @@ const PropertyPage = () => {
   );
 };
 
+export {
+  PropertyPage,
+};
+
 export default withLoad(PropertyPage);

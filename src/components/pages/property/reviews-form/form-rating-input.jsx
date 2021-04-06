@@ -31,9 +31,9 @@ const FormRatingInput = ({
 
 FormRatingInput.propTypes = {
   rating: PropTypes.shape({
-    value: PropTypes.number,
-    title: PropTypes.string,
-  }),
+    value: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
   checked: PropTypes.bool.isRequired,
   isDisabled: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,

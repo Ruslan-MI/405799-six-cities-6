@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import LoadingScreen from "../components/containers/loading-screen";
 
 const withLoad = (Component) => {
