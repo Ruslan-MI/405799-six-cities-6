@@ -59,7 +59,7 @@ const PlaceCard = ({
   return (
     <article className={`${isCitiesPlaceCard ? `cities__place-card` : ``}
                         ${isFavoriteCard ? `favorites__card` : ``}
-                        ${isNearPlacesCard ? `near-places__card` : ``} place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                        ${isNearPlacesCard ? `near-places__card` : ``} place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} data-testid="place-card">
       {isPremium && <PremiumMark />}
       <div className={`${isCitiesPlaceCard ? `cities__image-wrapper` : ``}
                       ${isFavoriteCard ? `favorites__image-wrapper` : ``}

@@ -4,29 +4,9 @@ import FormRatingInput from "./form-rating-input";
 import {
   appendIDForArrayItems,
 } from "../../../../utils/common";
-
-const ratings = [
-  {
-    value: 5,
-    title: `perfect`,
-  },
-  {
-    value: 4,
-    title: `good`,
-  },
-  {
-    value: 3,
-    title: `not bad`,
-  },
-  {
-    value: 2,
-    title: `badly`,
-  },
-  {
-    value: 1,
-    title: `terribly`,
-  }
-];
+import {
+  RATINGS,
+} from "../../../../const";
 
 const FormRating = ({
   checkedRating,
@@ -34,7 +14,7 @@ const FormRating = ({
   onChange,
 }) => (
   <div className="reviews__rating-form form__rating">
-    {appendIDForArrayItems(ratings).map(({
+    {appendIDForArrayItems(RATINGS).map(({
       item,
       id,
     }) => <FormRatingInput key={id} rating={item}

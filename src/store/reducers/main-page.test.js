@@ -9,11 +9,9 @@ import {
   CITIES,
   SortType,
 } from "../../const";
-
-const mockInitialState = {
-  currentCity: CITIES[0],
-  currentSortType: SortType.POPULAR,
-};
+import {
+  mockMainPageInitialState as mockInitialState,
+} from "../../mocks-for-test";
 
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {

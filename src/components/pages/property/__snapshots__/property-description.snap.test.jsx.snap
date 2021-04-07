@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Property description should render correctly 1`] = `
+<div>
+  <div
+    class="property__description"
+  >
+    <p
+      class="property__text"
+    >
+      A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+    </p>
+  </div>
+</div>
+`;

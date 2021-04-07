@@ -6,8 +6,7 @@ import {
   StoreNameSpace,
 } from "../../../const";
 
-const CitiesNoPlaces = ({
-}) => {
+const CitiesNoPlaces = () => {
   const {
     currentCity,
   } = useSelector((state) => state[StoreNameSpace.MAIN_PAGE]);

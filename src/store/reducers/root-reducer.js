@@ -1,15 +1,15 @@
 import {
   combineReducers,
-} from 'redux';
+} from "redux";
 import {
   reducer as dataReducer,
-} from './data';
+} from "./data";
 import {
   reducer as mainPageReducer,
-} from './main-page';
+} from "./main-page";
 import {
   reducer as placeCardReducer,
-} from './place-card';
+} from "./place-card";
 import {
   reducer as userReducer,
 } from "./user";

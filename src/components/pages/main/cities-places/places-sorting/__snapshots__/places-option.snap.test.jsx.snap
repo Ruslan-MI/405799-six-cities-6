@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Places option should render correctly 1`] = `
+<div>
+  <li
+    class="places__option places__option--active"
+    tabindex="0"
+  >
+    Popular
+  </li>
+</div>
+`;

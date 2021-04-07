@@ -42,4 +42,8 @@ const MainPage = () => {
   );
 };
 
+export {
+  MainPage,
+};
+
 export default withLoad(MainPage);
