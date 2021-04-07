@@ -10,8 +10,11 @@ describe(`Test HOC "withLoad"`, () => {
     const BaseComponentWrapped = withLoad(BaseComponent);
     const {
       getByText,
+      queryByText,
     } = render(<BaseComponentWrapped isDataLoaded />);
+
     expect(getByText(`withLoad`)).toBeInTheDocument();
+    expect(queryByText(`Loading...`)).not.toBeInTheDocument();
   });
 
   it(`Loading screen should be correct rendering when data not loaded`, () => {
@@ -19,7 +22,10 @@ describe(`Test HOC "withLoad"`, () => {
     const BaseComponentWrapped = withLoad(BaseComponent);
     const {
       getByText,
+      queryByText,
     } = render(<BaseComponentWrapped />);
+
     expect(getByText(`Loading...`)).toBeInTheDocument();
+    expect(queryByText(`withLoad`)).not.toBeInTheDocument();
   });
 });

@@ -25,8 +25,6 @@ it(`Places option callback works correctly`, () => {
     <PlacesOption sortType={SortType.PRICE_HIGH_TO_LOW} onClick={onClick} />
   </Test>);
 
-  const placesOptionElement = getByText(SortType.PRICE_HIGH_TO_LOW);
-
-  fireEvent.click(placesOptionElement);
+  fireEvent.click(getByText(SortType.PRICE_HIGH_TO_LOW));
   expect(onClick).toBeCalled();
 });
