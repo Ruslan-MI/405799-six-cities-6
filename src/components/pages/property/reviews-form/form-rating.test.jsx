@@ -13,7 +13,7 @@ it(`Form rating callback works correctly`, () => {
 
   const {
     getByTitle,
-  } = render(<FormRating checkedRating={RATINGS[0]} isDisabled={false} onChange={onChange} />);
+  } = render(<FormRating checkedRating={RATINGS[1].value} isDisabled={false} onChange={onChange} />);
 
   fireEvent.click(getByTitle(RATINGS[0].title));
   expect(onChange).toBeCalledWith(RATINGS[0].value);

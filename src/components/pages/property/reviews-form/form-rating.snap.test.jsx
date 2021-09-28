@@ -12,7 +12,7 @@ it(`Form rating should render correctly`, () => {
 
   const {
     container,
-  } = render(<FormRating checkedRating={RATINGS[0]} isDisabled onChange={onChange} />);
+  } = render(<FormRating checkedRating={RATINGS[0].value} isDisabled onChange={onChange} />);
 
   expect(container).toMatchSnapshot();
 });

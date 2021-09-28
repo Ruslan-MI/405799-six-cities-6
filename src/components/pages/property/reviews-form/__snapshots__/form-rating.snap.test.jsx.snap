@@ -6,6 +6,7 @@ exports[`Form rating should render correctly 1`] = `
     class="reviews__rating-form form__rating"
   >
     <input
+      checked=""
       class="form__rating-input visually-hidden"
       disabled=""
       id="5-stars"

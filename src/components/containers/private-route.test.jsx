@@ -29,8 +29,10 @@ describe(`Test PrivateRouter`, () => {
       getByText,
       queryByText,
     } = render(<Test dataForStore={dataForStore} pushURL={AppRoute.FAVORITES}>
-      <Route exact path={AppRoute.LOGIN}><h1>Public Route</h1></Route>
-      <PrivateRoute exact path={AppRoute.FAVORITES} render={() => (<h1>Private Route</h1>)} />
+      <>
+        <Route exact path={AppRoute.LOGIN}><h1>Public Route</h1></Route>
+        <PrivateRoute exact path={AppRoute.FAVORITES} render={() => (<h1>Private Route</h1>)} />
+      </>
     </Test>);
 
     expect(getByText(/Public Route/i)).toBeInTheDocument();
@@ -49,8 +51,10 @@ describe(`Test PrivateRouter`, () => {
       getByText,
       queryByText,
     } = render(<Test dataForStore={dataForStore} pushURL={AppRoute.FAVORITES}>
-      <Route exact path={AppRoute.LOGIN}><h1>Public Route</h1></Route>
-      <PrivateRoute exact path={AppRoute.FAVORITES} render={() => (<h1>Private Route</h1>)} />
+      <>
+        <Route exact path={AppRoute.LOGIN}><h1>Public Route</h1></Route>
+        <PrivateRoute exact path={AppRoute.FAVORITES} render={() => (<h1>Private Route</h1>)} />
+      </>
     </Test>);
 
     expect(getByText(/Private Route/i)).toBeInTheDocument();

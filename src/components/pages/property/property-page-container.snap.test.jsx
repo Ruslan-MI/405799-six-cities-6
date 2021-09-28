@@ -9,6 +9,7 @@ import {
 import Test, {
   mockDataInitialState,
   mockUserInitialState,
+  mockServerOffer,
 } from "../../../mocks-for-test";
 
 it(`Property page container should render correctly`, () => {
@@ -20,7 +21,7 @@ it(`Property page container should render correctly`, () => {
   const {
     container,
   } = render(<Test dataForStore={dataForStore}>
-    <PropertyPageContainer />
+    <PropertyPageContainer offerID={mockServerOffer.id.toString()} />
   </Test>);
 
   expect(container).toMatchSnapshot();
